@@ -861,6 +861,28 @@ button:focus-visible {
   backdrop-filter: blur(4px);
 }
 
+.figure-bio {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+  max-width: 520px;
+}
+
+.bio-line {
+  margin: 0;
+  color: rgba(255, 253, 247, 0.82);
+  font-size: 14px;
+  line-height: 1.92;
+  letter-spacing: 0.01em;
+}
+
+.bio-name {
+  color: #d8b27d;
+  font-family: var(--serif);
+  margin-right: 10px;
+  letter-spacing: 0.04em;
+}
+
 .result-quote {
   max-width: 520px;
   margin: 40px 0 0;
