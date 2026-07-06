@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="人物志：一个公开计分逻辑、包含25个核心情境和57位历史人物原型的五维人格测试。"
+    />
+    <title>人物志 · 历史人格镜</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <button class="brand" id="brandButton" type="button" aria-label="返回首页">
+        <span class="brand-mark">志</span>
+        <span>
+          <strong>人物志</strong>
+          <small>FIGURE ATLAS</small>
+        </span>
+      </button>
+      <button class="text-button" id="methodButton" type="button">计分说明</button>
+    </header>
+
+    <main id="app" tabindex="-1"></main>
+
+    <footer class="site-footer">
+      <p>历史人物仅作性格隐喻，不是心理诊断，也不是对历史人物的学术定论。</p>
+      <span>PERSONA LAB · 2026</span>
+    </footer>
+
+    <dialog id="methodDialog" class="method-dialog">
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow">OPEN METHOD</span>
+          <h2>这份测试怎么算</h2>
+        </div>
+        <button class="icon-button" id="closeMethodButton" type="button" aria-label="关闭">
+          ×
+        </button>
+      </div>
+      <div class="method-content">
+        <section>
+          <span class="method-index">01</span>
+          <div>
+            <h3>每个选择都有五维权重</h3>
+            <p>25道核心题不会直接指向某个人物，而是分别测量探索开放、结构执行、外向驱动、协作共情和复原稳定；候选接近时最多追加3道辨析题。</p>
+          </div>
+        </section>
+        <section>
+          <span class="method-index">02</span>
+          <div>
+            <h3>分数按可达区间归一化</h3>
+            <p>程序根据每个维度理论上可能取得的最低与最高原始分，换算为15–95分，避免虚假的满分。</p>
+          </div>
+        </section>
+        <section>
+          <span class="method-index">03</span>
+          <div>
+            <h3>寻找距离最近的人物原型</h3>
+            <p>你的五维向量会与57个人物原型逐一比较。结果页同时展示相似人物和匹配差距，而不是假装只有一个答案。</p>
+          </div>
+        </section>
+        <section>
+          <span class="method-index">04</span>
+          <div>
+            <h3>结果可解释，也允许不确定</h3>
+            <p>报告会引用真正影响结果的具体选择。“匹配清晰度”只表示第一、第二候选之间的差距，不代表科学准确率。</p>
+          </div>
+        </section>
+      </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
