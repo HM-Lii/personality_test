@@ -10,7 +10,7 @@ export function buildShareText(result) {
       (dimension) => `${dimension.name} ${result.scores[dimension.id]}`,
     ),
     `匹配清晰度：${result.clarity.band}`,
-    "人物志 · 分数来自25–28道情境选择，古人只是个性格上的比喻。",
+    "人物志 · 分数来自 25–28 道情境选择，古人只是大众文化中的性格隐喻。",
   ].join("\n");
 }
 

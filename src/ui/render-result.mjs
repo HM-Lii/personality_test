@@ -72,13 +72,13 @@ export function renderResult(app, state, result, deps) {
             }
           </div>
           <p class="result-quote">
-            你和${escapeHtml(displayName)}最像的地方，主要在${escapeHtml(
+            你与${escapeHtml(displayName)}最为相近之处，主要在于${escapeHtml(
               matchReasons(result, resultFigures),
-            )}。古人只是个比喻，真正的结果是右边这张根据你的选择算出来的五维画像。
+            )}。古人只是一个比喻，真正可凭的，是右侧这张依你的选择算出的五维画像。
           </p>
           <span class="clarity">
             匹配清晰度 <strong>${escapeHtml(result.clarity.band)}</strong>
-            · 做了${result.calibrationCount}道辨析题
+            · 已完成 ${result.calibrationCount} 道辨析题
           </span>
         </div>
         <div class="radar-wrap">${radarSvg(result.scores, dimensionMap)}</div>
@@ -87,8 +87,8 @@ export function renderResult(app, state, result, deps) {
       <div class="report-grid">
         <article class="report-card report-card-large">
           <span class="eyebrow">01 · YOUR PROFILE</span>
-          <h2>这不是在排能力高低</h2>
-          <p>分数只是说你在两种风格里更偏哪一边。分高分低不分好坏，也不代表你超过多少人。</p>
+          <h2>分数不是能力排名</h2>
+          <p>它只是说你在这两种风格之间更偏向哪一端。分高分低没有好坏之分，也不意味着你超越了谁。</p>
           <div class="dimension-list">
             ${DIMENSIONS.map((dimension) => {
               const score = result.scores[dimension.id];
@@ -105,7 +105,7 @@ export function renderResult(app, state, result, deps) {
 
         <article class="report-card report-card-side">
           <span class="eyebrow">02 · INTERPRETATION</span>
-          <h2>你是怎么选的</h2>
+          <h2>你的选择说了什么</h2>
           <div class="evidence-list">
             ${sortedDimensions
               .slice(0, 3)
@@ -127,8 +127,8 @@ export function renderResult(app, state, result, deps) {
 
         <article class="report-card report-card-large">
           <span class="eyebrow">03 · ANSWER EVIDENCE</span>
-          <h2>为什么是这个人</h2>
-          <p>下面三条都来自你刚才的真实选择，不是套用哪个人物的现成话。</p>
+          <h2>为什么是这一位</h2>
+          <p>下面三条都出自你刚才的真实选择，不是从哪位古人那里套来的现成话。</p>
           <div class="evidence-list">
             ${evidence
               .map((item, index) => {
@@ -152,8 +152,8 @@ export function renderResult(app, state, result, deps) {
 
         <article class="report-card report-card-side">
           <span class="eyebrow">04 · NEARBY FIGURES</span>
-          <h2>和你接近的还有谁</h2>
-          <p>这里的接近度只是拿这几个候选互相比较，不代表测试有多准。</p>
+          <h2>气质相近的还有谁</h2>
+          <p>这里的接近度只在几位候选人之间相比，不代表测试本身的准确程度。</p>
           <div class="nearby-grid">
             ${result.ranking
               .slice(result.dual ? 2 : 1, result.dual ? 5 : 4)
@@ -172,20 +172,20 @@ export function renderResult(app, state, result, deps) {
 
         <article class="report-card report-card-full">
           <span class="eyebrow">05 · SMALL EXPERIMENTS</span>
-          <h2>可以试试的三件小事</h2>
-          <p>这三条来自你最高、最低和最随情境变化的三项——不是要你变成另一个人。</p>
+          <h2>三件可以试的小事</h2>
+          <p>分别来自你得分最高、最低，以及最随情境变化的三项——不是让你变成别人，只是多一个观察自己的角度。</p>
           <div class="advice-grid">
             <div class="advice">
-              <b>给${highest.name}留点余地</b>
+              <b>为${highest.name}留一点余地</b>
               <p>${DIMENSION_COPY[highest.id].stretchHigh}</p>
             </div>
             <div class="advice">
-              <b>给${lowest.name}一点空间</b>
+              <b>给${lowest.name}一些空间</b>
               <p>${DIMENSION_COPY[lowest.id].stretchLow}</p>
             </div>
             <div class="advice">
               <b>留意${flexible.name}的切换</b>
-              <p>这一周留意一下：哪些场景让你更像“${flexible.high}”，哪些又让你退回“${flexible.low}”。这种来回本身就在告诉你一些事。</p>
+              <p>这一周可以留意：哪些场景让你更像“${flexible.high}”，哪些又让你退回“${flexible.low}”。这种来回本身，就在诉说一些关于你的事。</p>
             </div>
           </div>
         </article>

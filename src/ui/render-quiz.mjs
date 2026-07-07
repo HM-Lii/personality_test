@@ -56,7 +56,7 @@ export function renderQuiz(app, state, { CORE_QUESTIONS, questionMap }) {
             )
             .join("")}
         </div>
-        <p class="question-hint">没有标准答案。选你平时真的会做的，而不是你希望自己能做到的。</p>
+        <p class="question-hint">没有标准答案，选你真实会做的那一个——不是你希望自己做到，而是平时真的会选。</p>
       </article>
     </section>
   `;

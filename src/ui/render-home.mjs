@@ -10,14 +10,14 @@ export function renderHome(app, state, { CORE_QUESTIONS }) {
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <span class="eyebrow">HISTORICAL PERSONA · OPEN METHOD</span>
-        <h1 id="hero-title">在历史里，<br><em>你最像谁</em>？</h1>
+        <h1 id="hero-title">心有其性，<br><em>史有其人</em></h1>
         <p class="hero-lead">
-          25个生活里的情境，看看你面对选择时是什么风格。
-          我们不贴标签、不搞玄学，每一步计分都摆出来给你看，最后从57位古人里找到和你最像的那一个。
+          25 个日常情景，照见你性情的轮廓。 
+          没有玄学，不贴标签，每一分都算得明白；只为在 57 位古人中，找到那个与你同频的灵魂。
         </p>
         <div class="hero-actions">
           <button class="primary-button" type="button" data-action="start">
-            ${canResume ? "重新测试" : "开始测试"}<span class="arrow">→</span>
+            ${canResume ? "重新测试" : "开始测试"}<span class="arrow" aria-hidden="true">→</span>
           </button>
           ${
             canResume
@@ -30,10 +30,10 @@ export function renderHome(app, state, { CORE_QUESTIONS }) {
           }
         </div>
         <div class="hero-meta" aria-label="测试信息">
-          <span><strong>25–28</strong>道题</span>
-          <span><strong>5</strong>个维度</span>
-          <span><strong>57</strong>位古人</span>
-          <span><strong>0</strong>条答案上传</span>
+          <span><strong>25–28</strong> 道情境题</span>
+          <span><strong>5</strong> 个维度</span>
+          <span><strong>57</strong> 位古人</span>
+          <span><strong>0</strong> 条答案上传</span>
         </div>
       </div>
       <div class="atlas" aria-hidden="true">
