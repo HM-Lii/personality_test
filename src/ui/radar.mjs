@@ -43,21 +43,22 @@ export function radarSvg(scores, dimensionMap) {
         .join(" ")}"></polygon>
       ${points
         .map(
-          (point) =>
-            `<circle class="radar-dot" cx="${point.x}" cy="${point.y}" r="4"></circle>`,
+          (point, index) =>
+            `<circle class="radar-dot" cx="${point.x}" cy="${point.y}" r="4" style="animation-delay:${450 + index * 120}ms"></circle>`,
         )
         .join("")}
       ${points
-        .map((point) => {
+        .map((point, index) => {
           const dimension = dimensionMap.get(point.id);
           const anchor =
             point.labelX < 180 ? "end" : point.labelX > 220 ? "start" : "middle";
           const yOffset = point.labelY < 80 ? -8 : point.labelY > 320 ? 15 : 0;
+          const labelDelay = 700 + index * 120;
           return `
-            <text class="radar-label" x="${point.labelX}" y="${point.labelY + yOffset}" text-anchor="${anchor}">
+            <text class="radar-label" x="${point.labelX}" y="${point.labelY + yOffset}" text-anchor="${anchor}" style="animation-delay:${labelDelay}ms">
               ${dimension.name}
             </text>
-            <text class="radar-score" x="${point.labelX}" y="${point.labelY + yOffset + 18}" text-anchor="${anchor}">
+            <text class="radar-score" x="${point.labelX}" y="${point.labelY + yOffset + 18}" text-anchor="${anchor}" style="animation-delay:${labelDelay + 120}ms">
               ${scores[point.id]}
             </text>
           `;

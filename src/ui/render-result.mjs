@@ -85,7 +85,7 @@ export function renderResult(app, state, result, deps) {
       </article>
 
       <div class="report-grid">
-        <article class="report-card report-card-large">
+        <article class="report-card report-card-large reveal" style="--reveal-index:0">
           <span class="eyebrow">01 · YOUR PROFILE</span>
           <h2>分数不是能力排名</h2>
           <p>它只是说你在这两种风格之间更偏向哪一端。分高分低没有好坏之分，也不意味着你超越了谁。</p>
@@ -103,7 +103,7 @@ export function renderResult(app, state, result, deps) {
           </div>
         </article>
 
-        <article class="report-card report-card-side">
+        <article class="report-card report-card-side reveal" style="--reveal-index:1">
           <span class="eyebrow">02 · INTERPRETATION</span>
           <h2>你的选择说了什么</h2>
           <div class="evidence-list">
@@ -125,7 +125,7 @@ export function renderResult(app, state, result, deps) {
           </div>
         </article>
 
-        <article class="report-card report-card-large">
+        <article class="report-card report-card-large reveal" style="--reveal-index:2">
           <span class="eyebrow">03 · ANSWER EVIDENCE</span>
           <h2>为什么是这一位</h2>
           <p>下面三条都出自你刚才的真实选择，不是从哪位古人那里套来的现成话。</p>
@@ -150,7 +150,7 @@ export function renderResult(app, state, result, deps) {
           </div>
         </article>
 
-        <article class="report-card report-card-side">
+        <article class="report-card report-card-side reveal" style="--reveal-index:3">
           <span class="eyebrow">04 · NEARBY FIGURES</span>
           <h2>气质相近的还有谁</h2>
           <p>这里的接近度只在几位候选人之间相比，不代表测试本身的准确程度。</p>
@@ -170,7 +170,7 @@ export function renderResult(app, state, result, deps) {
           </div>
         </article>
 
-        <article class="report-card report-card-full">
+        <article class="report-card report-card-full reveal" style="--reveal-index:4">
           <span class="eyebrow">05 · SMALL EXPERIMENTS</span>
           <h2>三件可以试的小事</h2>
           <p>分别来自你得分最高、最低，以及最随情境变化的三项——不是让你变成别人，只是多一个观察自己的角度。</p>

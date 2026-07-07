@@ -47,6 +47,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -64,16 +65,24 @@ body {
   letter-spacing: var(--track-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button {
   color: inherit;
   font: inherit;
+  touch-action: manipulation;
 }
 
 button:focus-visible {
   outline: 3px solid rgba(157, 67, 43, 0.35);
   outline-offset: 3px;
+}
+
+/* 移动端去掉电话样式链接的默认高亮 */
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
 }
 
 ::selection {
@@ -1470,131 +1479,501 @@ button:focus-visible {
     width: min(100% - 28px, 1180px);
   }
 
+  /* 安全区适配：刘海屏 / 底部横条 */
   .site-header {
-    height: 80px;
+    height: 72px;
+    padding-top: env(safe-area-inset-top);
   }
 
+  .site-footer {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* 顶栏更紧凑 */
+  .brand {
+    gap: 10px;
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .brand strong {
+    font-size: 17px;
+  }
+
+  .brand small {
+    font-size: 8.5px;
+  }
+
+  /* 首页 Hero */
   .hero {
     min-height: auto;
-    gap: 36px;
-    padding: 44px 0 68px;
+    gap: 34px;
+    padding: 36px 0 60px;
   }
 
   .hero h1 {
-    font-size: 50px;
+    font-size: clamp(42px, 12vw, 52px);
   }
 
   .hero-lead {
-    font-size: 15px;
+    font-size: 14.5px;
   }
 
   .hero-actions {
     align-items: stretch;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .ghost-button {
+    min-height: 52px;
+    justify-content: center;
   }
 
   .plain-link {
-    align-self: flex-start;
+    align-self: center;
+    padding: 12px 0;
   }
 
   .hero-meta {
-    gap: 16px 22px;
-    margin-top: 34px;
+    gap: 14px 20px;
+    margin-top: 30px;
   }
 
+  .hero-meta strong {
+    font-size: 19px;
+  }
+
+  /* 印章轨道：整体缩小居中 */
   .atlas {
-    min-height: 400px;
-    transform: scale(0.86);
+    min-height: 380px;
+    transform: scale(0.82);
     transform-origin: top center;
-    margin-bottom: -54px;
+    margin-bottom: -60px;
   }
 
   .orbit {
-    width: 330px;
-    height: 330px;
+    width: 320px;
+    height: 320px;
   }
 
   .seal-main {
-    top: 102px;
-    width: 178px;
-    height: 215px;
-    font-size: 38px;
+    top: 96px;
+    width: 168px;
+    height: 200px;
+    font-size: 36px;
   }
 
   .seal-one {
-    right: 7px;
+    right: 6px;
+    width: 100px;
+    height: 118px;
+    font-size: 23px;
   }
 
   .seal-two {
-    right: -8px;
+    right: -6px;
+    width: 86px;
+    height: 98px;
+    font-size: 21px;
   }
 
+  .seal-three {
+    left: 18px;
+    width: 100px;
+    height: 112px;
+    font-size: 22px;
+  }
+
+  .seal-four {
+    top: 64px;
+    left: 2px;
+    width: 78px;
+    height: 88px;
+    font-size: 18px;
+  }
+
+  /* 答题页 */
   .quiz-shell {
-    padding-top: 36px;
+    padding: 28px 0 80px;
+  }
+
+  .quiz-topline {
+    gap: 14px;
+  }
+
+  .back-button {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .progress-count {
+    min-width: 60px;
+    font-size: 12.5px;
   }
 
   .question-card {
-    margin-top: 42px;
+    margin-top: 36px;
+  }
+
+  .question-card h1 {
+    font-size: clamp(24px, 6.5vw, 34px);
+    margin: 18px 0 14px;
+  }
+
+  .question-context {
+    font-size: 14px;
+  }
+
+  .options {
+    gap: 10px;
+    margin-top: 30px;
   }
 
   .option {
-    grid-template-columns: 34px 1fr;
-    padding: 14px 16px;
+    grid-template-columns: 32px 1fr;
+    gap: 14px;
+    padding: 15px 16px;
+    min-height: 64px;
+  }
+
+  .option-letter {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .option-text {
+    font-size: 14.5px;
   }
 
   .option-arrow {
     display: none;
   }
 
+  .question-hint {
+    font-size: 11px;
+    margin-top: 22px;
+  }
+
+  /* 结果页 */
   .result-page {
-    padding-top: 34px;
+    padding: 30px 0 80px;
+  }
+
+  .result-masthead {
+    margin-bottom: 24px;
   }
 
   .result-hero {
     min-height: 0;
-    padding: 38px 26px;
+    padding: 34px 24px;
     border-radius: 22px;
+    gap: 30px;
+  }
+
+  .result-stamp {
+    width: 46px;
+    height: 46px;
+    font-size: 17px;
+    top: 24px;
+    right: 24px;
   }
 
   .result-name {
-    font-size: 62px;
+    font-size: clamp(48px, 13vw, 64px);
+    margin: 18px 0 6px;
   }
 
+  .result-name-dual {
+    font-size: clamp(36px, 10vw, 50px);
+  }
+
+  .result-title {
+    font-size: 14px;
+  }
+
+  .tags {
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .tag {
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+
+  .figure-bio {
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .bio-line {
+    font-size: 13.5px;
+  }
+
+  .result-quote {
+    margin-top: 30px;
+    font-size: clamp(16px, 4.5vw, 20px);
+  }
+
+  .clarity {
+    margin-top: 28px;
+    padding: 7px 14px;
+    font-size: 11px;
+  }
+
+  .clarity strong {
+    font-size: 14px;
+  }
+
+  /* 雷达图 */
   .radar-wrap {
-    min-height: 310px;
+    min-height: 280px;
+  }
+
+  .radar-wrap::before {
+    width: 260px;
+    height: 260px;
+  }
+
+  .radar {
+    width: min(100%, 340px);
+  }
+
+  /* 报告卡片 */
+  .report-grid {
+    gap: 16px;
+    margin-top: 18px;
   }
 
   .report-card {
-    padding: 26px 22px;
+    padding: 24px 20px;
+    border-radius: 18px;
   }
 
-  .nearby-grid,
+  .report-card h2 {
+    font-size: 23px;
+  }
+
+  .report-card p {
+    font-size: 13.5px;
+  }
+
+  .dimension-list {
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .dimension-row {
+    grid-template-columns: 72px 1fr 38px;
+    gap: 12px;
+  }
+
+  .dimension-row span {
+    font-size: 12.5px;
+  }
+
+  .dimension-row strong {
+    font-size: 14px;
+  }
+
+  .evidence-item {
+    padding: 16px 0;
+    grid-template-columns: 40px 1fr;
+    gap: 12px;
+  }
+
+  .evidence-item strong {
+    font-size: 13px;
+  }
+
+  .evidence-item p {
+    font-size: 13px;
+  }
+
+  /* 邻近原型与小实验：保持横向但更紧凑 */
+  .nearby-grid {
+    gap: 10px;
+  }
+
+  .nearby {
+    padding: 14px;
+  }
+
+  .nearby strong {
+    font-size: 18px;
+  }
+
   .advice-grid {
-    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .advice {
     min-height: 0;
+    padding: 20px;
   }
 
+  /* 结果操作按钮 */
   .result-actions {
     flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
   }
 
   .result-actions button {
     width: 100%;
   }
 
-  .dialog-head,
-  .method-content {
-    padding-inline: 24px;
+  /* 弹窗：更接近全屏 */
+  .method-dialog {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    height: 100dvh;
+    border-radius: 0;
+    margin: 0;
   }
 
+  .method-dialog::backdrop {
+    background: rgba(16, 14, 11, 0.7);
+  }
+
+  .dialog-head {
+    padding: 26px 22px 20px;
+    padding-top: calc(26px + env(safe-area-inset-top));
+  }
+
+  .dialog-head h2 {
+    font-size: 26px;
+  }
+
+  .method-content {
+    padding: 8px 22px calc(28px + env(safe-area-inset-bottom));
+  }
+
+  .method-content section {
+    padding: 22px 0;
+    gap: 14px;
+    grid-template-columns: 40px 1fr;
+  }
+
+  /* 页脚 */
   .site-footer {
     align-items: flex-start;
     flex-direction: column;
     justify-content: center;
+    gap: 10px;
+    padding: 20px 0;
+  }
+
+  .site-footer p {
+    font-size: 10px;
+  }
+
+  /* Toast 避开底部安全区 */
+  .toast {
+    right: 16px;
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    left: 16px;
+    text-align: center;
+  }
+}
+
+/* ---------- 超小屏（≤420px）：iPhone SE / 折叠屏 ---------- */
+@media (max-width: 420px) {
+  .site-header,
+  .site-footer,
+  #app {
+    width: min(100% - 24px, 1180px);
+  }
+
+  .hero {
+    padding: 28px 0 52px;
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 11vw, 44px);
+  }
+
+  .hero-lead {
+    font-size: 14px;
+  }
+
+  /* 印章轨道进一步缩小 */
+  .atlas {
+    transform: scale(0.72);
+    margin-bottom: -80px;
+  }
+
+  .orbit {
+    width: 280px;
+    height: 280px;
+  }
+
+  .seal-main {
+    top: 84px;
+    width: 148px;
+    height: 176px;
+    font-size: 32px;
+  }
+
+  .seal-one {
+    width: 88px;
+    height: 104px;
+    font-size: 20px;
+  }
+
+  .seal-two {
+    width: 76px;
+    height: 86px;
+    font-size: 18px;
+  }
+
+  .seal-three {
+    width: 88px;
+    height: 98px;
+    font-size: 20px;
+  }
+
+  .seal-four {
+    width: 68px;
+    height: 78px;
+    font-size: 16px;
+  }
+
+  /* 答题页 */
+  .question-card h1 {
+    font-size: clamp(22px, 6.5vw, 28px);
+  }
+
+  .option {
+    padding: 13px 14px;
+    min-height: 60px;
+  }
+
+  /* 结果页 */
+  .result-hero {
+    padding: 28px 20px;
+  }
+
+  .result-name {
+    font-size: clamp(40px, 13vw, 52px);
+  }
+
+  .report-card {
+    padding: 22px 18px;
+  }
+
+  .report-card h2 {
+    font-size: 21px;
   }
 }
 
@@ -1607,4 +1986,432 @@ button:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ============================================================
+   美化与动画增强（放在末尾以保证覆盖优先级）
+   ============================================================ */
+
+/* ---------- 全局浮动墨点 ---------- */
+.ink-particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  transition: opacity 700ms var(--ease);
+}
+body[data-view="quiz"] .ink-particles {
+  opacity: 0;
+}
+.ink-particles span {
+  position: absolute;
+  bottom: -24px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26, 26, 22, 0.5), transparent 70%);
+  animation: ink-float linear infinite;
+  will-change: transform, opacity;
+}
+@keyframes ink-float {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.55;
+  }
+  88% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(-104vh) scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* ---------- 通用入场关键帧 ---------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- 首页 Hero 编排 ---------- */
+.hero .eyebrow {
+  animation: fade-up 600ms var(--ease) both;
+}
+.hero h1 {
+  animation: fade-up 720ms var(--ease) 120ms both;
+}
+.hero-lead {
+  animation: fade-up 720ms var(--ease) 260ms both;
+}
+.hero-actions {
+  animation: fade-up 720ms var(--ease) 380ms both;
+}
+.hero-meta {
+  animation: fade-up 720ms var(--ease) 500ms both;
+}
+.hero-side-text {
+  animation: fade-in 1100ms var(--ease) 720ms both;
+}
+
+/* 标题毛笔下划线：从左向右绘出 */
+.hero h1 em::after {
+  background-position: left center;
+  background-size: 0% 100%;
+  animation: brush-draw 850ms var(--ease) 720ms forwards;
+}
+@keyframes brush-draw {
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+/* ---------- 印章轨道与印章入场 ---------- */
+.orbit {
+  animation: spin 80s linear infinite, fade-in 900ms var(--ease) both;
+}
+.seal {
+  animation: seal-pop 700ms var(--ease) both, drift 6s ease-in-out infinite;
+}
+.seal-main {
+  animation: seal-pop-main 700ms var(--ease) both, drift 6s ease-in-out infinite;
+  animation-delay: 320ms, -2s;
+}
+.seal-one {
+  animation-delay: 460ms, -4s;
+}
+.seal-two {
+  animation-delay: 600ms, 0s;
+}
+.seal-three {
+  animation-delay: 300ms, -1s;
+}
+.seal-four {
+  animation-delay: 540ms, -3s;
+}
+@keyframes seal-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-12deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.08) rotate(4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes seal-pop-main {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.3) rotate(-12deg);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.08) rotate(4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) rotate(0);
+  }
+}
+
+/* ---------- 答题：选项错落入场 ---------- */
+.options .option {
+  animation: option-in 420ms var(--ease) both;
+}
+.options .option:nth-child(1) {
+  animation-delay: 60ms;
+}
+.options .option:nth-child(2) {
+  animation-delay: 120ms;
+}
+.options .option:nth-child(3) {
+  animation-delay: 180ms;
+}
+.options .option:nth-child(4) {
+  animation-delay: 240ms;
+}
+.options .option:nth-child(5) {
+  animation-delay: 300ms;
+}
+@keyframes option-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+.option.selected {
+  animation: option-pick 300ms var(--ease);
+}
+@keyframes option-pick {
+  40% {
+    transform: scale(0.985);
+  }
+}
+
+/* ---------- 答题：切题离场 ---------- */
+.question-card.leaving {
+  animation: question-leave 200ms var(--ease) forwards;
+}
+@keyframes question-leave {
+  to {
+    opacity: 0;
+    transform: translateX(-28px) scale(0.985);
+  }
+}
+
+/* ---------- 进度条流光 ---------- */
+.progress-bar {
+  position: relative;
+  overflow: hidden;
+}
+.progress-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 253, 247, 0.5),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: shimmer 2.4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* ---------- 结果页：印章盖下 + 轻浮 ---------- */
+.result-stamp {
+  animation: stamp-down 650ms cubic-bezier(0.2, 0.9, 0.3, 1.25) 200ms both,
+    stamp-float 5s ease-in-out 900ms infinite;
+}
+@keyframes stamp-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-44px) scale(1.7) rotate(-28deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(5px) scale(0.92) rotate(-3deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(-8deg);
+  }
+}
+@keyframes stamp-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -4px;
+  }
+}
+
+/* ---------- 结果页：标题区逐项揭现 ---------- */
+.result-masthead {
+  animation: fade-up 500ms var(--ease) both;
+}
+.result-name {
+  animation: name-reveal 850ms var(--ease) 150ms both;
+}
+@keyframes name-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(8px);
+  }
+}
+.result-kicker {
+  animation: fade-up 600ms var(--ease) 100ms both;
+}
+.result-title {
+  animation: fade-up 600ms var(--ease) 320ms both;
+}
+.tags {
+  animation: fade-up 600ms var(--ease) 460ms both;
+}
+.figure-bio {
+  animation: fade-up 600ms var(--ease) 560ms both;
+}
+.result-quote {
+  animation: fade-up 600ms var(--ease) 660ms both;
+}
+.clarity {
+  animation: fade-up 600ms var(--ease) 760ms both;
+}
+
+/* 标签依次浮现 */
+.tag {
+  animation: tag-in 480ms var(--ease) both;
+}
+.tag:nth-child(1) {
+  animation-delay: 540ms;
+}
+.tag:nth-child(2) {
+  animation-delay: 620ms;
+}
+.tag:nth-child(3) {
+  animation-delay: 700ms;
+}
+.tag:nth-child(4) {
+  animation-delay: 780ms;
+}
+@keyframes tag-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+/* ---------- 雷达图：描边绘制 + 节点弹出 + 光晕呼吸 ---------- */
+.radar-area {
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
+  animation: radar-stroke 1300ms var(--ease) 250ms forwards;
+}
+@keyframes radar-stroke {
+  from {
+    stroke-dashoffset: 1500;
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+.radar-dot {
+  animation: radar-dot-pop 420ms var(--ease) both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes radar-dot-pop {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.4);
+  }
+}
+.radar-label,
+.radar-score {
+  animation: radar-label-in 500ms var(--ease) both;
+}
+@keyframes radar-label-in {
+  from {
+    opacity: 0;
+  }
+}
+.radar-wrap::before {
+  animation: glow-pulse 6s ease-in-out infinite;
+}
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+/* ---------- 维度条依次升起 ---------- */
+.dimension-row {
+  animation: fade-up 520ms var(--ease) both;
+}
+.dimension-row:nth-child(1) {
+  animation-delay: 80ms;
+}
+.dimension-row:nth-child(2) {
+  animation-delay: 160ms;
+}
+.dimension-row:nth-child(3) {
+  animation-delay: 240ms;
+}
+.dimension-row:nth-child(4) {
+  animation-delay: 320ms;
+}
+.dimension-row:nth-child(5) {
+  animation-delay: 400ms;
+}
+
+/* ---------- 报告卡片：滚动揭示（配合 IntersectionObserver） ---------- */
+.report-card {
+  animation: none;
+}
+.report-card:nth-child(2),
+.report-card:nth-child(3),
+.report-card:nth-child(4),
+.report-card:nth-child(5) {
+  animation-delay: 0;
+}
+.reveal {
+  opacity: 0;
+  translate: 0 28px;
+}
+.reveal:not(.is-visible) {
+  pointer-events: none;
+}
+.reveal.is-visible {
+  animation: card-reveal 680ms var(--ease) both;
+  animation-delay: calc(var(--reveal-index, 0) * 90ms);
+}
+@keyframes card-reveal {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* ---------- 计分说明：分节入场 ---------- */
+.method-content section {
+  animation: fade-up 500ms var(--ease) both;
+}
+.method-content section:nth-child(1) {
+  animation-delay: 60ms;
+}
+.method-content section:nth-child(2) {
+  animation-delay: 140ms;
+}
+.method-content section:nth-child(3) {
+  animation-delay: 220ms;
+}
+.method-content section:nth-child(4) {
+  animation-delay: 300ms;
+}
+
+/* ---------- 按钮按压反馈 ---------- */
+.primary-button:active,
+.secondary-button:active,
+.ghost-button:active {
+  transform: translateY(0);
+}
+.primary-button:active,
+.secondary-button:active {
+  box-shadow: 0 8px 18px rgba(23, 23, 19, 0.16);
 }

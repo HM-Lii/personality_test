@@ -38,6 +38,42 @@ export function mountApp({
 } = {}) {
   let state = restoreState();
 
+  /* 浮动墨点背景：一次性生成 */
+  const inkContainer = document.querySelector("#inkParticles");
+  if (inkContainer && inkContainer.childElementCount === 0) {
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < 14; i += 1) {
+      const span = document.createElement("span");
+      const size = 3 + Math.random() * 7;
+      span.style.left = `${Math.random() * 100}%`;
+      span.style.width = `${size}px`;
+      span.style.height = `${size}px`;
+      span.style.animationDuration = `${18 + Math.random() * 22}s`;
+      span.style.animationDelay = `${-Math.random() * 30}s`;
+      fragment.appendChild(span);
+    }
+    inkContainer.appendChild(fragment);
+  }
+
+  /* 报告卡片滚动揭示 */
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+  );
+
+  function observeReveals() {
+    app
+      .querySelectorAll(".reveal:not(.is-visible)")
+      .forEach((node) => revealObserver.observe(node));
+  }
+
   function persist() {
     saveState(state);
   }
@@ -66,11 +102,11 @@ export function mountApp({
     }
     if (state.view === "result") {
       renderResult(app, state, calculateResult(), resultDeps);
+      observeReveals();
       return;
     }
     renderHome(app, state, { CORE_QUESTIONS });
   }
-
   function goHome() {
     state.view = "home";
     persist();
@@ -149,6 +185,9 @@ export function mountApp({
     const selectedButton = app.querySelector(`[data-option-id="${optionId}"]`);
     selectedButton?.classList.add("selected");
 
+    const card = app.querySelector(".question-card");
+    card?.classList.add("leaving");
+
     window.setTimeout(() => {
       if (state.index < CORE_QUESTIONS.length - 1) {
         state.index += 1;
@@ -157,7 +196,7 @@ export function mountApp({
         return;
       }
       appendCalibrationOrFinish();
-    }, 180);
+    }, 260);
   }
 
   function previousQuestion() {
