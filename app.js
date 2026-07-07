@@ -279,10 +279,10 @@ function renderHome() {
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <span class="eyebrow">HISTORICAL PERSONA · OPEN METHOD</span>
-        <h1 id="hero-title">你在历史的<br><em>哪一种坐标</em>？</h1>
+        <h1 id="hero-title">在历史里，<br><em>你最像谁</em>？</h1>
         <p class="hero-lead">
-          25个真实情境，观察你如何探索、执行、连接与复原。
-          我们不靠神秘标签猜人，而是公开每一步计分，再从57位中国历史人物原型中寻找与你相近的轮廓。
+          25个生活里的情境，看看你面对选择时是什么风格。
+          我们不贴标签、不搞玄学，每一步计分都摆出来给你看，最后从57位古人里找到和你最像的那一个。
         </p>
         <div class="hero-actions">
           <button class="primary-button" type="button" data-action="start">
@@ -292,16 +292,16 @@ function renderHome() {
             canResume
               ? `<button class="plain-link" type="button" data-action="resume">${
                   state.completedAt
-                    ? "查看上次结果"
-                    : `继续上次进度 · ${answeredCore}/25`
+                    ? "看看上次的结果"
+                    : `接着上次做 · ${answeredCore}/25`
                 }</button>`
-              : `<button class="plain-link" type="button" data-action="method">先看计分逻辑</button>`
+              : `<button class="plain-link" type="button" data-action="method">先看看怎么算</button>`
           }
         </div>
         <div class="hero-meta" aria-label="测试信息">
-          <span><strong>25–28</strong>道情境题</span>
-          <span><strong>5</strong>个连续维度</span>
-          <span><strong>57</strong>位人物原型</span>
+          <span><strong>25–28</strong>道题</span>
+          <span><strong>5</strong>个维度</span>
+          <span><strong>57</strong>位古人</span>
           <span><strong>0</strong>条答案上传</span>
         </div>
       </div>
@@ -351,7 +351,7 @@ function renderQuiz() {
 
       <article class="question-card" data-question-id="${question.id}">
         <div class="question-number">
-          ${isCalibration ? "CALIBRATION · 轮廓辨析" : escapeHtml(question.domain)}
+          ${isCalibration ? "辨析题" : escapeHtml(question.domain)}
         </div>
         <h1 id="question-title">${escapeHtml(question.title)}</h1>
         <p class="question-context">${escapeHtml(question.context)}</p>
@@ -375,7 +375,7 @@ function renderQuiz() {
             )
             .join("")}
         </div>
-        <p class="question-hint">没有正确答案，选择你通常会做的，而不是你希望自己做到的。</p>
+        <p class="question-hint">没有标准答案。选你平时真的会做的，而不是你希望自己能做到的。</p>
       </article>
     </section>
   `;
@@ -471,7 +471,7 @@ function matchReasons(result, figures) {
   return shared
     .map(
       (item) =>
-        `${item.name} ${item.score}（与原型相差 ${Math.round(item.difference)}）`,
+        `${item.name} ${item.score}（和原型差 ${Math.round(item.difference)}）`,
     )
     .join("、");
 }
@@ -507,7 +507,7 @@ function renderResult() {
   const resultFigures = result.dual ? [primary, secondary] : [primary];
   const displayName = resultFigures.map((figure) => figure.name).join(" × ");
   const displayTitle = result.dual
-    ? `${primary.archetype}，也带有${secondary.archetype}的路径`
+    ? `${primary.archetype}，也带着一点${secondary.archetype}的影子`
     : primary.archetype;
   const tags = [...new Set(resultFigures.flatMap((figure) => figure.tags))].slice(0, 4);
   const evidence = evidenceItems(result);
@@ -539,7 +539,7 @@ function renderResult() {
         <span class="result-stamp" aria-hidden="true">${escapeHtml(primary.name.at(0))}</span>
         <div class="result-copy">
           <span class="eyebrow result-kicker">${
-            result.dual ? "双原型 · 情境型轮廓" : escapeHtml(primary.era)
+            result.dual ? "双原型 · 看情境而定" : escapeHtml(primary.era)
           }</span>
           <h1 class="result-name ${result.dual ? "result-name-dual" : ""}" id="result-name">
             ${escapeHtml(displayName)}
@@ -561,13 +561,13 @@ function renderResult() {
             }
           </div>
           <p class="result-quote">
-            你与${escapeHtml(displayName)}接近的部分，主要落在${escapeHtml(
+            你和${escapeHtml(displayName)}最像的地方，主要在${escapeHtml(
               matchReasons(result, resultFigures),
-            )}。人物只是隐喻，真正的结果是右侧这组由你的选择计算出的五维轮廓。
+            )}。古人只是个比喻，真正的结果是右边这张根据你的选择算出来的五维画像。
           </p>
           <span class="clarity">
             匹配清晰度 <strong>${escapeHtml(result.clarity.band)}</strong>
-            · ${result.calibrationCount}道辨析题
+            · 做了${result.calibrationCount}道辨析题
           </span>
         </div>
         <div class="radar-wrap">${radarSvg(result.scores)}</div>
@@ -576,8 +576,8 @@ function renderResult() {
       <div class="report-grid">
         <article class="report-card report-card-large">
           <span class="eyebrow">01 · YOUR PROFILE</span>
-          <h2>这不是五项能力排名</h2>
-          <p>分数表示你在两种有效策略之间更常站在哪一侧。高低都不是优劣，也不是人群百分位。</p>
+          <h2>这不是在排能力高低</h2>
+          <p>分数只是说你在两种风格里更偏哪一边。分高分低不分好坏，也不代表你超过多少人。</p>
           <div class="dimension-list">
             ${DIMENSIONS.map((dimension) => {
               const score = result.scores[dimension.id];
@@ -594,7 +594,7 @@ function renderResult() {
 
         <article class="report-card report-card-side">
           <span class="eyebrow">02 · INTERPRETATION</span>
-          <h2>你的选择方式</h2>
+          <h2>你是怎么选的</h2>
           <div class="evidence-list">
             ${sortedDimensions
               .slice(0, 3)
@@ -616,8 +616,8 @@ function renderResult() {
 
         <article class="report-card report-card-large">
           <span class="eyebrow">03 · ANSWER EVIDENCE</span>
-          <h2>为什么会得到这个结果</h2>
-          <p>下面三条来自你的真实选择，而不是人物模板的固定文案。</p>
+          <h2>为什么是这个人</h2>
+          <p>下面三条都来自你刚才的真实选择，不是套用哪个人物的现成话。</p>
           <div class="evidence-list">
             ${evidence
               .map((item, index) => {
@@ -628,7 +628,7 @@ function renderResult() {
                     <span class="evidence-index">${String(index + 1).padStart(2, "0")}</span>
                     <div>
                       <strong>${escapeHtml(item.question.title)}</strong>
-                      <p>“${escapeHtml(item.option.text)}”——这个选择更接近：${escapeHtml(
+                      <p>“${escapeHtml(item.option.text)}”——选这个，更接近：${escapeHtml(
                         direction,
                       )}。</p>
                     </div>
@@ -641,8 +641,8 @@ function renderResult() {
 
         <article class="report-card report-card-side">
           <span class="eyebrow">04 · NEARBY FIGURES</span>
-          <h2>你的邻近原型</h2>
-          <p>接近度只用于比较这些候选之间的距离，不代表测试准确率。</p>
+          <h2>和你接近的还有谁</h2>
+          <p>这里的接近度只是拿这几个候选互相比较，不代表测试有多准。</p>
           <div class="nearby-grid">
             ${result.ranking
               .slice(result.dual ? 2 : 1, result.dual ? 5 : 4)
@@ -661,29 +661,29 @@ function renderResult() {
 
         <article class="report-card report-card-full">
           <span class="eyebrow">05 · SMALL EXPERIMENTS</span>
-          <h2>三个可验证的小实验</h2>
-          <p>建议来自你的最高、最低与最具情境变化的维度；它们不是要求你变成另一种人。</p>
+          <h2>可以试试的三件小事</h2>
+          <p>这三条来自你最高、最低和最随情境变化的三项——不是要你变成另一个人。</p>
           <div class="advice-grid">
             <div class="advice">
-              <b>放松优势 · ${highest.name}</b>
+              <b>给${highest.name}留点余地</b>
               <p>${dimensionCopy[highest.id].stretchHigh}</p>
             </div>
             <div class="advice">
-              <b>扩展选项 · ${lowest.name}</b>
+              <b>给${lowest.name}一点空间</b>
               <p>${dimensionCopy[lowest.id].stretchLow}</p>
             </div>
             <div class="advice">
-              <b>观察情境 · ${flexible.name}</b>
-              <p>留意一周：哪些场景让你明显走向“${flexible.high}”，哪些场景又让你选择“${flexible.low}”。变化本身也是信息。</p>
+              <b>留意${flexible.name}的切换</b>
+              <p>这一周留意一下：哪些场景让你更像“${flexible.high}”，哪些又让你退回“${flexible.low}”。这种来回本身就在告诉你一些事。</p>
             </div>
           </div>
         </article>
       </div>
 
       <div class="result-actions">
-        <button class="secondary-button" type="button" data-action="share">复制结果摘要</button>
-        <button class="ghost-button" type="button" data-action="restart">重新测试</button>
-        <button class="ghost-button" type="button" data-action="method">查看计分逻辑</button>
+        <button class="secondary-button" type="button" data-action="share">复制结果</button>
+        <button class="ghost-button" type="button" data-action="restart">再测一次</button>
+        <button class="ghost-button" type="button" data-action="method">看看怎么算的</button>
       </div>
     </section>
   `;
@@ -698,13 +698,13 @@ function shareResult() {
       (dimension) => `${dimension.name} ${result.scores[dimension.id]}`,
     ),
     `匹配清晰度：${result.clarity.band}`,
-    "人物志 · 分数来自25–28道情境选择，历史人物仅作性格隐喻。",
+    "人物志 · 分数来自25–28道情境选择，古人只是个性格上的比喻。",
   ].join("\n");
 
   if (navigator.clipboard?.writeText) {
     navigator.clipboard
       .writeText(text)
-      .then(() => showToast("结果摘要已复制"))
+      .then(() => showToast("结果已复制"))
       .catch(() => fallbackCopy(text));
   } else {
     fallbackCopy(text);
@@ -720,7 +720,7 @@ function fallbackCopy(text) {
   area.select();
   document.execCommand("copy");
   area.remove();
-  showToast("结果摘要已复制");
+  showToast("结果已复制");
 }
 
 function render() {
