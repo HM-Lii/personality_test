@@ -123,6 +123,10 @@ test("the figure library has unique IDs, names and complete metadata", () => {
     assert.ok(figure.era.length > 0);
     assert.ok(figure.archetype.length > 0);
     assert.ok(figure.narrativeBasis.length > 0);
+    assert.ok(
+      figure.rationale.length >= 8,
+      `${figure.id} missing vector rationale`,
+    );
     assert.equal(figure.tags.length, 3);
     assert.deepEqual(Object.keys(figure.vector).sort(), [...dimensionIds].sort());
     for (const value of Object.values(figure.vector)) {

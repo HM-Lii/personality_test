@@ -180,11 +180,11 @@ test("rankFigures keeps input order for exact ties", () => {
 
 test("calibration starts only below the strict distance-gap threshold", () => {
   assert.equal(
-    needsCalibration([{ distance: 0.1 }, { distance: 0.134999 }], 0),
+    needsCalibration([{ distance: 0.1 }, { distance: 0.114999 }], 0),
     true,
   );
   assert.equal(
-    needsCalibration([{ distance: 0.1 }, { distance: 0.135 }], 0),
+    needsCalibration([{ distance: 0.1 }, { distance: 0.115 }], 0),
     false,
   );
 });

@@ -5,7 +5,28 @@
  * Vector order:
  * O = exploration/openness, C = structure/execution, E = extraverted drive,
  * A = cooperation/empathy, R = resilience/stability.
+ *
+ * Vector rationale: docs/figures-rationale.json (single source of truth for tags + rationale).
  */
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+const rationaleById = new Map(
+  JSON.parse(
+    readFileSync(
+      join(
+        dirname(fileURLToPath(import.meta.url)),
+        "..",
+        "..",
+        "docs",
+        "figures-rationale.json",
+      ),
+      "utf8",
+    ),
+  ).map((entry) => [entry.id, entry]),
+);
+
 export const FIGURES = [
   {
     id: "confucius",
@@ -93,7 +114,7 @@ export const FIGURES = [
     name: "项羽",
     era: "秦汉之际",
     archetype: "以一身锋锐正面相迎的勇者",
-    vector: { O: 52, C: 58, E: 94, A: 28, R: 38 },
+    vector: { O: 50, C: 56, E: 96, A: 24, R: 34 },
     tags: ["勇决", "锋芒", "直面"],
     bio: "破釜沉舟，巨鹿一战令诸侯膝行而前。他信奉正面碾压，不信绕路。鸿门宴上那一瞬的犹豫，已是他命运的分水岭——他赢得了战场，却始终读不懂人心。",
   },
@@ -156,7 +177,7 @@ export const FIGURES = [
     name: "霍去病",
     era: "汉",
     archetype: "凭锐气与直觉撕开战局的先锋",
-    vector: { O: 62, C: 56, E: 90, A: 44, R: 76 },
+    vector: { O: 60, C: 54, E: 92, A: 40, R: 80 },
     tags: ["先锋", "速度", "锐气"],
     bio: "十八岁出征，二十一岁封狼居胥。他不带古兵法上战场，只带眼睛与速度。他说“匈奴未灭何以家为”，这话里有少年的狂，也有把一生压在一件事上的决。",
   },
@@ -168,6 +189,15 @@ export const FIGURES = [
     vector: { O: 90, C: 80, E: 88, A: 26, R: 78 },
     tags: ["变局", "用人", "决断"],
     bio: "挟天子以令诸侯，也能横槊赋诗。他在乱局里最擅长的是重组——把残破的版图、涣散的人心、零散的资源重新拼成一张能下的棋盘。宁我负人，是他对成本的诚实。",
+  },
+  {
+    id: "lu-bu",
+    name: "吕布",
+    era: "三国·群雄",
+    archetype: "凭一身武勇反复择主的孤狼",
+    vector: { O: 46, C: 38, E: 94, A: 12, R: 30 },
+    tags: ["武勇", "反复", "无义"],
+    bio: "辕门射戟、三英战吕布，他是三国第一勇将。可他三易其主，弑丁原、刺董卓，最终白门楼被缚。他什么都靠一身武艺，却始终没找到一处能安放这份武艺的归属。",
   },
   {
     id: "liu-bei",
@@ -242,6 +272,15 @@ export const FIGURES = [
     bio: "长坂坡七进七出，护得幼主周全。他不争功，不矜伐，每一次被托付都稳稳接住。蜀汉诸将各有锋芒，而他是最让人安心的那一类——在，就是一种保障。",
   },
   {
+    id: "ma-chao",
+    name: "马超",
+    era: "三国·蜀汉",
+    archetype: "凭一身骁勇转战求归的锦马",
+    vector: { O: 64, C: 62, E: 92, A: 30, R: 38 },
+    tags: ["骁勇", "锐进", "少谋"],
+    bio: "西凉锦马超，杀得曹操割须弃袍。他一身骁勇，却少谋略，先投张鲁又归刘备，半生转战才得安身。他的锋锐足以撕开任何阵线，却始终没学会如何安放这份锋锐。",
+  },
+  {
     id: "cao-zhi",
     name: "曹植",
     era: "三国·魏",
@@ -264,9 +303,27 @@ export const FIGURES = [
     name: "嵇康",
     era: "魏晋",
     archetype: "不肯被规矩削去棱角的孤松",
-    vector: { O: 90, C: 32, E: 28, A: 38, R: 62 },
+    vector: { O: 94, C: 30, E: 24, A: 36, R: 60 },
     tags: ["独立", "锋骨", "审美"],
     bio: "临刑前从容弹一曲《广陵散》，叹“《广陵散》于今绝矣”。他打铁、拒仕、与山涛绝交，不肯把一身锋骨磨成世故。他的死，是他不肯妥协的最后一笔。",
+  },
+  {
+    id: "ruan-ji",
+    name: "阮籍",
+    era: "魏晋",
+    archetype: "于险世中以醉眼保全身心的避者",
+    vector: { O: 92, C: 34, E: 26, A: 36, R: 82 },
+    tags: ["避世", "才情", "保身"],
+    bio: "竹林七贤之一。面对司马氏的强权，他选了醉酒与青白眼——对俗人以白眼，对意气之人以青眼。他写《咏怀》八十二首，每一首都像在雾里张望，却始终不肯把自己交出去。",
+  },
+  {
+    id: "liu-ling",
+    name: "刘伶",
+    era: "魏晋",
+    archetype: "以一醉消解世间尺度的酒徒",
+    vector: { O: 88, C: 26, E: 20, A: 28, R: 70 },
+    tags: ["放达", "避世", "忘形"],
+    bio: "竹林七贤中最嗜酒的一个。他乘鹿车携酒，让人扛锄跟在后面，说“死便埋我”。他作《酒德颂》，把一切礼法尺规都浸在酒里化掉——不是逃避，是他确实看不上一套套的规矩。",
   },
   {
     id: "tang-taizong",
@@ -449,6 +506,15 @@ export const FIGURES = [
     bio: "龙场悟道，他在贬谪的绝境里想通了“心即理”。此后平宸濠、剿山贼，皆是从一念之知推到一仗之行。他让学生信的不是书，是“知行合一”这四个字能真的活得出来。",
   },
   {
+    id: "tang-yin",
+    name: "唐寅",
+    era: "明",
+    archetype: "以才情与风流自放于礼法之外的解元",
+    vector: { O: 96, C: 34, E: 54, A: 44, R: 28 },
+    tags: ["才情", "风流", "自放"],
+    bio: "乡试第一，会试却因舞弊案牵连断送仕途。此后他卖画为生，自号“江南第一风流才子”。他把失意活成了另一种自在——桃花庵里，不求人懂，只求自己痛快。",
+  },
+  {
     id: "hai-rui",
     name: "海瑞",
     era: "明",
@@ -520,7 +586,11 @@ export const FIGURES = [
     tags: ["先行", "勇气", "理想"],
     bio: "她抛下安稳的家，东渡求学，自号“鉴湖女侠”。她要的不只是自己的自由，更是无数女子的自由。就义时她从容，像早把这条命许给了一个比活着更重要的事。",
   },
-].map((figure) => ({
-  ...figure,
-  narrativeBasis: `基于大众文化中的“${figure.archetype}”形象`,
-}));
+].map((figure) => {
+  const rationaleEntry = rationaleById.get(figure.id);
+  return {
+    ...figure,
+    rationale: rationaleEntry?.rationale ?? "",
+    narrativeBasis: `基于大众文化中的“${figure.archetype}”形象`,
+  };
+});

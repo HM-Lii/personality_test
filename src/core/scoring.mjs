@@ -115,7 +115,7 @@ export function rankFigures(scores, figures, consistency = {}) {
 
 export function needsCalibration(ranking, calibrationCount = 0) {
   if (calibrationCount >= MAX_CALIBRATION_ITEMS || ranking.length < 2) return false;
-  return isStrictlyBelow(ranking[1].distance - ranking[0].distance, 0.035);
+  return isStrictlyBelow(ranking[1].distance - ranking[0].distance, 0.015);
 }
 
 export function isDualArchetype(ranking, calibrationCount) {
