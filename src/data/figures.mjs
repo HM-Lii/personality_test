@@ -8,23 +8,10 @@
  *
  * Vector rationale: docs/figures-rationale.json (single source of truth for tags + rationale).
  */
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import rationaleEntries from "../../docs/figures-rationale.json" with { type: "json" };
 
 const rationaleById = new Map(
-  JSON.parse(
-    readFileSync(
-      join(
-        dirname(fileURLToPath(import.meta.url)),
-        "..",
-        "..",
-        "docs",
-        "figures-rationale.json",
-      ),
-      "utf8",
-    ),
-  ).map((entry) => [entry.id, entry]),
+  rationaleEntries.map((entry) => [entry.id, entry]),
 );
 
 export const FIGURES = [
