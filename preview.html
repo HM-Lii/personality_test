@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>preview</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="ink-particles" id="inkParticles" aria-hidden="true"></div>
+    <header class="site-header">
+      <button class="brand" id="brandButton" type="button" aria-label="返回首页">
+        <span class="brand-mark">志</span>
+        <span>
+          <strong>人物志</strong>
+          <small>FIGURE ATLAS</small>
+        </span>
+      </button>
+      <button class="text-button" id="methodButton" type="button">怎么算分</button>
+    </header>
+
+    <main id="app" tabindex="-1"></main>
+
+    <footer class="site-footer">
+      <p>历史人物是大众文化中的性格隐喻，不是心理诊断，也不是学术定论。</p>
+      <span>PERSONA LAB · 2026</span>
+    </footer>
+
+    <dialog id="methodDialog" class="method-dialog"></dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module">
+      import { CORE_QUESTIONS } from "./src/data/catalog.mjs";
+
+      const view = new URLSearchParams(location.search).get("view") || "home";
+      const queue = CORE_QUESTIONS.map((q) => q.id);
+      const makeAnswer = (q, i) => {
+        const option = q.options[i % q.options.length];
+        return { questionId: q.id, optionId: option.id, value: option.value };
+      };
+
+      let state = null;
+      if (view === "quiz") {
+        state = {
+          view: "quiz",
+          queue,
+          index: 7,
+          answers: CORE_QUESTIONS.slice(0, 7).map(makeAnswer),
+          completedAt: null,
+        };
+      } else if (view === "result") {
+        state = {
+          view: "result",
+          queue,
+          index: 24,
+          answers: CORE_QUESTIONS.map((q, i) => makeAnswer(q, i + 1)),
+          completedAt: new Date().toISOString(),
+        };
+      }
+      if (state) {
+        localStorage.setItem("figure-atlas-state-v2", JSON.stringify(state));
+      }
+      await import("./app.js");
+    </script>
+  </body>
+</html>

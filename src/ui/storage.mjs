@@ -34,5 +34,9 @@ export function restoreState(storage = localStorage) {
 }
 
 export function saveState(state, storage = localStorage) {
-  storage.setItem(STORAGE_KEY, JSON.stringify(state));
+  try {
+    storage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    /* 存储不可用（隐私模式/配额满）时静默降级：测试照常进行，只是不记忆进度 */
+  }
 }
