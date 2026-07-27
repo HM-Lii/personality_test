@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        width: 1200px;
+        height: 630px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .card {
+        display: flex;
+        align-items: center;
+        gap: 90px;
+      }
+      .card-copy .eyebrow {
+        margin-bottom: 22px;
+      }
+      .card-copy h1 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: 120px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.1;
+      }
+      .card-copy h1 em {
+        color: var(--rust);
+        font-style: normal;
+      }
+      .card-copy p {
+        margin: 26px 0 0;
+        color: var(--muted);
+        font-size: 26px;
+        letter-spacing: 0.06em;
+      }
+      .card-seal {
+        flex: none;
+        width: 250px;
+        height: 300px;
+        display: grid;
+        place-items: center;
+        color: var(--white);
+        background: var(--rust);
+        border-radius: 48% 52% 46% 54% / 54% 48% 52% 46%;
+        font-family: var(--serif);
+        font-size: 52px;
+        box-shadow: 0 24px 60px rgba(157, 67, 43, 0.35);
+        position: relative;
+        transform: rotate(-4deg);
+      }
+      .card-seal::after {
+        content: "";
+        position: absolute;
+        inset: 16px;
+        border: 1.5px solid rgba(255, 253, 247, 0.25);
+        border-radius: inherit;
+      }
+      .card-seal span {
+        writing-mode: vertical-rl;
+        letter-spacing: 0.12em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="card-copy">
+        <span class="eyebrow">HISTORICAL PERSONA · OPEN METHOD</span>
+        <h1>心有其性，<br /><em>史有其人</em></h1>
+        <p>人物志 · 历史人格镜 —— 25 道情境题，照见你在历史中的身影</p>
+      </div>
+      <div class="card-seal"><span>未见之我</span></div>
+    </div>
+  </body>
+</html>

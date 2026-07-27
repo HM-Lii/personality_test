@@ -16,9 +16,9 @@ import {
 import { renderHome } from "./render-home.mjs";
 import { renderQuiz } from "./render-quiz.mjs";
 import { renderResult } from "./render-result.mjs";
-import { buildShareText, copyShareText } from "./share.mjs";
+import { buildShareText, copyShareText, buildResultUrl, decodeResultHash } from "./share.mjs";
 import { freshState, restoreState, saveState } from "./storage.mjs";
-import { hashString } from "./utils.mjs";
+import { hashString, displayedOptions } from "./utils.mjs";
 
 const resultDeps = {
   questionMap,
@@ -37,6 +37,14 @@ export function mountApp({
   closeMethodButton = document.querySelector("#closeMethodButton"),
 } = {}) {
   let state = restoreState();
+  /* 分享链接：hash 里带着完整答案时，直接展示那份结果。
+     分享模式下不写入 localStorage，不覆盖访客自己的进度。 */
+  let shareMode = false;
+  const sharedState = decodeResultHash(location.hash, questionMap);
+  if (sharedState) {
+    state = sharedState;
+    shareMode = true;
+  }
 
   /* 浮动墨点背景：一次性生成 */
   const inkContainer = document.querySelector("#inkParticles");
@@ -75,6 +83,7 @@ export function mountApp({
   }
 
   function persist() {
+    if (shareMode) return;
     saveState(state);
   }
 
@@ -89,23 +98,42 @@ export function mountApp({
     showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2200);
   }
 
+  /* 视图级切换用 View Transition 整页交叉淡入；同一视图内的推进（切题、
+     回上一题）保留原有编排。浏览器不支持或用户偏好减少动态时回退直接渲染。 */
+  let currentView;
   function render() {
-    document.body.dataset.view = state.view;
-    if (state.view === "quiz") {
-      const outcome = renderQuiz(app, state, { CORE_QUESTIONS, questionMap });
-      if (outcome?.reset) {
-        state = freshState();
-        persist();
-        renderHome(app, state, { CORE_QUESTIONS });
+    const update = () => {
+      document.body.dataset.view = state.view;
+      if (state.view === "quiz") {
+        const outcome = renderQuiz(app, state, { CORE_QUESTIONS, questionMap });
+        if (outcome?.reset) {
+          state = freshState();
+          persist();
+          renderHome(app, state, { CORE_QUESTIONS });
+        }
+        return;
       }
-      return;
+      if (state.view === "result") {
+        renderResult(app, state, calculateResult(), resultDeps);
+        observeReveals();
+        return;
+      }
+      renderHome(app, state, { CORE_QUESTIONS });
+    };
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (
+      currentView !== undefined &&
+      state.view !== currentView &&
+      !reduceMotion &&
+      typeof document.startViewTransition === "function"
+    ) {
+      document.startViewTransition(update);
+    } else {
+      update();
     }
-    if (state.view === "result") {
-      renderResult(app, state, calculateResult(), resultDeps);
-      observeReveals();
-      return;
-    }
-    renderHome(app, state, { CORE_QUESTIONS });
+    currentView = state.view;
   }
   function goHome() {
     state.view = "home";
@@ -115,6 +143,8 @@ export function mountApp({
 
   function startNew() {
     state = { ...freshState(), view: "quiz" };
+    shareMode = false;
+    history.replaceState(null, "", location.pathname + location.search);
     persist();
     render();
   }
@@ -210,7 +240,8 @@ export function mountApp({
   }
 
   function shareResult() {
-    copyShareText(buildShareText(calculateResult()), { showToast });
+    const shareUrl = buildResultUrl(state.answers);
+    copyShareText(buildShareText(calculateResult(), shareUrl), { showToast });
   }
 
   app.addEventListener("click", (event) => {
@@ -237,6 +268,31 @@ export function mountApp({
     if (event.target === methodDialog) methodDialog.close();
   });
   brandButton?.addEventListener("click", goHome);
+
+  /* 键盘答题：1–4 / A–D 选择，← 或 Backspace 回上一题 */
+  window.addEventListener("keydown", (event) => {
+    if (state.view !== "quiz" || methodDialog?.open) return;
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+
+    if (event.key === "ArrowLeft" || event.key === "Backspace") {
+      event.preventDefault();
+      previousQuestion();
+      return;
+    }
+
+    const key = event.key.toLowerCase();
+    let optionIndex = -1;
+    if (/^[1-4]$/.test(key)) optionIndex = Number(key) - 1;
+    else if (/^[a-d]$/.test(key)) optionIndex = key.charCodeAt(0) - 97;
+    if (optionIndex < 0) return;
+
+    /* 切题动画进行中不重复响应 */
+    if (app.querySelector(".question-card.leaving")) return;
+
+    const question = questionMap.get(state.queue[state.index]);
+    const option = question && displayedOptions(question)[optionIndex];
+    if (option) selectAnswer(question.id, option.id);
+  });
 
   render();
 }

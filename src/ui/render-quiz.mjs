@@ -20,7 +20,14 @@ export function renderQuiz(app, state, { CORE_QUESTIONS, questionMap }) {
     <section class="quiz-shell" aria-labelledby="question-title">
       <div class="quiz-topline">
         <button class="back-button" type="button" data-action="previous" aria-label="上一题">←</button>
-        <div class="progress-track" aria-label="测试进度">
+        <div
+          class="progress-track"
+          role="progressbar"
+          aria-label="测试进度"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="${progress}"
+        >
           <div class="progress-bar" style="width:${progress}%"></div>
         </div>
         <span class="progress-count">${
@@ -37,16 +44,17 @@ export function renderQuiz(app, state, { CORE_QUESTIONS, questionMap }) {
         <h1 id="question-title">${escapeHtml(question.title)}</h1>
         <p class="question-context">${escapeHtml(question.context)}</p>
 
-        <div class="options" role="group" aria-label="选择最接近你真实反应的一项">
+        <div class="options" role="radiogroup" aria-label="选择最接近你真实反应的一项">
           ${options
             .map(
               (item, index) => `
                 <button
                   class="option ${selectedAnswer?.optionId === item.id ? "selected" : ""}"
                   type="button"
+                  role="radio"
                   data-action="answer"
                   data-option-id="${item.id}"
-                  aria-pressed="${selectedAnswer?.optionId === item.id}"
+                  aria-checked="${selectedAnswer?.optionId === item.id}"
                 >
                   <span class="option-letter">${String.fromCharCode(65 + index)}</span>
                   <span class="option-text">${escapeHtml(item.text)}</span>
@@ -56,7 +64,7 @@ export function renderQuiz(app, state, { CORE_QUESTIONS, questionMap }) {
             )
             .join("")}
         </div>
-        <p class="question-hint">没有标准答案，选你真实会做的那一个——不是你希望自己做到，而是平时真的会选。</p>
+        <p class="question-hint">没有标准答案，选你真实会做的那一个——不是你希望自己做到，而是平时真的会选。<span class="hint-keys">可按 1–4 或 A–D 选择，← 返回上一题。</span></p>
       </article>
     </section>
   `;

@@ -20,8 +20,8 @@
   --shadow-sm: 0 6px 18px rgba(66, 52, 33, 0.08);
   --shadow: 0 22px 60px rgba(66, 52, 33, 0.13);
   --shadow-lg: 0 34px 90px rgba(58, 45, 28, 0.2);
-  --serif: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC",
-    Georgia, serif;
+  --serif: "Noto Serif SC", "Songti SC", "STSong", "Noto Serif CJK SC",
+    "Source Han Serif SC", Georgia, serif;
   --sans: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   /* 排版节奏 */
@@ -53,6 +53,7 @@ html {
 body {
   min-width: 320px;
   margin: 0;
+  overflow-x: clip;
   color: var(--ink);
   background:
     radial-gradient(circle at 12% 10%, rgba(182, 138, 77, 0.14), transparent 32rem),
@@ -199,6 +200,32 @@ button {
 
 #app {
   min-height: calc(100vh - 196px);
+  min-height: calc(100dvh - 196px);
+}
+
+/* 键盘“跳到主要内容”链接：仅聚焦时可见 */
+.skip-link {
+  position: fixed;
+  z-index: 40;
+  top: 12px;
+  left: 12px;
+  padding: 10px 18px;
+  color: var(--white);
+  background: var(--ink);
+  border-radius: 10px;
+  font-size: 13px;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform 200ms var(--ease);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* 程序化聚焦（切题后移动焦点）不显示焦点框，键盘导航仍保留 */
+#app:focus:not(:focus-visible) {
+  outline: none;
 }
 
 /* ============ 首页 Hero ============ */
@@ -229,6 +256,7 @@ button {
   font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 1.08;
+  text-wrap: balance;
 }
 
 .hero h1 em {
@@ -421,6 +449,7 @@ button {
   writing-mode: vertical-rl;
   line-height: 1;
   letter-spacing: 0.1em;
+  white-space: nowrap;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
@@ -604,6 +633,7 @@ button {
   font-weight: 500;
   line-height: 1.32;
   letter-spacing: -0.015em;
+  text-wrap: balance;
 }
 
 .question-context {
@@ -722,10 +752,23 @@ button {
 
 .question-hint {
   margin: 26px 0 0;
-  color: var(--muted-soft);
+  color: var(--muted);
   font-size: 11.5px;
   text-align: center;
   letter-spacing: 0.05em;
+}
+
+/* 键盘快捷键提示只对带键盘的设备显示 */
+.hint-keys {
+  display: none;
+  margin-left: 8px;
+  color: var(--muted-soft);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hint-keys {
+    display: inline;
+  }
 }
 
 /* ============ 结果页 ============ */
@@ -836,6 +879,7 @@ button {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-wrap: balance;
 }
 
 .result-name-dual {
@@ -1550,53 +1594,55 @@ button {
     font-size: 19px;
   }
 
-  /* 印章轨道：整体缩小居中 */
+  /* 印章轨道：固定坐标盒居中，位置用百分比，任意窄屏都不溢出 */
   .atlas {
+    width: min(340px, 100%);
     min-height: 380px;
-    transform: scale(0.82);
-    transform-origin: top center;
-    margin-bottom: -60px;
+    margin: 0 auto -34px;
   }
 
   .orbit {
-    width: 320px;
-    height: 320px;
+    width: 300px;
+    height: 300px;
   }
 
   .seal-main {
     top: 96px;
-    width: 168px;
-    height: 200px;
-    font-size: 36px;
+    width: 160px;
+    height: 192px;
+    font-size: 34px;
   }
 
   .seal-one {
-    right: 6px;
-    width: 100px;
-    height: 118px;
-    font-size: 23px;
-  }
-
-  .seal-two {
-    right: -6px;
-    width: 86px;
-    height: 98px;
+    top: 8%;
+    right: 2%;
+    width: 92px;
+    height: 108px;
     font-size: 21px;
   }
 
+  .seal-two {
+    right: 0;
+    bottom: 15%;
+    width: 80px;
+    height: 90px;
+    font-size: 19px;
+  }
+
   .seal-three {
-    left: 18px;
-    width: 100px;
-    height: 112px;
-    font-size: 22px;
+    bottom: 10%;
+    left: 4%;
+    width: 92px;
+    height: 104px;
+    font-size: 20px;
   }
 
   .seal-four {
-    top: 64px;
-    left: 2px;
-    width: 78px;
-    height: 88px;
-    font-size: 18px;
+    top: 16%;
+    left: 0;
+    width: 72px;
+    height: 82px;
+    font-size: 17px;
   }
 
   /* 答题页 */
@@ -1907,46 +1953,46 @@ button {
     font-size: 14px;
   }
 
-  /* 印章轨道进一步缩小 */
+  /* 印章轨道进一步收紧 */
   .atlas {
-    transform: scale(0.72);
-    margin-bottom: -80px;
+    min-height: 340px;
+    margin-bottom: -26px;
   }
 
   .orbit {
-    width: 280px;
-    height: 280px;
+    width: 264px;
+    height: 264px;
   }
 
   .seal-main {
-    top: 84px;
-    width: 148px;
-    height: 176px;
-    font-size: 32px;
+    top: 82px;
+    width: 140px;
+    height: 170px;
+    font-size: 30px;
   }
 
   .seal-one {
-    width: 88px;
-    height: 104px;
-    font-size: 20px;
+    width: 82px;
+    height: 96px;
+    font-size: 19px;
   }
 
   .seal-two {
-    width: 76px;
-    height: 86px;
-    font-size: 18px;
+    width: 72px;
+    height: 80px;
+    font-size: 17px;
   }
 
   .seal-three {
-    width: 88px;
-    height: 98px;
-    font-size: 20px;
+    width: 82px;
+    height: 92px;
+    font-size: 18px;
   }
 
   .seal-four {
-    width: 68px;
-    height: 78px;
-    font-size: 16px;
+    width: 64px;
+    height: 72px;
+    font-size: 15px;
   }
 
   /* 答题页 */
@@ -2414,4 +2460,367 @@ body[data-view="quiz"] .ink-particles {
 .primary-button:active,
 .secondary-button:active {
   box-shadow: 0 8px 18px rgba(23, 23, 19, 0.16);
+}
+
+/* ============================================================
+   美术与渲染精修（印章质感 / 光影体系 / 舞台光 / 渲染瘦身）
+   延续“后置覆盖”约定，置于打印样式之前
+   ============================================================ */
+
+:root {
+  --inset-highlight: inset 0 1px 0 rgba(255, 253, 247, 0.55);
+  --seal-inset: inset 0 2px 6px rgba(255, 253, 247, 0.16),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.18);
+}
+
+/* ---------- 印章：印泥斑驳 + 凹凸厚度 ---------- */
+.seal::before,
+.result-stamp::before,
+.brand-mark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='st'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23st)'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.brand-mark {
+  position: relative;
+  box-shadow:
+    0 4px 12px rgba(26, 26, 22, 0.18),
+    inset 0 0 0 2px rgba(255, 253, 247, 0.06),
+    var(--seal-inset);
+}
+
+.seal {
+  box-shadow: var(--shadow), var(--seal-inset);
+}
+
+.seal-main {
+  box-shadow:
+    0 20px 50px rgba(157, 67, 43, 0.35),
+    inset 0 0 0 3px rgba(255, 253, 247, 0.1),
+    var(--seal-inset);
+}
+
+.seal-one {
+  box-shadow: 0 12px 28px rgba(66, 52, 33, 0.18), var(--seal-inset);
+}
+
+.seal-two {
+  box-shadow: 0 12px 28px rgba(102, 115, 97, 0.3), var(--seal-inset);
+}
+
+.seal-three {
+  box-shadow: 0 12px 28px rgba(182, 138, 77, 0.3), var(--seal-inset);
+}
+
+.seal-four {
+  box-shadow: 0 12px 28px rgba(63, 71, 64, 0.32), var(--seal-inset);
+}
+
+.result-stamp {
+  box-shadow:
+    0 8px 22px rgba(157, 67, 43, 0.45),
+    inset 0 0 0 2px rgba(255, 253, 247, 0.18),
+    var(--seal-inset);
+}
+
+/* ---------- 光影体系：卡片统一内高光 + 分级外阴影 ---------- */
+.report-card {
+  background: linear-gradient(180deg, rgba(255, 253, 247, 0.92), rgba(255, 253, 247, 0.78));
+  backdrop-filter: none;
+  box-shadow: var(--shadow-sm), var(--inset-highlight);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
+}
+
+.report-card:hover {
+  box-shadow: var(--shadow), var(--inset-highlight);
+}
+
+.method-dialog {
+  box-shadow: 0 36px 110px rgba(15, 13, 10, 0.4), var(--inset-highlight);
+}
+
+/* ---------- 结果页：噪点并入背景，::before 改为横扫舞台光 ---------- */
+.result-hero {
+  background:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)' opacity='.04'/%3E%3C/svg%3E")
+      0 0 / 180px 180px,
+    radial-gradient(circle at 18% 20%, rgba(194, 90, 62, 0.32), transparent 50%),
+    radial-gradient(circle at 90% 90%, rgba(182, 138, 77, 0.18), transparent 55%),
+    var(--ink);
+}
+
+.result-hero::before {
+  inset: -20% auto -20% 0;
+  width: 42%;
+  background: linear-gradient(100deg, transparent 0%, rgba(255, 240, 214, 0.05) 30%,
+    rgba(255, 240, 214, 0.11) 50%, rgba(255, 240, 214, 0.05) 70%, transparent 100%);
+  opacity: 1;
+  transform: translateX(-170%) skewX(-10deg);
+  animation: hero-sheen 13s linear 1.2s infinite;
+}
+
+@keyframes hero-sheen {
+  0% {
+    transform: translateX(-170%) skewX(-10deg);
+  }
+  55%,
+  100% {
+    transform: translateX(330%) skewX(-10deg);
+  }
+}
+
+/* ---------- 排版细节 ---------- */
+.hero-lead,
+.bio-line,
+.result-quote,
+.report-card p,
+.method-content p {
+  hanging-punctuation: first allow-end;
+}
+
+.radar-label {
+  letter-spacing: 0.04em;
+}
+
+.radar-score {
+  font-weight: 500;
+}
+
+.report-card h2 {
+  position: relative;
+  padding-left: 18px;
+}
+
+.report-card h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.16em;
+  bottom: 0.12em;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--gold), var(--rust));
+}
+
+/* ---------- 渲染瘦身 ---------- */
+.tag {
+  backdrop-filter: none;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ink-particles {
+  transition: opacity 700ms var(--ease), visibility 0s;
+}
+
+.ink-particles span {
+  will-change: auto;
+}
+
+body[data-view="quiz"] .ink-particles {
+  visibility: hidden;
+  transition: opacity 700ms var(--ease), visibility 0s 700ms;
+}
+
+body[data-view="quiz"] .ink-particles span {
+  animation-play-state: paused;
+}
+
+.result-hero::after {
+  filter: none;
+}
+
+/* ---------- 视图切换：整页交叉淡入（JS 侧特性检测 + reduced-motion 回退） ---------- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 280ms;
+  animation-timing-function: var(--ease);
+}
+
+/* ---------- 结果页印章：落章回弹 + 印泥脉冲（覆盖前文的 stamp-down 编排） ---------- */
+.result-stamp {
+  animation: stamp-down 650ms cubic-bezier(0.2, 0.9, 0.3, 1.25) 200ms both,
+    stamp-pulse 650ms ease-out 200ms both,
+    stamp-float 5s ease-in-out 900ms infinite;
+}
+
+@keyframes stamp-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-44px) scale(1.7) rotate(-28deg);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(5px) scale(0.92) rotate(-3deg);
+  }
+  68% {
+    transform: translateY(-1.5px) scale(1.01) rotate(-9deg);
+  }
+  80% {
+    transform: translateY(0.5px) scale(0.99) rotate(-7deg);
+  }
+  90% {
+    transform: translateY(-0.5px) scale(1) rotate(-8.4deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(-8deg);
+  }
+}
+
+/* 落章瞬间印泥向外荡开一圈，随即收敛 */
+@keyframes stamp-pulse {
+  0%,
+  50% {
+    box-shadow:
+      0 8px 22px rgba(157, 67, 43, 0.45),
+      0 0 0 0 rgba(157, 67, 43, 0),
+      inset 0 0 0 2px rgba(255, 253, 247, 0.18),
+      var(--seal-inset);
+  }
+  62% {
+    box-shadow:
+      0 8px 22px rgba(157, 67, 43, 0.45),
+      0 0 0 16px rgba(157, 67, 43, 0.2),
+      inset 0 0 0 2px rgba(255, 253, 247, 0.18),
+      var(--seal-inset);
+  }
+  100% {
+    box-shadow:
+      0 8px 22px rgba(157, 67, 43, 0.45),
+      0 0 0 0 rgba(157, 67, 43, 0),
+      inset 0 0 0 2px rgba(255, 253, 247, 0.18),
+      var(--seal-inset);
+  }
+}
+
+/* ============================================================
+   打印 / 导出 PDF：浅色化结果页，保证未滚动揭示的卡片也可见
+   ============================================================ */
+@media print {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .site-header,
+  .site-footer,
+  .result-actions,
+  .ink-particles,
+  .noise,
+  .toast,
+  .skip-link {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .result-page {
+    padding: 0;
+  }
+
+  .result-hero {
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: none;
+  }
+
+  .result-hero::before,
+  .result-hero::after {
+    display: none;
+  }
+
+  .result-stamp {
+    box-shadow: none;
+  }
+
+  .result-name {
+    color: var(--ink);
+    background: none;
+    -webkit-text-fill-color: currentColor;
+  }
+
+  .result-kicker {
+    color: var(--rust);
+  }
+
+  .result-title,
+  .bio-line,
+  .result-quote {
+    color: var(--ink-soft);
+  }
+
+  .bio-name,
+  .clarity strong {
+    color: var(--rust);
+  }
+
+  .tag {
+    color: var(--ink-soft);
+    border-color: var(--line);
+    background: none;
+  }
+
+  .clarity {
+    color: var(--muted);
+    border-color: var(--line);
+    background: none;
+  }
+
+  /* 雷达图从暗底配色翻转为浅底配色 */
+  .radar-wrap::before {
+    display: none;
+  }
+
+  .radar-grid {
+    stroke: rgba(26, 26, 22, 0.18);
+  }
+
+  .radar-axis {
+    stroke: rgba(26, 26, 22, 0.14);
+  }
+
+  .radar-area {
+    fill: rgba(182, 138, 77, 0.16);
+    stroke: var(--gold);
+    filter: none;
+  }
+
+  .radar-dot {
+    fill: var(--gold);
+    filter: none;
+  }
+
+  .radar-label {
+    fill: var(--ink-soft);
+  }
+
+  .radar-score {
+    fill: var(--rust);
+  }
+
+  .report-card {
+    border-color: var(--line);
+    box-shadow: none;
+    break-inside: avoid;
+    content-visibility: visible;
+  }
+
+  /* 未触发滚动揭示的卡片在打印时必须可见 */
+  .reveal {
+    opacity: 1 !important;
+    translate: none !important;
+    pointer-events: auto !important;
+  }
 }
