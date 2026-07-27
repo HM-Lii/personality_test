@@ -79,3 +79,28 @@ test("result page explains the first-versus-second ranking and its limits", () =
   assert.match(app.innerHTML, /你们不像的地方/);
   assert.match(app.innerHTML, /能力、经历或道德立场/);
 });
+
+test("result page shows rationale archetype tags and radar score summary", () => {
+  const result = buildTestResult(answers, deps);
+  const app = { innerHTML: "" };
+  const primary = result.ranking[0];
+
+  renderResult(
+    app,
+    {
+      answers,
+      completedAt: "2026-07-27T00:00:00.000Z",
+    },
+    result,
+    deps,
+  );
+
+  assert.ok(primary.tags.length >= 2);
+  for (const tag of primary.tags.slice(0, 4)) {
+    assert.match(app.innerHTML, new RegExp(`class="tag">${tag}<`));
+  }
+  assert.match(app.innerHTML, /id="radar-score-summary"/);
+  assert.match(app.innerHTML, /aria-describedby="radar-score-summary"/);
+  assert.match(app.innerHTML, /五维倾向分：/);
+  assert.match(app.innerHTML, /探索开放/);
+});

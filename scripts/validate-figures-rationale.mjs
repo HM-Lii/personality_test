@@ -61,6 +61,16 @@ for (const figure of FIGURES) {
   }
 }
 
+for (const row of rationaleRows) {
+  const figure = figureById.get(row.id);
+  if (!figure) continue;
+  if (JSON.stringify(figure.tags) !== JSON.stringify(row.tags)) {
+    issues.push(
+      `${row.id}：展示 tags 未与 JSON 对齐 figures=${JSON.stringify(figure.tags)} json=${JSON.stringify(row.tags)}`,
+    );
+  }
+}
+
 console.log(`人物 rationale：${rationaleRows.length} 条（figures.mjs ${FIGURES.length} 人）`);
 
 if (issues.length > 0) {

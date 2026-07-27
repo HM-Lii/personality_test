@@ -1,4 +1,5 @@
 import { DIMENSIONS } from "../data/catalog.mjs";
+import { escapeHtml } from "./utils.mjs";
 
 function polygonPoints(radius, center = 200) {
   return DIMENSIONS.map((_, index) => {
@@ -11,7 +12,10 @@ export function radarSvg(scores, dimensionMap) {
   const center = 200;
   const radius = 126;
   const points = DIMENSIONS.map(({ id }, index) => {
-    const normalized = (scores[id] - 10) / 80;
+    const raw = Number(scores[id]);
+    const normalized = Number.isFinite(raw)
+      ? Math.min(1, Math.max(0, (raw - 10) / 80))
+      : 0.5;
     const angle = -Math.PI / 2 + (index * Math.PI * 2) / DIMENSIONS.length;
     return {
       id,
@@ -24,8 +28,17 @@ export function radarSvg(scores, dimensionMap) {
     };
   });
 
+  const summaryParts = DIMENSIONS.map(({ id }) => {
+    const dimension = dimensionMap.get(id);
+    const name = dimension?.name ?? id;
+    const score = Number.isFinite(Number(scores[id])) ? scores[id] : "—";
+    return `${name} ${score}`;
+  });
+  const summaryText = `五维倾向分：${summaryParts.join("，")}`;
+  const summaryId = "radar-score-summary";
+
   return `
-    <svg class="radar" viewBox="0 0 400 400" role="img" aria-label="五维人格雷达图">
+    <svg class="radar" viewBox="0 0 400 400" role="img" aria-label="五维人格雷达图" aria-describedby="${summaryId}">
       ${[0.25, 0.5, 0.75, 1]
         .map(
           (level) =>
@@ -50,20 +63,25 @@ export function radarSvg(scores, dimensionMap) {
       ${points
         .map((point, index) => {
           const dimension = dimensionMap.get(point.id);
+          const name = escapeHtml(dimension?.name ?? point.id);
+          const score = escapeHtml(
+            Number.isFinite(Number(scores[point.id])) ? scores[point.id] : "—",
+          );
           const anchor =
             point.labelX < 180 ? "end" : point.labelX > 220 ? "start" : "middle";
           const yOffset = point.labelY < 80 ? -8 : point.labelY > 320 ? 15 : 0;
           const labelDelay = 700 + index * 120;
           return `
             <text class="radar-label" x="${point.labelX}" y="${point.labelY + yOffset}" text-anchor="${anchor}" style="animation-delay:${labelDelay}ms">
-              ${dimension.name}
+              ${name}
             </text>
             <text class="radar-score" x="${point.labelX}" y="${point.labelY + yOffset + 18}" text-anchor="${anchor}" style="animation-delay:${labelDelay + 120}ms">
-              ${scores[point.id]}
+              ${score}
             </text>
           `;
         })
         .join("")}
     </svg>
+    <p id="${summaryId}" class="visually-hidden">${escapeHtml(summaryText)}</p>
   `;
 }

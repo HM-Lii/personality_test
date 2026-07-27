@@ -146,7 +146,16 @@ test("the figure library has unique IDs, names and complete metadata", () => {
       assert.ok(chain.confidence.reason.length >= 10);
       assert.ok(chain.controversy.length >= 10);
     }
-    assert.equal(figure.tags.length, 3);
+    assert.ok(
+      Array.isArray(figure.tags) &&
+        figure.tags.length >= 2 &&
+        figure.tags.length <= 3,
+      `${figure.id} tags must be 2–3 archetype labels from figures-rationale.json`,
+    );
+    for (const tag of figure.tags) {
+      assert.equal(typeof tag, "string");
+      assert.ok(tag.length >= 2, `${figure.id} has empty tag`);
+    }
     assert.deepEqual(Object.keys(figure.vector).sort(), [...dimensionIds].sort());
     for (const value of Object.values(figure.vector)) {
       assert.ok(Number.isFinite(value));
