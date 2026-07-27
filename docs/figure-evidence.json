@@ -1,0 +1,2304 @@
+{
+  "schemaVersion": 1,
+  "methodology": {
+    "keyDimensionRule": "每人至少选择两个最能被具体史事支持的叙事维度，不等同于心理测量。",
+    "confidenceRule": "confidence 评价材料对该条维度解释的支持力度；即使为 high，维度映射仍是现代解释。",
+    "sourceRule": "优先本人著述、近时记录和正史；后出轶事只作弱证据，并在 controversy 中说明限制。"
+  },
+  "figures": [
+    {
+      "id": "confucius",
+      "evidenceChains": [
+        {
+          "dimension": "A",
+          "event": "长期授徒并以“恕”解释人与人之间的相互约束。",
+          "source": {
+            "title": "《论语》",
+            "kind": "传世语录",
+            "url": "https://ctext.org/analects/zh",
+            "locator": "《颜渊》《卫灵公》"
+          },
+          "interpretation": "把关系中的换位与克制置于核心，可支持较高协作共情（A）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "《论语》由弟子后学编定，语录可反映学派记忆，但不能等同于逐字实录。"
+        },
+        {
+          "dimension": "C",
+          "event": "周游列国后仍持续整理礼乐与教育实践，形成稳定的弟子共同体。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷47《孔子世家》"
+          },
+          "interpretation": "长期维持教学秩序与礼制方案，可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "《史记》距孔子时代较远，删诗正乐等细节长期存在文本形成与历史真实性争议。"
+        }
+      ]
+    },
+    {
+      "id": "mozi",
+      "evidenceChains": [
+        {
+          "dimension": "A",
+          "event": "得知楚将攻宋后奔走劝止，并在模拟攻防中说服楚王放弃进攻。",
+          "source": {
+            "title": "《墨子》",
+            "kind": "传世思想文献",
+            "url": "https://ctext.org/mozi/zh",
+            "locator": "《公输》"
+          },
+          "interpretation": "将“非攻”落实为主动止战行动，可支持较高协作共情（A）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "《公输》叙事具有论辩文学结构，行动主旨可信，具体对话未必是实录。"
+        },
+        {
+          "dimension": "C",
+          "event": "墨家系统整理守城器械、号令和分工方法。",
+          "source": {
+            "title": "《墨子》",
+            "kind": "传世思想文献",
+            "url": "https://ctext.org/mozi/zh",
+            "locator": "《备城门》以下城守诸篇"
+          },
+          "interpretation": "把价值主张转化为可操作流程，可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "城守篇的作者层次与成书时间有争议，不一定全部出自墨子本人。"
+        }
+      ]
+    },
+    {
+      "id": "zhuangzi",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "以大量寓言和视角转换讨论知识、身份与自由。",
+          "source": {
+            "title": "《庄子》",
+            "kind": "传世思想文献",
+            "url": "https://ctext.org/zhuangzi/zh",
+            "locator": "《逍遥游》《齐物论》"
+          },
+          "interpretation": "持续突破单一立场与常规分类，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "《庄子》含内、外、杂篇，学界通常不把全书都视为庄周亲作。"
+        },
+        {
+          "dimension": "R",
+          "event": "楚王使者延请出仕时，以宁愿自由生活而拒绝权位。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷63《老子韩非列传》庄周条"
+          },
+          "interpretation": "面对权势诱因仍维持自我选择，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "“曳尾涂中”高度寓言化，能说明传统形象，难证明实际心理状态。"
+        }
+      ]
+    },
+    {
+      "id": "han-fei",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "多次向韩王上书未被采用，转而系统撰写《孤愤》《五蠹》《说难》等篇。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷63《老子韩非列传》"
+          },
+          "interpretation": "在政治受挫后把观察整理为制度化论证，可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "司马迁概括其著述经过，篇章归属和写作先后仍有文本学争议。"
+        },
+        {
+          "dimension": "A",
+          "event": "以法、术、势及君臣利害为治理核心，反复警惕私人情感和结党。",
+          "source": {
+            "title": "《韩非子》",
+            "kind": "本人著述汇编",
+            "url": "https://ctext.org/hanfeizi/zh",
+            "locator": "《二柄》《八奸》《五蠹》"
+          },
+          "interpretation": "对信任与情感合作持系统性怀疑，可支持较低协作共情（A）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "政治理论中的制度性不信任不能直接推出私人生活中的低共情。"
+        }
+      ]
+    },
+    {
+      "id": "sun-wu",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "以庙算、编制、号令和情报为作战前提，形成完整的兵学框架。",
+          "source": {
+            "title": "《孙子兵法》",
+            "kind": "传世兵学文献",
+            "url": "https://ctext.org/art-of-war/zh",
+            "locator": "《计篇》《谋攻篇》《用间篇》"
+          },
+          "interpretation": "强调预先计算与组织纪律，可支持很高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "《孙子》成书层累及作者是否为单一历史人物，学界仍有争论。"
+        },
+        {
+          "dimension": "R",
+          "event": "传统记载其受吴王任将并参与吴国西破强楚。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷65《孙子吴起列传》"
+          },
+          "interpretation": "在高风险战争中以克制和预判取胜，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "low",
+            "reason": "主要依赖后出轶事、文学化叙述或单一传统说法，只宜作为弱证据。"
+          },
+          "controversy": "孙武生平材料极少，吴宫教战及具体战功可能有后世塑造，不能强推人格。"
+        }
+      ]
+    },
+    {
+      "id": "shang-yang",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "在秦推行两次变法，并以徙木立信建立法令可执行性。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷68《商君列传》"
+          },
+          "interpretation": "持续推进成套制度并重视奖惩兑现，可支持极高结构执行（C）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "徙木故事具有示范叙事色彩，具体过程可能被史家压缩或文学化。"
+        },
+        {
+          "dimension": "A",
+          "event": "变法采用连坐、告奸与重刑等手段，以国家动员压倒私人关系。",
+          "source": {
+            "title": "《商君书》",
+            "kind": "法家著述汇编",
+            "url": "https://ctext.org/shang-jun-shu/zh",
+            "locator": "《赏刑》《境内》"
+          },
+          "interpretation": "制度上弱化关系性体谅，可支持很低协作共情（A）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "《商君书》并非全由商鞅亲作；严刑政策也不能直接代表其私人情感。"
+        }
+      ]
+    },
+    {
+      "id": "qu-yuan",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "在《天问》中连续追问宇宙、神话与历史秩序。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷84《屈原贾生列传》所录屈原作品及《楚辞》传统"
+          },
+          "interpretation": "以密集问题挑战既有解释，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "屈原作品的篇目归属与文本形成并非全部无争议。"
+        },
+        {
+          "dimension": "R",
+          "event": "遭放逐后长期以作品表达政治创伤，最终自沉汨罗。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷84《屈原贾生列传》"
+          },
+          "interpretation": "对价值冲突高度敏感且难以从政治失落中抽离，可支持较低复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "自沉动机由史传与文学传统共同塑造，不宜简化为单一心理原因。"
+        }
+      ]
+    },
+    {
+      "id": "qin-shihuang",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "统一后推行郡县、书同文、车同轨及度量衡整合。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷6《秦始皇本纪》"
+          },
+          "interpretation": "在大范围内推动标准化和行政整合，可支持极高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "制度并非一人独创，亦承接战国秦制和臣僚执行，个人贡献不宜无限放大。"
+        },
+        {
+          "dimension": "A",
+          "event": "以严刑、强制徭役和思想控制维护统一秩序。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷6《秦始皇本纪》、卷87《李斯列传》"
+          },
+          "interpretation": "政策将控制与国家目标置于个体代价之上，可支持较低协作共情（A）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "焚书坑儒的规模、对象和后世叙述均有争议，汉代史家也带有批秦立场。"
+        }
+      ]
+    },
+    {
+      "id": "liu-bang",
+      "evidenceChains": [
+        {
+          "dimension": "E",
+          "event": "在楚汉战争中持续吸纳张良、萧何、韩信、陈平等不同背景人才。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷8《高祖本纪》及相关世家列传"
+          },
+          "interpretation": "能主动结盟并让多种人才围绕共同目标协作，可支持很高外向驱动（E）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "成功者叙事容易把集团能力集中归于君主个人，需保留团队因素。"
+        },
+        {
+          "dimension": "R",
+          "event": "彭城大败等多次挫折后仍重组军队和联盟，最终赢得楚汉战争。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷8《高祖本纪》"
+          },
+          "interpretation": "在连续失败后迅速恢复行动并调整策略，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "复原既来自个人韧性，也依赖关中后勤与盟友支持，不能作纯心理归因。"
+        }
+      ]
+    },
+    {
+      "id": "xiang-yu",
+      "evidenceChains": [
+        {
+          "dimension": "E",
+          "event": "巨鹿之战前破釜沉舟，以正面决战击溃秦军主力。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷7《项羽本纪》"
+          },
+          "interpretation": "偏好高强度、公开和直接的行动方式，可支持极高外向驱动（E）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "破釜沉舟细节具有英雄叙事色彩，战果也属于集团军事行动。"
+        },
+        {
+          "dimension": "R",
+          "event": "垓下败亡后拒绝渡江重建力量，最终在乌江自刎。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷7《项羽本纪》"
+          },
+          "interpretation": "在身份与荣誉遭彻底打击时难以转入长期恢复，可支持较低复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "垓下歌、乌江对话经过文学加工，不能据此诊断真实情绪。"
+        }
+      ]
+    },
+    {
+      "id": "zhang-liang",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "在鸿门宴、入关与楚汉战争中多次提出间接而非常规的策略。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷55《留侯世家》"
+          },
+          "interpretation": "能重构局势并寻找非正面解法，可支持较高探索开放（O）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "史家可能把群体谋略集中到“帝王师”形象，具体建议归属未必都可核。"
+        },
+        {
+          "dimension": "R",
+          "event": "功成后主动淡出权力中心，并以辟谷学道表达退让。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷55《留侯世家》"
+          },
+          "interpretation": "能在高位后调整生活重心、降低权力依附，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "退隐可能同时是政治避险；辟谷叙述含神仙化色彩。"
+        }
+      ]
+    },
+    {
+      "id": "han-xin",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "井陉之战采用背水列阵并设奇兵拔赵营。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷92《淮阴侯列传》"
+          },
+          "interpretation": "在约束条件下设计反常规战法，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "战术细节由后来的史家整理，存在典型化名将叙事。"
+        },
+        {
+          "dimension": "A",
+          "event": "在齐地要求封王，后又卷入谋反指控，与刘邦集团的信任持续破裂。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷92《淮阴侯列传》"
+          },
+          "interpretation": "政治关系中更重功业交换而非稳定互信，可作为较低协作共情（A）的有限证据。",
+          "confidence": {
+            "level": "low",
+            "reason": "主要依赖后出轶事、文学化叙述或单一传统说法，只宜作为弱证据。"
+          },
+          "controversy": "谋反案真相与吕后、萧何角色争议很大，不能把政治失败简化为人格缺陷。"
+        }
+      ]
+    },
+    {
+      "id": "xiao-he",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "秦亡时优先接收丞相御史的律令、图书和户籍，而非争夺财物。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷53《萧相国世家》"
+          },
+          "interpretation": "优先保存制度信息与治理基础，可支持极高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "此事具有“识大体”的传记塑形，但与其后勤治理角色相互印证。"
+        },
+        {
+          "dimension": "R",
+          "event": "楚汉战争期间留守关中，持续补充兵员、粮饷并稳定后方。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷53《萧相国世家》"
+          },
+          "interpretation": "在长期战争中维持系统连续性，可支持很高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "成效依赖关中资源、官僚网络和团队，不应全归为个人特质。"
+        }
+      ]
+    },
+    {
+      "id": "sima-qian",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "继承父志，长期搜集、编排并完成贯通数千年的《史记》。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷130《太史公自序》"
+          },
+          "interpretation": "跨多年维持庞大资料工程，可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "今本含后人补写，不能把全部篇章都无条件视为司马迁原稿。"
+        },
+        {
+          "dimension": "O",
+          "event": "早年游历多地访察遗迹，后以本纪、表、书、世家、列传统合不同类型材料。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷130《太史公自序》"
+          },
+          "interpretation": "跨地域搜集并用多重结构解释历史，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "自序有建立作者权威的目的，行旅范围与材料取得过程并非都能独立核验。"
+        }
+      ]
+    },
+    {
+      "id": "ban-zhao",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "在班固去世后奉诏续成《汉书》未竟部分，并参与校书。",
+          "source": {
+            "title": "《后汉书》",
+            "kind": "纪传体史书（南朝宋）",
+            "url": "https://zh.wikisource.org/wiki/後漢書",
+            "locator": "卷84《列女传·曹世叔妻》"
+          },
+          "interpretation": "接续大型史学工程并完成编校，可支持很高结构执行（C）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "她具体续写哪些篇章存在不同说法，不能把全书后期工作都归于一人。"
+        },
+        {
+          "dimension": "A",
+          "event": "入宫教授皇后与贵人，并以文字处理家庭和宫廷关系规范。",
+          "source": {
+            "title": "《后汉书》",
+            "kind": "纪传体史书（南朝宋）",
+            "url": "https://zh.wikisource.org/wiki/後漢書",
+            "locator": "卷84《列女传·曹世叔妻》"
+          },
+          "interpretation": "长期承担教学与关系协调角色，可支持较高协作共情（A）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "《女诫》的服从伦理今日争议很大，“关系协调”不等于现代平等意义的高共情。"
+        }
+      ]
+    },
+    {
+      "id": "zhang-qian",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "奉命出使大月氏，突破汉朝既有地理认知并带回西域信息。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷123《大宛列传》"
+          },
+          "interpretation": "主动进入陌生环境并扩展知识边界，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "“凿空”是后世概括，西域交流在他之前已存在，不能写成单人发现。"
+        },
+        {
+          "dimension": "R",
+          "event": "被匈奴扣留多年后仍逃出继续使命，回国后又再度出使。",
+          "source": {
+            "title": "《汉书》",
+            "kind": "纪传体史书（东汉）",
+            "url": "https://zh.wikisource.org/wiki/漢書",
+            "locator": "卷61《张骞李广利传》"
+          },
+          "interpretation": "长期受困后仍恢复并完成任务，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "扣留年数与路线细节主要来自正史整合，部分过程缺少独立材料。"
+        }
+      ]
+    },
+    {
+      "id": "huo-qubing",
+      "evidenceChains": [
+        {
+          "dimension": "E",
+          "event": "多次率骑兵长途突袭河西与漠北，偏好高速主动进攻。",
+          "source": {
+            "title": "《史记》",
+            "kind": "纪传体史书（西汉）",
+            "url": "https://zh.wikisource.org/wiki/史記",
+            "locator": "卷111《卫将军骠骑列传》"
+          },
+          "interpretation": "高频率发起高风险行动，可支持很高外向驱动（E）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "战果属于军队与汉廷资源体系，个人英雄化会遮蔽集体因素。"
+        },
+        {
+          "dimension": "R",
+          "event": "在远距离、补给困难的战场连续作战并保持进攻节奏。",
+          "source": {
+            "title": "《汉书》",
+            "kind": "纪传体史书（东汉）",
+            "url": "https://zh.wikisource.org/wiki/漢書",
+            "locator": "卷55《卫青霍去病传》"
+          },
+          "interpretation": "在高压环境下保持行动稳定，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "“匈奴未灭，无以家为”等名言有传记塑形，不能作为单独心理证据。"
+        }
+      ]
+    },
+    {
+      "id": "cao-cao",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "推行屯田并发布求贤令，以非常规身份标准吸纳人才。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷1《魏书·武帝纪》及裴注所引令文"
+          },
+          "interpretation": "在战争治理中试用新制度并突破门第标准，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "政策由整个幕府设计执行，令文也带有政治宣传目的。"
+        },
+        {
+          "dimension": "C",
+          "event": "在长期割据战争中持续整合军政、法令与后勤体系。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷1《魏书·武帝纪》"
+          },
+          "interpretation": "能把多战线资源纳入稳定组织，可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "《三国志》以魏为正统，成功叙事可能弱化战争中的暴力与失败。"
+        }
+      ]
+    },
+    {
+      "id": "lu-bu",
+      "evidenceChains": [
+        {
+          "dimension": "E",
+          "event": "以骑射与个人武勇著称，多次直接参与高风险战斗。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷7《魏书·吕布张邈臧洪传》"
+          },
+          "interpretation": "高度依赖现场行动和个人存在感，可支持很高外向驱动（E）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "“飞将”等称号带有类型化英雄叙事，不能直接量化外向性。"
+        },
+        {
+          "dimension": "C",
+          "event": "先后背离丁原、董卓及多个盟友，势力经营缺乏长期稳定。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷7《魏书·吕布张邈臧洪传》"
+          },
+          "interpretation": "反复改变承诺并难以维持组织，可支持较低结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "乱世换盟也有生存理性；魏方史书可能强化其“反复无常”形象。"
+        }
+      ]
+    },
+    {
+      "id": "liu-bei",
+      "evidenceChains": [
+        {
+          "dimension": "A",
+          "event": "曹军南下时，荆州大量民众随行，刘备在军事危险下仍未立即弃众疾行。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷32《蜀书·先主传》"
+          },
+          "interpretation": "维持关系承诺并形成强烈追随，可支持很高协作共情（A）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "携民既可能出于仁义，也可能包含政治与兵源考虑，人数和动机不宜单解。"
+        },
+        {
+          "dimension": "R",
+          "event": "经历徐州、袁绍集团、荆州等多次失地和依附后仍重建势力。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷32《蜀书·先主传》"
+          },
+          "interpretation": "在长期失败与迁徙中持续恢复组织，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "复原依赖关羽、张飞、诸葛亮等团队及外部盟友，不是纯个人能力。"
+        }
+      ]
+    },
+    {
+      "id": "sun-quan",
+      "evidenceChains": [
+        {
+          "dimension": "R",
+          "event": "青年继承江东后在曹操、刘备及内部势力之间长期维持政权。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷47《吴书·吴主传》"
+          },
+          "interpretation": "在多方压力下保持战略连续性，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "晚年继承人之争显示其稳定性并非始终一致，应限制结论范围。"
+        },
+        {
+          "dimension": "C",
+          "event": "通过周瑜、鲁肃、吕蒙、陆逊等分工经营军事与外交。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷47《吴主传》及卷54—58相关列传"
+          },
+          "interpretation": "能持续配置不同类型人才并维护区域政权，可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "用人结果也受江东士族结构影响，不能只归因于个人组织能力。"
+        }
+      ]
+    },
+    {
+      "id": "zhuge-liang",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "入蜀后主持政务、法令与后勤，并在北伐中持续组织远征。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷35《蜀书·诸葛亮传》"
+          },
+          "interpretation": "长期维持行政与军事计划，可支持极高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "《三国志》对其治政评价很高，但北伐成效和法政代价历来有争论。"
+        },
+        {
+          "dimension": "O",
+          "event": "隆中对提出跨地区联盟与分阶段竞争的整体方案。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷35《诸葛亮传》所录《隆中对》"
+          },
+          "interpretation": "能把分散局势重构为长期战略模型，可支持较高探索开放（O）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "文本形成、谈话原貌以及后见之明成分存在争议。"
+        }
+      ]
+    },
+    {
+      "id": "sima-yi",
+      "evidenceChains": [
+        {
+          "dimension": "R",
+          "event": "五丈原对峙期间拒绝因诸葛亮挑战而仓促决战，维持防守等待。",
+          "source": {
+            "title": "《晋书》",
+            "kind": "纪传体史书（唐修）",
+            "url": "https://zh.wikisource.org/wiki/晉書",
+            "locator": "卷1《宣帝纪》"
+          },
+          "interpretation": "能承受挑衅并延迟行动，可支持很高复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "《晋书》为司马氏王朝祖先立传，可能把谨慎塑造成天命式深谋。"
+        },
+        {
+          "dimension": "C",
+          "event": "长期隐藏政治意图，最终在高平陵之变中迅速完成权力接管。",
+          "source": {
+            "title": "《晋书》",
+            "kind": "纪传体史书（唐修）",
+            "url": "https://zh.wikisource.org/wiki/晉書",
+            "locator": "卷1《宣帝纪》"
+          },
+          "interpretation": "长期准备与关键时点执行结合，可支持很高结构执行（C）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "装病、受辱等细节多由胜利者史观串联，真实动机难以复原。"
+        }
+      ]
+    },
+    {
+      "id": "zhou-yu",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "赤壁战前分析曹军弱点，并统筹水军与盟军作战。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷54《吴书·周瑜鲁肃吕蒙传》"
+          },
+          "interpretation": "将情报、联盟和战术纳入统一计划，可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "赤壁是多方协作结果，后世分别夸大诸葛亮或周瑜的单人贡献。"
+        },
+        {
+          "dimension": "E",
+          "event": "主动请战并在前线担任联军主要指挥。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷54《吴书·周瑜传》"
+          },
+          "interpretation": "偏向公开承担和高互动指挥，可支持较高外向驱动（E）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "统帅角色要求外显行动，但职业行为不等同于日常外向人格。"
+        }
+      ]
+    },
+    {
+      "id": "lu-su",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "早期即向孙权提出江东自立并联刘抗曹的长期格局判断。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷54《吴书·鲁肃传》"
+          },
+          "interpretation": "能跳出局部得失构想多方结构，可支持较高探索开放（O）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "榻上策文本可能经传主塑形，与后来的局势存在后见之明问题。"
+        },
+        {
+          "dimension": "A",
+          "event": "持续推动孙刘联盟，并通过谈判处理荆州等高冲突议题。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷54《吴书·鲁肃传》"
+          },
+          "interpretation": "重视合作框架并愿以让步换取共同安全，可支持很高协作共情（A）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "“借荆州”的法律与地缘含义历来有争议，不能简化为个人慷慨。"
+        }
+      ]
+    },
+    {
+      "id": "guan-yu",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "受曹操厚待后仍封存赏赐、留下书信并返回刘备集团。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷36《蜀书·关张马黄赵传》"
+          },
+          "interpretation": "长期承诺高于即时利益，可支持较高结构执行（C）中的原则一致性。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "忠义叙事被后世宗教与文学大幅强化，正史材料也有道德塑形。"
+        },
+        {
+          "dimension": "R",
+          "event": "镇守荆州多年并发动襄樊战役，曾水淹七军、威震华夏。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷36《关羽传》"
+          },
+          "interpretation": "在长期边区压力下维持军事行动，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "最终失荆州说明其判断与联盟管理有明显局限，不能只取胜绩。"
+        }
+      ]
+    },
+    {
+      "id": "zhao-yun",
+      "evidenceChains": [
+        {
+          "dimension": "R",
+          "event": "长坂败退时返回战场护送刘禅与甘夫人。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷36《赵云传》裴注引《云别传》"
+          },
+          "interpretation": "在溃败环境下保持任务导向，可支持很高复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "关键细节来自《云别传》，其成书与美化倾向使可信度低于本传。"
+        },
+        {
+          "dimension": "C",
+          "event": "汉水战后整顿营垒、约束追击，并因军纪获得称许。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷36《赵云传》裴注引《云别传》"
+          },
+          "interpretation": "危机中保持编制和行动纪律，可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "low",
+            "reason": "主要依赖后出轶事、文学化叙述或单一传统说法，只宜作为弱证据。"
+          },
+          "controversy": "“空营计”式叙事具有名将故事结构，且主要依赖较晚材料。"
+        }
+      ]
+    },
+    {
+      "id": "ma-chao",
+      "evidenceChains": [
+        {
+          "dimension": "E",
+          "event": "关中联军起兵并在潼关与曹操正面交战。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷36《蜀书·马超传》及裴注"
+          },
+          "interpretation": "偏向快速聚众与高风险对抗，可支持很高外向驱动（E）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "起兵背景涉及关中军阀的共同安全困境，不宜简化为个人冲动。"
+        },
+        {
+          "dimension": "A",
+          "event": "多次更换联盟，起兵又使留在邺城的父族遭诛。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷36《马超传》及裴注引《典略》"
+          },
+          "interpretation": "政治选择中把军事机会置于亲族与稳定互信之前，可支持较低协作共情（A）。",
+          "confidence": {
+            "level": "low",
+            "reason": "主要依赖后出轶事、文学化叙述或单一传统说法，只宜作为弱证据。"
+          },
+          "controversy": "马腾入朝与起兵的因果、责任归属复杂，魏方材料可能强化负面评价。"
+        }
+      ]
+    },
+    {
+      "id": "cao-zhi",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "在建安文学群体中持续创作赋、诗与书表，题材和形式变化丰富。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷19《魏书·陈思王植传》"
+          },
+          "interpretation": "高密度创造性表达可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "文学创造力与一般经验开放相关但不等同，不能由名篇直接量化人格。"
+        },
+        {
+          "dimension": "R",
+          "event": "继承竞争失败后屡遭迁封限制，持续上表求用并表达压抑。",
+          "source": {
+            "title": "《三国志》及裴松之注",
+            "kind": "纪传体史书与早期注引",
+            "url": "https://zh.wikisource.org/wiki/三國志",
+            "locator": "卷19《陈思王植传》"
+          },
+          "interpretation": "长期政治受限对其情绪与行动产生明显影响，可支持较低复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "悲情形象也由作品修辞与后世“七步诗”传说放大。"
+        }
+      ]
+    },
+    {
+      "id": "tao-yuanming",
+      "evidenceChains": [
+        {
+          "dimension": "E",
+          "event": "任彭泽令不久辞官归田，此后不再以仕途为生活中心。",
+          "source": {
+            "title": "《陶渊明集》",
+            "kind": "本人诗文集",
+            "url": "https://zh.wikisource.org/wiki/陶淵明集",
+            "locator": "《归去来兮辞并序》"
+          },
+          "interpretation": "主动退出高社交与权力环境，可支持较低外向驱动（E）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "“不为五斗米折腰”来自后出传记；本人序文更可靠但同样有自我塑形。"
+        },
+        {
+          "dimension": "R",
+          "event": "归隐后经历贫困、火灾和劳作，仍持续写作并维持价值选择。",
+          "source": {
+            "title": "《陶渊明集》",
+            "kind": "本人诗文集",
+            "url": "https://zh.wikisource.org/wiki/陶淵明集",
+            "locator": "《归园田居》《乞食》《怨诗楚调示庞主簿邓治中》"
+          },
+          "interpretation": "在物质困难中维持自我一致，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "诗中的贫困与旷达都有文学表达成分，不能忽视真实生活压力和摇摆。"
+        }
+      ]
+    },
+    {
+      "id": "ji-kang",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "以《与山巨源绝交书》公开拒绝仕进，并重估礼法、养生与个体自由。",
+          "source": {
+            "title": "《晋书》",
+            "kind": "纪传体史书（唐修）",
+            "url": "https://zh.wikisource.org/wiki/晉書",
+            "locator": "卷49《嵇康传》及所录书文"
+          },
+          "interpretation": "主动挑战主流仕途与礼法预期，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "书信含立场辩护和修辞夸张，不能逐句当作生活记录。"
+        },
+        {
+          "dimension": "A",
+          "event": "因吕安案和与钟会冲突被司马昭处死，始终不愿进入权力合作网络。",
+          "source": {
+            "title": "《晋书》",
+            "kind": "纪传体史书（唐修）",
+            "url": "https://zh.wikisource.org/wiki/晉書",
+            "locator": "卷49《嵇康传》"
+          },
+          "interpretation": "对妥协性合作的拒斥可支持较低协作共情（A）的“原则优先”一端。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "政治迫害不能反推受害者缺乏共情；这里描述的是合作风格而非道德评价。"
+        }
+      ]
+    },
+    {
+      "id": "ruan-ji",
+      "evidenceChains": [
+        {
+          "dimension": "R",
+          "event": "据称以连续醉酒回避司马昭为儿子求婚，从而避开直接政治表态。",
+          "source": {
+            "title": "《晋书》",
+            "kind": "纪传体史书（唐修）",
+            "url": "https://zh.wikisource.org/wiki/晉書",
+            "locator": "卷49《阮籍传》"
+          },
+          "interpretation": "在高压政治中采用间接方式保全自己，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "醉酒避婚具有轶事化结构，具体天数与动机可能被文学加工。"
+        },
+        {
+          "dimension": "E",
+          "event": "减少公开政治表达，以饮酒、独驾和诗文维持边界。",
+          "source": {
+            "title": "《晋书》",
+            "kind": "纪传体史书（唐修）",
+            "url": "https://zh.wikisource.org/wiki/晉書",
+            "locator": "卷49《阮籍传》及《咏怀诗》传统"
+          },
+          "interpretation": "长期回避高暴露社交与权力表态，可支持较低外向驱动（E）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "沉默主要是政治策略，不能直接等同于稳定的内向人格。"
+        }
+      ]
+    },
+    {
+      "id": "liu-ling",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "以纵酒、任性和对礼法秩序的公开戏谑形成著名形象。",
+          "source": {
+            "title": "《晋书》",
+            "kind": "纪传体史书（唐修）",
+            "url": "https://zh.wikisource.org/wiki/晉書",
+            "locator": "卷49《刘伶传》"
+          },
+          "interpretation": "主动拒绝常规日程和社会规范，可支持较低结构执行（C）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "正史沿用名士轶事，放达形象可能是群体自我表演和后世类型化。"
+        },
+        {
+          "dimension": "E",
+          "event": "轶事称其常乘鹿车携酒，使人荷锸相随，强调脱离正式社交角色。",
+          "source": {
+            "title": "《世说新语》",
+            "kind": "人物轶事集（南朝宋）",
+            "url": "https://zh.wikisource.org/wiki/世說新語",
+            "locator": "《任诞》刘伶相关条目"
+          },
+          "interpretation": "远离制度化交往并沉入私人状态，可支持较低外向驱动（E）。",
+          "confidence": {
+            "level": "low",
+            "reason": "主要依赖后出轶事、文学化叙述或单一传统说法，只宜作为弱证据。"
+          },
+          "controversy": "《世说新语》重人物风神而非事实考证，此条只宜解释文化原型。"
+        }
+      ]
+    },
+    {
+      "id": "tang-taizong",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "即位后长期容纳魏征等人逆耳进谏，并据此调整部分政策。",
+          "source": {
+            "title": "《资治通鉴》",
+            "kind": "编年体史书（北宋）",
+            "url": "https://zh.wikisource.org/wiki/資治通鑑",
+            "locator": "唐纪贞观年间魏征进谏诸条"
+          },
+          "interpretation": "能接纳与自身冲突的信息，可支持较高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "“贞观之治”叙事有理想君臣范式，纳谏并非始终如一。"
+        },
+        {
+          "dimension": "C",
+          "event": "完成统一战争后重建官僚、法律和财政秩序。",
+          "source": {
+            "title": "《旧唐书》",
+            "kind": "纪传体史书（后晋修）",
+            "url": "https://zh.wikisource.org/wiki/舊唐書",
+            "locator": "卷2—3《太宗本纪》"
+          },
+          "interpretation": "能从战争动员切换到长期治理，可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "治理成果来自房玄龄、杜如晦等群体，帝王本纪容易集中功绩。"
+        }
+      ]
+    },
+    {
+      "id": "wu-zetian",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "从后宫、皇后、太后到称帝，持续重组官僚与监察体系。",
+          "source": {
+            "title": "《资治通鉴》",
+            "kind": "编年体史书（北宋）",
+            "url": "https://zh.wikisource.org/wiki/資治通鑑",
+            "locator": "唐纪高宗后期至武周时期"
+          },
+          "interpretation": "长期经营权力并维持行政运作，可支持极高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "传统史家多持反女性称帝立场，酷吏与政绩叙述都需辨析。"
+        },
+        {
+          "dimension": "R",
+          "event": "在感业寺、后宫竞争和政治清洗等多轮风险中重返并掌握最高权力。",
+          "source": {
+            "title": "《新唐书》",
+            "kind": "纪传体史书（北宋修）",
+            "url": "https://zh.wikisource.org/wiki/新唐書",
+            "locator": "卷4《则天皇后本纪》及相关列传"
+          },
+          "interpretation": "在极端不确定环境下持续恢复并调整策略，可支持很高复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "本纪以结果串联动机，容易形成“早有称帝计划”的后见叙事。"
+        }
+      ]
+    },
+    {
+      "id": "shangguan-waner",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "长期起草诏令并参与宫廷文学评判，使政治文书与文学活动交叠。",
+          "source": {
+            "title": "《新唐书》",
+            "kind": "纪传体史书（北宋修）",
+            "url": "https://zh.wikisource.org/wiki/新唐書",
+            "locator": "卷76《后妃传》上官昭容条"
+          },
+          "interpretation": "能在多种文体和政治语境间切换，可支持较高探索开放（O）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "正史将其置于后妃类，政治角色与文学贡献都可能被性别化叙述。"
+        },
+        {
+          "dimension": "C",
+          "event": "经历武周、中宗复位等权力转换仍长期承担制诰工作。",
+          "source": {
+            "title": "《旧唐书》",
+            "kind": "纪传体史书（后晋修）",
+            "url": "https://zh.wikisource.org/wiki/舊唐書",
+            "locator": "卷51《后妃传》上官昭容条"
+          },
+          "interpretation": "在高风险制度环境中维持复杂文书职责，可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "墓志与两《唐书》对其政治立场存在差异，不能写成单线忠奸故事。"
+        }
+      ]
+    },
+    {
+      "id": "wei-zheng",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "在贞观时期反复以制度、财政和用人原则纠正皇帝决策。",
+          "source": {
+            "title": "《旧唐书》",
+            "kind": "纪传体史书（后晋修）",
+            "url": "https://zh.wikisource.org/wiki/舊唐書",
+            "locator": "卷71《魏征传》"
+          },
+          "interpretation": "持续使用明确标准而非随人应变，可支持很高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "进谏文本多经史官整理，成功案例更易被保留。"
+        },
+        {
+          "dimension": "R",
+          "event": "面对最高权力仍多次直谏，并承受皇帝震怒风险。",
+          "source": {
+            "title": "《资治通鉴》",
+            "kind": "编年体史书（北宋）",
+            "url": "https://zh.wikisource.org/wiki/資治通鑑",
+            "locator": "唐纪贞观年间魏征进谏诸条"
+          },
+          "interpretation": "在高权力压力下保持表达，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "君臣“纳谏—受谏”被后世典范化，实际互动可能更复杂。"
+        }
+      ]
+    },
+    {
+      "id": "di-renjie",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "任大理丞时集中处理积案，后在多地承担司法与行政职责。",
+          "source": {
+            "title": "《新唐书》",
+            "kind": "纪传体史书（北宋修）",
+            "url": "https://zh.wikisource.org/wiki/新唐書",
+            "locator": "卷115《狄仁杰传》"
+          },
+          "interpretation": "能在高负荷下维持判断与程序，可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "“一年断狱万七千人”等数字可能是传记夸饰，不宜照单全收。"
+        },
+        {
+          "dimension": "A",
+          "event": "在武则天时期举荐张柬之等人才，并多次为被诬者申救。",
+          "source": {
+            "title": "《旧唐书》",
+            "kind": "纪传体史书（后晋修）",
+            "url": "https://zh.wikisource.org/wiki/舊唐書",
+            "locator": "卷89《狄仁杰传》"
+          },
+          "interpretation": "关注他人处境并建立跨人际信任，可支持较高协作共情（A）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "后世“狄公案”小说塑造远超正史，必须与史料中的狄仁杰区分。"
+        }
+      ]
+    },
+    {
+      "id": "guo-ziyi",
+      "evidenceChains": [
+        {
+          "dimension": "R",
+          "event": "安史之乱后多次重整军队、收复两京，并处理吐蕃等后续危机。",
+          "source": {
+            "title": "《旧唐书》",
+            "kind": "纪传体史书（后晋修）",
+            "url": "https://zh.wikisource.org/wiki/舊唐書",
+            "locator": "卷120《郭子仪传》"
+          },
+          "interpretation": "在长期战争和政治猜疑中保持行动稳定，可支持很高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "传记有“再造王室”的功臣典范色彩，具体功劳需放回联军结构。"
+        },
+        {
+          "dimension": "A",
+          "event": "泾阳对回纥时亲自出营交涉，重新建立合作并避免立即交战。",
+          "source": {
+            "title": "《资治通鉴》",
+            "kind": "编年体史书（北宋）",
+            "url": "https://zh.wikisource.org/wiki/資治通鑑",
+            "locator": "唐纪代宗永泰元年泾阳之会"
+          },
+          "interpretation": "在敌对边缘重建信任，可支持较高协作共情（A）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "单骑见回纥的英雄化细节可能被放大，外交成功也有共同利益基础。"
+        }
+      ]
+    },
+    {
+      "id": "li-bai",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "长期游历多地并在诗歌中大量使用跨地域、神话和想象视角。",
+          "source": {
+            "title": "《全唐诗》",
+            "kind": "清编唐诗总集",
+            "url": "https://zh.wikisource.org/wiki/全唐詩",
+            "locator": "卷161—185李白诗"
+          },
+          "interpretation": "广泛经验输入与高强度想象可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "诗歌主体是艺术建构，不应把所有“我”都直接当作传记事实。"
+        },
+        {
+          "dimension": "C",
+          "event": "短暂供奉翰林后离开长安，仕途和生活长期保持流动。",
+          "source": {
+            "title": "《新唐书》",
+            "kind": "纪传体史书（北宋修）",
+            "url": "https://zh.wikisource.org/wiki/新唐書",
+            "locator": "卷202《文艺传·李白》"
+          },
+          "interpretation": "不适应持续官僚程序与固定角色，可支持较低结构执行（C）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "“力士脱靴”等故事多有传奇化，离职也涉及宫廷政治而非单纯散漫。"
+        }
+      ]
+    },
+    {
+      "id": "du-fu",
+      "evidenceChains": [
+        {
+          "dimension": "A",
+          "event": "安史之乱及漂泊期间持续记录战乱、征役、饥饿与普通家庭处境。",
+          "source": {
+            "title": "《全唐诗》",
+            "kind": "清编唐诗总集",
+            "url": "https://zh.wikisource.org/wiki/全唐詩",
+            "locator": "卷216—234杜甫诗，尤《三吏》《三别》"
+          },
+          "interpretation": "反复把注意力放在他人苦难和公共后果上，可支持很高协作共情（A）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "诗歌具有艺术选择和儒家公共话语，不等同于直接心理测量。"
+        },
+        {
+          "dimension": "C",
+          "event": "在长期迁徙和贫病中保持高密度写作与精细格律实践。",
+          "source": {
+            "title": "《全唐诗》",
+            "kind": "清编唐诗总集",
+            "url": "https://zh.wikisource.org/wiki/全唐詩",
+            "locator": "卷216—234杜甫诗"
+          },
+          "interpretation": "持续修订与形式控制可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "作品留存量受后世编纂影响，创作纪律只能间接推断。"
+        }
+      ]
+    },
+    {
+      "id": "wang-wei",
+      "evidenceChains": [
+        {
+          "dimension": "E",
+          "event": "中晚年经营辋川别业并深化佛教实践，把独处和静观写入大量作品。",
+          "source": {
+            "title": "《全唐诗》",
+            "kind": "清编唐诗总集",
+            "url": "https://zh.wikisource.org/wiki/全唐詩",
+            "locator": "卷125—128王维诗"
+          },
+          "interpretation": "稳定偏好低刺激、内向的恢复方式，可支持较低外向驱动（E）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "山水诗中的静观是审美策略，官场中的王维也并非完全退隐。"
+        },
+        {
+          "dimension": "R",
+          "event": "安史乱中被迫接受伪职，乱平后凭申辩、旧作与家人援助免于重罚。",
+          "source": {
+            "title": "《旧唐书》",
+            "kind": "纪传体史书（后晋修）",
+            "url": "https://zh.wikisource.org/wiki/舊唐書",
+            "locator": "卷190下《文苑传·王维》"
+          },
+          "interpretation": "在政治创伤后重新进入生活与创作，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "是否“被迫”及凝碧池诗的作用由唐廷审判叙事塑造，责任评价有争议。"
+        }
+      ]
+    },
+    {
+      "id": "xuanzang",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "在禁边背景下西行，跨越中亚与印度求取佛教原典并记录见闻。",
+          "source": {
+            "title": "《大唐大慈恩寺三藏法师传》",
+            "kind": "佛教传记（唐）",
+            "url": "https://cbetaonline.dila.edu.tw/zh/T2053",
+            "locator": "卷1—5西行求法部分"
+          },
+          "interpretation": "持续进入陌生知识与文化环境，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "传记具有高僧神异与护法叙事，路线事实较强，神迹细节应降权。"
+        },
+        {
+          "dimension": "C",
+          "event": "归国后主持大规模译场，组织译经、校勘和术语统一。",
+          "source": {
+            "title": "《大唐大慈恩寺三藏法师传》",
+            "kind": "佛教传记（唐）",
+            "url": "https://cbetaonline.dila.edu.tw/zh/T2053",
+            "locator": "卷6—10归国译经部分"
+          },
+          "interpretation": "把跨语言知识转化为长期协作工程，可支持很高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "译场成果来自庞大团队与国家资源，不能全部个人化。"
+        }
+      ]
+    },
+    {
+      "id": "fan-zhongyan",
+      "evidenceChains": [
+        {
+          "dimension": "A",
+          "event": "在地方赈济、教育和义庄等事务中持续投入公共资源。",
+          "source": {
+            "title": "《宋史》",
+            "kind": "纪传体史书（元修）",
+            "url": "https://zh.wikisource.org/wiki/宋史",
+            "locator": "卷314《范仲淹传》"
+          },
+          "interpretation": "把制度责任指向更广泛群体福祉，可支持较高协作共情（A）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "“先忧后乐”后世符号化明显，需同时看具体政策成效。"
+        },
+        {
+          "dimension": "C",
+          "event": "主持庆历新政，提出整顿官僚、教育和考课的成套方案。",
+          "source": {
+            "title": "《宋史》",
+            "kind": "纪传体史书（元修）",
+            "url": "https://zh.wikisource.org/wiki/宋史",
+            "locator": "卷314《范仲淹传》"
+          },
+          "interpretation": "偏好用制度流程处理长期治理问题，可支持很高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "新政持续时间短、政治阻力大，执行能力与改革结果不能混为一谈。"
+        }
+      ]
+    },
+    {
+      "id": "wang-anshi",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "推动青苗、免役、保甲、学校等新法，试图重构财政与基层治理。",
+          "source": {
+            "title": "《宋史》",
+            "kind": "纪传体史书（元修）",
+            "url": "https://zh.wikisource.org/wiki/宋史",
+            "locator": "卷327《王安石传》"
+          },
+          "interpretation": "愿意挑战既有制度并进行系统实验，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "《宋史》承接反新法立场，新法实际效果与责任归属至今争论很大。"
+        },
+        {
+          "dimension": "C",
+          "event": "以条例司和分项法令持续推进改革，并长期维护政策逻辑。",
+          "source": {
+            "title": "《宋史》",
+            "kind": "纪传体史书（元修）",
+            "url": "https://zh.wikisource.org/wiki/宋史",
+            "locator": "卷327《王安石传》"
+          },
+          "interpretation": "高度重视制度一致性和执行链条，可支持很高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "坚持也可能表现为信息封闭；高 C 不等于政策一定正确。"
+        }
+      ]
+    },
+    {
+      "id": "sima-guang",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "主持编纂《资治通鉴》多年，组织刘攽、刘恕、范祖禹等进行长时段考订。",
+          "source": {
+            "title": "《资治通鉴》",
+            "kind": "编年体史书（北宋）",
+            "url": "https://zh.wikisource.org/wiki/資治通鑑",
+            "locator": "《进资治通鉴表》及全书编纂传统"
+          },
+          "interpretation": "维持大型考证和编排工程，可支持极高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "成果属于团队协作，不能将全部考订能力归于主编个人。"
+        },
+        {
+          "dimension": "O",
+          "event": "长期反对王安石新法，主张在既有秩序内审慎调整。",
+          "source": {
+            "title": "《宋史》",
+            "kind": "纪传体史书（元修）",
+            "url": "https://zh.wikisource.org/wiki/宋史",
+            "locator": "卷336《司马光传》"
+          },
+          "interpretation": "对高风险制度实验持保留，可作为较低探索开放（O）的政策证据。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "政治上的保守不等于知识上的封闭；其史学考证本身需要很强认知开放。"
+        }
+      ]
+    },
+    {
+      "id": "su-shi",
+      "evidenceChains": [
+        {
+          "dimension": "R",
+          "event": "乌台诗案后被贬黄州，此后又历惠州、儋州，仍持续写作和参与地方事务。",
+          "source": {
+            "title": "《宋史》",
+            "kind": "纪传体史书（元修）",
+            "url": "https://zh.wikisource.org/wiki/宋史",
+            "locator": "卷338《苏轼传》"
+          },
+          "interpretation": "在反复贬谪中重建生活结构，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "旷达形象不应遮蔽其书信与诗文中真实的恐惧、疾病和困顿。"
+        },
+        {
+          "dimension": "O",
+          "event": "在诗、词、文、书画与经学间跨界创作，并不断改造既有文体。",
+          "source": {
+            "title": "《东坡全集》",
+            "kind": "本人诗文集",
+            "url": "https://zh.wikisource.org/wiki/東坡全集",
+            "locator": "诗、词、策论与书札各卷"
+          },
+          "interpretation": "跨领域迁移和创造可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "艺术多样性是开放性的间接证据，不能据此概括所有生活决策。"
+        }
+      ]
+    },
+    {
+      "id": "yue-fei",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "长期训练并约束岳家军，强调编制、军纪与补给。",
+          "source": {
+            "title": "《宋史》",
+            "kind": "纪传体史书（元修）",
+            "url": "https://zh.wikisource.org/wiki/宋史",
+            "locator": "卷365《岳飞传》"
+          },
+          "interpretation": "在战争中维持高标准组织纪律，可支持极高结构执行（C）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "“冻死不拆屋”等军纪名句带有忠烈传记的理想化色彩。"
+        },
+        {
+          "dimension": "R",
+          "event": "在多次撤军、调任和政治压力中持续重建部队并发动北伐。",
+          "source": {
+            "title": "《宋史》",
+            "kind": "纪传体史书（元修）",
+            "url": "https://zh.wikisource.org/wiki/宋史",
+            "locator": "卷365《岳飞传》"
+          },
+          "interpretation": "在长期外部阻力下保持任务投入，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "宋金战争责任和十二道金牌等细节被后世通俗叙事简化，需与原始诏令区分。"
+        }
+      ]
+    },
+    {
+      "id": "xin-qiji",
+      "evidenceChains": [
+        {
+          "dimension": "E",
+          "event": "青年时率众参加北方起义，并突入敌营擒回叛将张安国。",
+          "source": {
+            "title": "《宋史》",
+            "kind": "纪传体史书（元修）",
+            "url": "https://zh.wikisource.org/wiki/宋史",
+            "locator": "卷401《辛弃疾传》"
+          },
+          "interpretation": "主动发起高风险行动并带动群体，可支持很高外向驱动（E）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "突营人数和过程具有英雄传记色彩，细节缺少多源互证。"
+        },
+        {
+          "dimension": "O",
+          "event": "南归后撰《美芹十论》《九议》，从军事、地理和治理多角度提出恢复方案。",
+          "source": {
+            "title": "《宋史》",
+            "kind": "纪传体史书（元修）",
+            "url": "https://zh.wikisource.org/wiki/宋史",
+            "locator": "卷401《辛弃疾传》"
+          },
+          "interpretation": "能将经验转化为多层次战略设想，可支持较高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "方案未被完整实践，文本中的可行性与作者自我定位需分开评价。"
+        }
+      ]
+    },
+    {
+      "id": "li-qingzhao",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "与赵明诚长期搜集、校勘金石，并撰写具有明确批评标准的词论与后序。",
+          "source": {
+            "title": "李清照《金石录后序》",
+            "kind": "本人自述",
+            "url": "https://zh.wikisource.org/zh-hant/Author%3A%E6%9D%8E%E6%B8%85%E7%85%A7",
+            "locator": "《金石录后序》搜集、校勘与编目部分"
+          },
+          "interpretation": "在文学与金石学间进行比较、辨伪，可支持较高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "《宋史》对李清照记载很少，主要依赖本人后序与作品，传记拼接需谨慎。"
+        },
+        {
+          "dimension": "R",
+          "event": "靖康后经历南渡、丧偶与藏品散失，并在《金石录后序》中记录持续创伤。",
+          "source": {
+            "title": "李清照《金石录后序》",
+            "kind": "本人自述",
+            "url": "https://zh.wikisource.org/zh-hant/Author%3A%E6%9D%8E%E6%B8%85%E7%85%A7",
+            "locator": "《金石录后序》南渡、丧偶与藏品散失部分"
+          },
+          "interpretation": "重大损失长期进入其叙事，可支持较低复原稳定（R）的敏感一端。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "作品中的哀痛不代表缺乏生存能力；她仍完成整理和写作，低 R 只能表达情绪敏感。"
+        }
+      ]
+    },
+    {
+      "id": "shen-kuo",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "记录磁偏角、化石、地貌、天文和工程观察，并常以证据修正旧说。",
+          "source": {
+            "title": "《梦溪笔谈》",
+            "kind": "本人笔记著述",
+            "url": "https://zh.wikisource.org/wiki/夢溪筆談",
+            "locator": "《象数一》《辩证一》《杂志一》等篇"
+          },
+          "interpretation": "跨领域观察与反证倾向可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "《梦溪笔谈》是笔记汇编，个别条目来自转述，不全是亲自实验。"
+        },
+        {
+          "dimension": "C",
+          "event": "参与历法、地图、外交与水利等技术行政工作，并将经验分类记录。",
+          "source": {
+            "title": "《宋史》",
+            "kind": "纪传体史书（元修）",
+            "url": "https://zh.wikisource.org/wiki/宋史",
+            "locator": "卷331《沈括传》"
+          },
+          "interpretation": "能在技术细节与行政流程之间切换，可支持较高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "政治生涯也有争议和失败，科学成就不应覆盖其政策责任。"
+        }
+      ]
+    },
+    {
+      "id": "zhang-juzheng",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "以内阁权力推动考成法、一条鞭法及官僚考核。",
+          "source": {
+            "title": "《明史》",
+            "kind": "纪传体史书（清修）",
+            "url": "https://zh.wikisource.org/wiki/明史",
+            "locator": "卷213《张居正传》"
+          },
+          "interpretation": "用明确目标和考核链条整顿行政，可支持极高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "改革落实程度、地域差异及是否由张居正独创都有争议。"
+        },
+        {
+          "dimension": "A",
+          "event": "父丧期间接受“夺情”继续执政，并以高压方式处理反对者。",
+          "source": {
+            "title": "《明史》",
+            "kind": "纪传体史书（清修）",
+            "url": "https://zh.wikisource.org/wiki/明史",
+            "locator": "卷213《张居正传》"
+          },
+          "interpretation": "将国家任务和权力连续性置于礼制关系与反对者感受之前，可支持较低协作共情（A）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "夺情既可解为责任优先，也可解为恋权；明末党争显著影响后来的道德评价。"
+        }
+      ]
+    },
+    {
+      "id": "wang-yangming",
+      "evidenceChains": [
+        {
+          "dimension": "R",
+          "event": "因得罪刘瑾被廷杖贬龙场，仍在艰难环境中讲学并形成新的思想表达。",
+          "source": {
+            "title": "《明史》",
+            "kind": "纪传体史书（清修）",
+            "url": "https://zh.wikisource.org/wiki/明史",
+            "locator": "卷195《王守仁传》"
+          },
+          "interpretation": "在政治打击和环境压力后重建行动方向，可支持很高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "“龙场悟道”有后来的学派圣迹化，不宜理解为单一瞬间的心理转变。"
+        },
+        {
+          "dimension": "O",
+          "event": "平定宁王之乱时快速重构情报与兵力部署，并在学说中强调知行互动。",
+          "source": {
+            "title": "《传习录》",
+            "kind": "门人记录的语录与书信",
+            "url": "https://zh.wikisource.org/wiki/傳習錄",
+            "locator": "《传习录》中卷书信，参照《明史·王守仁传》平叛事迹"
+          },
+          "interpretation": "能把抽象认识与情境行动相互修正，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "语录多由门人编订；军事成功也依赖地方官军和情报网络。"
+        }
+      ]
+    },
+    {
+      "id": "tang-yin",
+      "evidenceChains": [
+        {
+          "dimension": "R",
+          "event": "卷入弘治会试泄题案后被黜，仕途受阻并转向卖画、写作。",
+          "source": {
+            "title": "《明史》",
+            "kind": "纪传体史书（清修）",
+            "url": "https://zh.wikisource.org/wiki/明史",
+            "locator": "卷286《文苑传·唐寅》"
+          },
+          "interpretation": "重大身份挫败长期改变其生活轨迹，可支持较低复原稳定（R）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "其是否直接参与作弊、供词过程与责任程度均有争议。"
+        },
+        {
+          "dimension": "O",
+          "event": "在诗文、书法和绘画间持续转换题材与风格。",
+          "source": {
+            "title": "《明史》",
+            "kind": "纪传体史书（清修）",
+            "url": "https://zh.wikisource.org/wiki/明史",
+            "locator": "卷286《文苑传·唐寅》及传世题跋"
+          },
+          "interpretation": "跨媒介创造可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "“风流才子”形象大量来自后世故事，不能用通俗传说替代作品与档案。"
+        }
+      ]
+    },
+    {
+      "id": "hai-rui",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "预备棺木后上《治安疏》直斥嘉靖长期怠政。",
+          "source": {
+            "title": "《明史》",
+            "kind": "纪传体史书（清修）",
+            "url": "https://zh.wikisource.org/wiki/明史",
+            "locator": "卷226《海瑞传》"
+          },
+          "interpretation": "在明确原则下承担可预见风险，可支持极高结构执行（C）的原则一致性。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "清官传记容易道德典型化，上疏文字可靠但“备棺”等细节仍有塑形。"
+        },
+        {
+          "dimension": "A",
+          "event": "任地方官时以严厉标准处理土地、赋役与豪强问题。",
+          "source": {
+            "title": "《明史》",
+            "kind": "纪传体史书（清修）",
+            "url": "https://zh.wikisource.org/wiki/明史",
+            "locator": "卷226《海瑞传》"
+          },
+          "interpretation": "更偏向抽象公平和规则，而较少以关系性妥协解决冲突，可支持较低协作共情（A）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "低 A 不是“不仁”；海瑞政策也以民生为目标，严苛与共情可能并存。"
+        }
+      ]
+    },
+    {
+      "id": "qi-jiguang",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "招募并训练戚家军，把编组、号令、赏罚和日常训练写成军法。",
+          "source": {
+            "title": "《纪效新书》",
+            "kind": "本人军事著述",
+            "url": "https://zh.wikisource.org/wiki/紀效新書",
+            "locator": "卷首与《束伍篇》《操令篇》"
+          },
+          "interpretation": "把经验固化为可重复训练系统，可支持极高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "军书有规范性，不代表所有条令在战场都完整执行。"
+        },
+        {
+          "dimension": "O",
+          "event": "根据东南地形和倭寇作战特点改造鸳鸯阵，并整合多种兵器。",
+          "source": {
+            "title": "《纪效新书》",
+            "kind": "本人军事著述",
+            "url": "https://zh.wikisource.org/wiki/紀效新書",
+            "locator": "《长兵短用说》《比较武艺赏罚篇》等"
+          },
+          "interpretation": "基于现场反馈调整战术组合，可支持较高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "阵法创新建立在既有技术和集体实践上，不宜写成个人凭空发明。"
+        }
+      ]
+    },
+    {
+      "id": "zheng-he",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "七次远航涉及大型船队、补给、人员分工与跨年航程。",
+          "source": {
+            "title": "《明史》",
+            "kind": "纪传体史书（清修）",
+            "url": "https://zh.wikisource.org/wiki/明史",
+            "locator": "卷304《宦官传·郑和》"
+          },
+          "interpretation": "能在极大规模上维持组织与任务连续性，可支持很高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "船队规模数字在不同材料中有差异，且组织能力属于整个明廷系统。"
+        },
+        {
+          "dimension": "A",
+          "event": "航行中广泛建立朝贡与交换关系，也在锡兰等地使用武力。",
+          "source": {
+            "title": "《明史》",
+            "kind": "纪传体史书（清修）",
+            "url": "https://zh.wikisource.org/wiki/明史",
+            "locator": "卷304《郑和传》"
+          },
+          "interpretation": "跨文化协商可支持较高协作共情（A），但必须与强制行动并列。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "“和平航海”与“帝国威慑”两种解释并存，不能只选单一叙事。"
+        }
+      ]
+    },
+    {
+      "id": "xu-xiake",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "数十年实地考察山川、洞穴和水系，并以观察修正地理旧说。",
+          "source": {
+            "title": "《徐霞客游记》",
+            "kind": "本人旅行日记（后经整理）",
+            "url": "https://zh.wikisource.org/wiki/徐霞客遊記",
+            "locator": "各游日记，尤西南游日记"
+          },
+          "interpretation": "把未知环境作为持续求证对象，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "游记后经季梦良等整理，部分文字层次与缺卷问题需要注意。"
+        },
+        {
+          "dimension": "R",
+          "event": "在疾病、盗抢、险路和经费困难中仍反复恢复行程。",
+          "source": {
+            "title": "《徐霞客游记》",
+            "kind": "本人旅行日记（后经整理）",
+            "url": "https://zh.wikisource.org/wiki/徐霞客遊記",
+            "locator": "《滇游日记》《黔游日记》等"
+          },
+          "interpretation": "长期野外压力下保持目标，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "自述可能突出克难过程，且旅伴、向导和地方支持不可忽略。"
+        }
+      ]
+    },
+    {
+      "id": "li-shizhen",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "历时多年分类、修订药物条目并完成规模庞大的《本草纲目》。",
+          "source": {
+            "title": "《本草纲目》",
+            "kind": "本人医学著述",
+            "url": "https://zh.wikisource.org/wiki/本草綱目",
+            "locator": "序例与各部目录"
+          },
+          "interpretation": "长期维持资料搜集、分类和修订，可支持很高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "“二十七年、三易其稿”等细节主要来自序跋与后世传记，具体过程难全核。"
+        },
+        {
+          "dimension": "O",
+          "event": "对旧本草的名称、产地和药性进行辨误，并吸收实地与民间经验。",
+          "source": {
+            "title": "《本草纲目》",
+            "kind": "本人医学著述",
+            "url": "https://zh.wikisource.org/wiki/本草綱目",
+            "locator": "《序例》及各药条“发明”“正误”"
+          },
+          "interpretation": "愿意以观察修正权威文本，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "书中仍保留不少今天看来无效或神异的内容，应按时代知识条件评价。"
+        }
+      ]
+    },
+    {
+      "id": "zeng-guofan",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "长期以日课、札记和书信记录自省，并把湘军训练、筹饷和文书制度化。",
+          "source": {
+            "title": "《曾国藩日记》",
+            "kind": "本人日记",
+            "url": "https://zh.wikisource.org/wiki/曾國藩日記",
+            "locator": "道光二十二年起日记及相关家书"
+          },
+          "interpretation": "用持续记录和规则约束自身与组织，可支持极高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "日记存在后期整理与自我塑形，且个人修身不能自动证明公共治理正当。"
+        },
+        {
+          "dimension": "R",
+          "event": "湘军早期多次受挫后仍重建水陆军与筹饷网络，最终攻克天京。",
+          "source": {
+            "title": "《清史稿》",
+            "kind": "未定稿纪传体史书（民国初修）",
+            "url": "https://zh.wikisource.org/wiki/清史稿",
+            "locator": "卷405《曾国藩传》"
+          },
+          "interpretation": "在长期军事失败和压力下恢复组织，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "镇压太平天国造成巨大伤亡，其“坚韧”是描述性维度，不构成道德赞许。"
+        }
+      ]
+    },
+    {
+      "id": "lin-zexu",
+      "evidenceChains": [
+        {
+          "dimension": "C",
+          "event": "在广东调查烟情、收缴鸦片并组织虎门销烟。",
+          "source": {
+            "title": "《清史稿》",
+            "kind": "未定稿纪传体史书（民国初修）",
+            "url": "https://zh.wikisource.org/wiki/清史稿",
+            "locator": "卷369《林则徐传》"
+          },
+          "interpretation": "把复杂政策拆为调查、交涉、收缴和销毁流程，可支持很高结构执行（C）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "鸦片战争原因远超个人禁烟政策，不能把战争成败全部归于林则徐。"
+        },
+        {
+          "dimension": "R",
+          "event": "被革职遣戍伊犁后仍参与水利、垦务与边疆调查。",
+          "source": {
+            "title": "《清史稿》",
+            "kind": "未定稿纪传体史书（民国初修）",
+            "url": "https://zh.wikisource.org/wiki/清史稿",
+            "locator": "卷369《林则徐传》"
+          },
+          "interpretation": "政治重挫后仍转入具体公共事务，可支持较高复原稳定（R）。",
+          "confidence": {
+            "level": "high",
+            "reason": "有本人著述、同时代记录或多项可核事实支撑；维度映射仍是现代解释。"
+          },
+          "controversy": "正史倾向塑造忠臣受挫叙事，地方工程的具体贡献需与同僚共同评估。"
+        }
+      ]
+    },
+    {
+      "id": "qiu-jin",
+      "evidenceChains": [
+        {
+          "dimension": "O",
+          "event": "离开传统家庭生活赴日本求学，接触新式教育、女权与革命组织。",
+          "source": {
+            "title": "浙江档案数据库《浙江历史名人辞典·秋瑾》",
+            "kind": "档案机构人物资料",
+            "url": "https://zjdy.zjdafw.gov.cn/art/2012/9/12/art_25_6531.html",
+            "locator": "人物介绍及留日、归国活动部分"
+          },
+          "interpretation": "主动跨越性别与制度边界寻求新方案，可支持很高探索开放（O）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "其出生年份、留日经历的个别日期与回忆材料细节存在分歧。"
+        },
+        {
+          "dimension": "E",
+          "event": "归国后主持大通学堂、联络会党并公开倡导女性解放与革命。",
+          "source": {
+            "title": "浙江档案数据库《浙江历史名人辞典·秋瑾》",
+            "kind": "档案机构人物资料",
+            "url": "https://zjdy.zjdafw.gov.cn/art/2012/9/12/art_25_6531.html",
+            "locator": "归国后办学与革命活动部分"
+          },
+          "interpretation": "主动组织、公开演说并动员群体，可支持较高外向驱动（E）。",
+          "confidence": {
+            "level": "medium",
+            "reason": "基本事件见于史书或传记，但细节、动机或评价可能受成书年代与修史立场影响。"
+          },
+          "controversy": "革命烈士叙事容易把复杂组织行动集中为个人英雄史，具体计划规模需依档案复核。"
+        }
+      ]
+    }
+  ]
+}

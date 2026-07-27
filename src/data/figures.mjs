@@ -7,9 +7,15 @@
  * A = cooperation/empathy, R = resilience/stability.
  *
  * Vector rationale: docs/figures-rationale.json (single source of truth for tags + rationale).
+ * Historical evidence: docs/figure-evidence.json (events, sources, interpretations,
+ * confidence and disputes for key dimensions).
  */
+import evidenceDocument from "../../docs/figure-evidence.json" with { type: "json" };
 import rationaleEntries from "../../docs/figures-rationale.json" with { type: "json" };
 
+const evidenceById = new Map(
+  evidenceDocument.figures.map((entry) => [entry.id, entry]),
+);
 const rationaleById = new Map(
   rationaleEntries.map((entry) => [entry.id, entry]),
 );
@@ -574,10 +580,12 @@ export const FIGURES = [
     bio: "她抛下安稳的家，东渡求学，自号“鉴湖女侠”。她要的不只是自己的自由，更是无数女子的自由。就义时她从容，像早把这条命许给了一个比活着更重要的事。",
   },
 ].map((figure) => {
+  const evidenceEntry = evidenceById.get(figure.id);
   const rationaleEntry = rationaleById.get(figure.id);
   return {
     ...figure,
     rationale: rationaleEntry?.rationale ?? "",
+    evidenceChains: evidenceEntry?.evidenceChains ?? [],
     narrativeBasis: `基于大众文化中的“${figure.archetype}”形象`,
   };
 });

@@ -2,7 +2,7 @@
 
 > 阶段 A 任务 6 的审查工具。每人勾选 2–3 个原型标签，按标签查区间得各维范围，在区间内取点并写理由。
 > 区间是软约束：叙事原型优先，区间用于发现"向量偏离原型"的情况，不是硬性数值框。
-> 配套文件：`docs/figures-rationale.json`（全人物库 tags + rationale）、`src/data/figures.mjs`（向量 + 叙事）、`docs/phase-a-baseline.md`（现状分布）。
+> 配套文件：`docs/figures-rationale.json`（全人物库 tags + rationale）、`docs/figure-evidence.json`（关键维度史料证据链）、`src/data/figures.mjs`（向量 + 叙事）、`docs/phase-a-baseline.md`（现状分布）。
 
 ## 数值映射
 

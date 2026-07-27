@@ -1196,6 +1196,75 @@ button {
   color: var(--muted);
 }
 
+/* 历史人物证据链 */
+.history-evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.history-evidence-item {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.history-evidence-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.history-evidence-head strong {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.history-evidence-head span {
+  flex: none;
+  padding: 4px 9px;
+  color: var(--sage);
+  border: 1px solid rgba(102, 115, 97, 0.28);
+  border-radius: 999px;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.history-evidence-head span[data-confidence="low"] {
+  color: var(--rust);
+  border-color: rgba(157, 67, 43, 0.28);
+}
+
+.history-evidence-item p + p {
+  margin-top: 9px;
+}
+
+.history-evidence-item b {
+  display: inline-block;
+  min-width: 70px;
+  margin-right: 8px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.history-evidence-item a {
+  color: var(--rust);
+  text-decoration-color: rgba(157, 67, 43, 0.35);
+  text-underline-offset: 3px;
+}
+
+.history-evidence-dispute {
+  padding-top: 9px;
+  border-top: 1px dashed var(--line);
+}
+
 /* 邻近原型 */
 .nearby-grid {
   display: grid;
@@ -1844,6 +1913,20 @@ button {
 
   .evidence-item p {
     font-size: 13px;
+  }
+
+  .history-evidence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .history-evidence-item {
+    padding: 18px;
+  }
+
+  .history-evidence-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
   }
 
   /* 邻近原型与小实验：保持横向但更紧凑 */

@@ -6,6 +6,7 @@
 - 根据候选接近程度追加 0–3 道自适应辨析题；
 - 五因素连续人格轮廓；
 - 中国历史人物叙事原型（展示数量由人物库 `FIGURES.length` 动态生成）；
+- 每位人物至少两条可追溯的关键维度证据链，包含史事、来源、可信度与争议；
 - 支持双原型与回答证据解释；
 - 全部数据保存在浏览器本地，不上传答案。
 
@@ -26,6 +27,9 @@ npm test
 npm run test:coverage
 npm run validate
 ```
+
+人物证据链由 `npm run build:evidence` 生成，结构与来源标准见
+[docs/figure-evidence-methodology.md](./docs/figure-evidence-methodology.md)。
 
 人物校验会穷举25道核心题能够产生的1,048,576种五维分数组合，并运行200,000组正态模拟。
 覆盖率命令要求核心计分与状态机达到100%行覆盖、100%函数覆盖和至少98%分支覆盖。

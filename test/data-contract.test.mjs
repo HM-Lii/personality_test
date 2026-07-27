@@ -127,6 +127,25 @@ test("the figure library has unique IDs, names and complete metadata", () => {
       figure.rationale.length >= 8,
       `${figure.id} missing vector rationale`,
     );
+    assert.ok(
+      figure.evidenceChains.length >= 2,
+      `${figure.id} missing historical evidence chains`,
+    );
+    assert.ok(
+      new Set(figure.evidenceChains.map((chain) => chain.dimension)).size >= 2,
+      `${figure.id} evidence must cover distinct key dimensions`,
+    );
+    for (const chain of figure.evidenceChains) {
+      assert.ok(dimensionIds.includes(chain.dimension));
+      assert.ok(chain.event.length >= 10);
+      assert.ok(chain.source.title.length >= 2);
+      assert.match(chain.source.url, /^https:\/\//);
+      assert.ok(chain.source.locator.length >= 3);
+      assert.ok(chain.interpretation.length >= 10);
+      assert.ok(["high", "medium", "low"].includes(chain.confidence.level));
+      assert.ok(chain.confidence.reason.length >= 10);
+      assert.ok(chain.controversy.length >= 10);
+    }
     assert.equal(figure.tags.length, 3);
     assert.deepEqual(Object.keys(figure.vector).sort(), [...dimensionIds].sort());
     for (const value of Object.values(figure.vector)) {
