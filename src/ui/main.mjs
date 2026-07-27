@@ -17,6 +17,7 @@ import {
 import { renderHome } from "./render-home.mjs";
 import { renderQuiz } from "./render-quiz.mjs";
 import { renderResult } from "./render-result.mjs";
+import { createCancelableTimer } from "./cancelable-timer.mjs";
 import { buildShareText, copyShareText, buildResultUrl, decodeResultHash } from "./share.mjs";
 import { freshState, restoreState, saveState } from "./storage.mjs";
 import { hashString, displayedOptions } from "./utils.mjs";
@@ -48,6 +49,7 @@ export function mountApp({
   });
 
   let state = restoreState();
+  const questionTransition = createCancelableTimer(window);
   /* 分享链接：hash 里带着完整答案时，直接展示那份结果。
      分享模式下不写入 localStorage，不覆盖访客自己的进度。 */
   let shareMode = false;
@@ -113,6 +115,7 @@ export function mountApp({
      回上一题）保留原有编排。浏览器不支持或用户偏好减少动态时回退直接渲染。 */
   let currentView;
   function render() {
+    questionTransition.cancel();
     const update = () => {
       document.body.dataset.view = state.view;
       if (state.view === "quiz") {
@@ -203,6 +206,8 @@ export function mountApp({
   }
 
   function selectAnswer(questionId, optionId) {
+    if (questionTransition.pending) return;
+
     const question = questionMap.get(questionId);
     const selected = question?.options.find((item) => item.id === optionId);
     if (!question || !selected) return;
@@ -229,7 +234,7 @@ export function mountApp({
     const card = app.querySelector(".question-card");
     card?.classList.add("leaving");
 
-    window.setTimeout(() => {
+    questionTransition.schedule(() => {
       if (state.index < CORE_QUESTIONS.length - 1) {
         state.index += 1;
         persist();
