@@ -1,4 +1,14 @@
-import { DIMENSIONS } from "../data/catalog.mjs";
+import { MAX_CALIBRATION_ITEMS } from "../core/scoring.mjs";
+import {
+  CALIBRATION_QUESTIONS,
+  CORE_QUESTION_IDS,
+  DIMENSIONS,
+} from "../data/catalog.mjs";
+
+const CORE_ID_SET = new Set(CORE_QUESTION_IDS);
+const CALIBRATION_ID_SET = new Set(
+  CALIBRATION_QUESTIONS.map((question) => question.id),
+);
 
 export function buildShareText(result, shareUrl = "") {
   const figures = result.dual
@@ -44,18 +54,53 @@ export function decodeResultHash(hash, questionMap) {
   if (typeof hash !== "string" || !hash.startsWith("#r=")) return null;
   try {
     const pairs = JSON.parse(fromBase64Url(hash.slice(3)));
-    if (!Array.isArray(pairs) || pairs.length === 0) return null;
+    if (
+      !Array.isArray(pairs) ||
+      pairs.length < CORE_QUESTION_IDS.length ||
+      pairs.length > CORE_QUESTION_IDS.length + MAX_CALIBRATION_ITEMS
+    ) {
+      return null;
+    }
 
     const queue = [];
     const answers = [];
+    const seenQuestionIds = new Set();
+    const seenCoreIds = new Set();
+    let calibrationCount = 0;
+
     for (const pair of pairs) {
-      if (!Array.isArray(pair)) return null;
+      if (!Array.isArray(pair) || pair.length !== 2) return null;
       const [questionId, optionId] = pair;
+      if (
+        typeof questionId !== "string" ||
+        typeof optionId !== "string" ||
+        seenQuestionIds.has(questionId)
+      ) {
+        return null;
+      }
+
       const question = questionMap.get(questionId);
       const option = question?.options.find((item) => item.id === optionId);
       if (!question || !option) return null;
+
+      if (CORE_ID_SET.has(questionId)) {
+        seenCoreIds.add(questionId);
+      } else if (CALIBRATION_ID_SET.has(questionId)) {
+        calibrationCount += 1;
+      } else {
+        return null;
+      }
+
+      seenQuestionIds.add(questionId);
       queue.push(questionId);
       answers.push({ questionId, optionId, value: option.value });
+    }
+
+    if (
+      seenCoreIds.size !== CORE_QUESTION_IDS.length ||
+      calibrationCount > MAX_CALIBRATION_ITEMS
+    ) {
+      return null;
     }
 
     return {

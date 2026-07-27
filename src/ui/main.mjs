@@ -9,6 +9,7 @@ import {
   CORE_QUESTION_IDS,
   CORE_QUESTIONS,
   FIGURES,
+  FIGURE_COUNT,
   MIRROR_PAIRS,
   dimensionMap,
   questionMap,
@@ -36,6 +37,16 @@ export function mountApp({
   methodButton = document.querySelector("#methodButton"),
   closeMethodButton = document.querySelector("#closeMethodButton"),
 } = {}) {
+  document.querySelectorAll("[data-figure-count]").forEach((node) => {
+    node.textContent = `${FIGURE_COUNT}位古人`;
+  });
+  document.querySelectorAll("[data-figure-count-template]").forEach((node) => {
+    node.content = node.dataset.figureCountTemplate.replace(
+      "{count}",
+      FIGURE_COUNT,
+    );
+  });
+
   let state = restoreState();
   /* 分享链接：hash 里带着完整答案时，直接展示那份结果。
      分享模式下不写入 localStorage，不覆盖访客自己的进度。 */
@@ -109,7 +120,7 @@ export function mountApp({
         if (outcome?.reset) {
           state = freshState();
           persist();
-          renderHome(app, state, { CORE_QUESTIONS });
+          renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT });
         }
         return;
       }
@@ -118,7 +129,7 @@ export function mountApp({
         observeReveals();
         return;
       }
-      renderHome(app, state, { CORE_QUESTIONS });
+      renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT });
     };
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",

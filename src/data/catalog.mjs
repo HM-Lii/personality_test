@@ -1,4 +1,5 @@
 import { DIMENSIONS } from "../core/scoring.mjs";
+import { FIGURES } from "./figures.mjs";
 import {
   CALIBRATION_QUESTIONS,
   CORE_QUESTIONS,
@@ -13,6 +14,7 @@ export {
   MIRROR_PAIRS,
 } from "./questions.mjs";
 
+export const FIGURE_COUNT = FIGURES.length;
 export const ALL_QUESTIONS = [...CORE_QUESTIONS, ...CALIBRATION_QUESTIONS];
 export const CORE_QUESTION_IDS = CORE_QUESTIONS.map((question) => question.id);
 export const questionMap = new Map(

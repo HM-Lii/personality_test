@@ -1,6 +1,6 @@
 import { escapeHtml } from "./utils.mjs";
 
-export function renderHome(app, state, { CORE_QUESTIONS }) {
+export function renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT }) {
   const answeredCore = state.answers.filter((answer) =>
     CORE_QUESTIONS.some((question) => question.id === answer.questionId),
   ).length;
@@ -13,7 +13,7 @@ export function renderHome(app, state, { CORE_QUESTIONS }) {
         <h1 id="hero-title">心有其性，<br><em>史有其人</em></h1>
         <p class="hero-lead">
           25 个日常情景，照见你性情的轮廓。 
-          没有玄学，不贴标签，每一分都算得明白；只为在 57 位古人中，找到那个与你同频的灵魂。
+          没有玄学，不贴标签，每一分都算得明白；只为在 ${FIGURE_COUNT} 位古人中，找到那个与你同频的灵魂。
         </p>
         <div class="hero-actions">
           <button class="primary-button" type="button" data-action="start">
@@ -32,7 +32,7 @@ export function renderHome(app, state, { CORE_QUESTIONS }) {
         <div class="hero-meta" aria-label="测试信息">
           <span><strong>25–28</strong> 道情境题</span>
           <span><strong>5</strong> 个维度</span>
-          <span><strong>57</strong> 位古人</span>
+          <span><strong>${FIGURE_COUNT}</strong> 位古人</span>
           <span><strong>0</strong> 条答案上传</span>
         </div>
       </div>

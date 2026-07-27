@@ -1,7 +1,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { CORE_QUESTIONS, questionMap } from "../src/data/catalog.mjs";
+import {
+  CALIBRATION_QUESTIONS,
+  CORE_QUESTIONS,
+  questionMap,
+} from "../src/data/catalog.mjs";
 import { decodeResultHash, encodeResultHash } from "../src/ui/share.mjs";
 
 const sampleAnswers = CORE_QUESTIONS.map((question, index) => {
@@ -38,6 +42,68 @@ test("decodeResultHash 对非法输入返回 null", () => {
   );
   assert.equal(
     decodeResultHash(encodeResultHash([{ questionId: "NOPE", optionId: "A" }]), questionMap),
+    null,
+  );
+});
+
+test("decodeResultHash 接受完整核心题和最多 3 道合法辨析题", () => {
+  const calibrationAnswers = CALIBRATION_QUESTIONS.slice(0, 3).map(
+    (question) => ({
+      questionId: question.id,
+      optionId: question.options[0].id,
+      value: question.options[0].value,
+    }),
+  );
+
+  const restored = decodeResultHash(
+    encodeResultHash([...sampleAnswers, ...calibrationAnswers]),
+    questionMap,
+  );
+
+  assert.equal(restored.answers.length, 28);
+});
+
+test("decodeResultHash 拒绝缺少核心题、重复题和超过 3 道辨析题", () => {
+  const missingCore = sampleAnswers.slice(0, -1);
+  assert.equal(
+    decodeResultHash(encodeResultHash(missingCore), questionMap),
+    null,
+  );
+
+  const duplicateCore = [...sampleAnswers.slice(0, -1), sampleAnswers[0]];
+  assert.equal(
+    decodeResultHash(encodeResultHash(duplicateCore), questionMap),
+    null,
+  );
+
+  const fourCalibrationAnswers = CALIBRATION_QUESTIONS.slice(0, 4).map(
+    (question) => ({
+      questionId: question.id,
+      optionId: question.options[0].id,
+      value: question.options[0].value,
+    }),
+  );
+  assert.equal(
+    decodeResultHash(
+      encodeResultHash([...sampleAnswers, ...fourCalibrationAnswers]),
+      questionMap,
+    ),
+    null,
+  );
+
+  const duplicatedCalibration = {
+    questionId: CALIBRATION_QUESTIONS[0].id,
+    optionId: CALIBRATION_QUESTIONS[0].options[0].id,
+  };
+  assert.equal(
+    decodeResultHash(
+      encodeResultHash([
+        ...sampleAnswers,
+        duplicatedCalibration,
+        duplicatedCalibration,
+      ]),
+      questionMap,
+    ),
     null,
   );
 });

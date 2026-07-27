@@ -20,8 +20,9 @@
   --shadow-sm: 0 6px 18px rgba(66, 52, 33, 0.08);
   --shadow: 0 22px 60px rgba(66, 52, 33, 0.13);
   --shadow-lg: 0 34px 90px rgba(58, 45, 28, 0.2);
-  --serif: "Noto Serif SC", "Songti SC", "STSong", "Noto Serif CJK SC",
-    "Source Han Serif SC", Georgia, serif;
+  --serif: "Source Han Serif SC", "思源宋体", "Noto Serif SC",
+    "Noto Serif CJK SC", "Songti SC", "STSong", "SimSun", "宋体", Georgia,
+    serif;
   --sans: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   /* 排版节奏 */
@@ -1859,6 +1860,7 @@ button {
   }
 
   .advice-grid {
+    grid-template-columns: 1fr;
     gap: 12px;
   }
 

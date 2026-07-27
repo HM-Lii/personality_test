@@ -1,5 +1,5 @@
 /**
- * 生成 docs/figures-rationale.json（62 人向量理论依据）
+ * 生成 docs/figures-rationale.json（全人物库向量理论依据）
  * 运行：node scripts/build-figures-rationale.mjs
  */
 import { writeFileSync } from "node:fs";

@@ -12,9 +12,9 @@
 **周期建议**：
 
 - 1 人兼职：2–3 周
-- 全职集中：8–10 个工作日（原估 5–7 天偏乐观，57 人 rationale 化是最大工时项，见任务 6）
+- 全职集中：8–10 个工作日（原估 5–7 天偏乐观，全人物库 rationale 化是最大工时项，见任务 6）
 
-> 57 人 × 约 15 分钟纯撰写 ≈ 14 小时，加上查理论区间表、比对最近邻、改向量重跑 validate，实际更接近 20–25 小时。若时间紧，按任务 6 的分批策略执行，不要压缩审题环节。
+> 人物库需逐条撰写依据，加上查理论区间表、比对最近邻、改向量重跑 validate，实际更接近 20–25 小时。若时间紧，按任务 6 的分批策略执行，不要压缩审题环节。
 
 ## 总览：六条工作流
 
@@ -41,7 +41,7 @@ flowchart LR
 | A1 | 构念对齐矩阵 | 40 题 × 1 张审查表 | 无 |
 | A2 | Facet 覆盖审计 | 五维 facet 覆盖图 + 缺口清单 | A1 |
 | A3 | 串维 / 内容审查 | 每题串维风险评级 + 改题清单 | A1 |
-| A4 | 人物向量理论化 | 57 人「原型 → 向量」说明 + 修订向量 | A1 |
+| A4 | 人物向量理论化 | 全人物库「原型 → 向量」说明 + 修订向量 | A1 |
 | A5 | 镜像题语义审查 | 10 对镜像的语义一致性说明 | A1 |
 | A6 | 模拟验收 | 分布报告 + 阈值建议 | A4 + 题库定稿 |
 
@@ -239,7 +239,7 @@ npm run validate
 
 ### 任务 6 — 人物向量理论化（A4）
 
-**现状问题**：57 人的 `{ O, C, E, A, R }` 多为叙事直觉赋值，缺乏可追溯依据。
+**现状问题**：人物库的 `{ O, C, E, A, R }` 多为叙事直觉赋值，缺乏可追溯依据。
 
 **新流程（每人约 15 分钟，可分批）**：
 
@@ -264,19 +264,19 @@ Step 5  与最近邻 3 人比对，确保距离 ≥ validate 门槛
 **约束（与 `scripts/validate-figures.mjs` 对齐）**：
 
 - 每人向量在 `[10, 98]`
-- 57 人在 grid 穷举下均可达
+- 人物库中的全部人物在 grid 穷举下均可达
 - 任意两人标准化距离 **≥ 0.065**
 - 每人须是**自己向量的最近邻**（见 `test/data-contract.test.mjs`）
 
 **`rationale` 的落地方式（动工前必须定）**：现有 `src/data/figures.mjs` 每人字段是 `{ id, name, era, archetype, vector, tags, bio }`，而 `TEST_LOGIC.md` §6 写的是 `narrativeBasis`——文档与实现本就不一致，阶段 A 顺手统一。推荐方案：
 
-- `figures-rationale.json` 作为**单一事实来源**存 `{ id, tags[], vector, rationale }` × 57。
+- `figures-rationale.json` 作为**单一事实来源**存全人物库的 `{ id, tags[], vector, rationale }`。
 - `figures.mjs` 增加从 rationale JSON 读取的 `rationale` 字段（或把 `bio` 改名为 `narrativeBasis` 并与 rationale 合并），同步更新 `test/data-contract.test.mjs` 的 schema 断言。
 - `scripts/validate-figures.mjs` 或新增的 `validate:phase-a` 交叉校验 JSON 与 `figures.mjs` 的 id / vector 一致。
 
-**分批策略（应对工时风险）**：57 人不要一次性走完。先做 20 人（覆盖各类原型标签）走完整 Step 1–5，验证「理论区间表」是否好用、距离门槛是否好满足；调整区间表后再批量做余下 37 人。这样能避免区间表设计缺陷导致全量返工。
+**分批策略（应对工时风险）**：全人物库不要一次性走完。先做 20 人（覆盖各类原型标签）走完整 Step 1–5，验证「理论区间表」是否好用、距离门槛是否好满足；调整区间表后再批量做其余人物。这样能避免区间表设计缺陷导致全量返工。
 
-**交付物**：[`docs/figures-rationale.json`](./figures-rationale.json) — `{ id, tags[], vector, rationale }` × 57；必要时更新 `src/data/figures.mjs`。
+**交付物**：[`docs/figures-rationale.json`](./figures-rationale.json) — 全人物库的 `{ id, tags[], vector, rationale }`；必要时更新 `src/data/figures.mjs`。
 
 **完成标准**：`npm run validate` 人物部分通过；随机抽 5 人，外人能读懂「向量为何如此」。
 
@@ -314,7 +314,7 @@ Step 5  与最近邻 3 人比对，确保距离 ≥ validate 门槛
 | 构念矩阵存在且 40 题齐全 | `scripts/validate-construct.mjs` 读 CSV |
 | 每维 ≥ 3 facet | 同上 |
 | 无 red 串维标记 | CSV 中 `cross_load_risk != red` |
-| 人物 rationale 57 条齐全 | JSON schema 校验 |
+| 全人物库 rationale 齐全 | JSON schema 校验 |
 | 模拟指标 | `phase-a-report.mjs` 非零 exit code |
 
 **目标命令**：`npm run validate:phase-a`（可与现有 `npm run validate` 并列）。
@@ -335,7 +335,7 @@ Step 5  与最近邻 3 人比对，确保距离 ≥ validate 门槛
 
 ### 人物
 
-- [x] 62 人各有 `rationale` + 2–3 个理论标签（见 `docs/figures-rationale.json`）
+- [x] 全人物库各有 `rationale` + 2–3 个理论标签（见 `docs/figures-rationale.json`）
 - [ ] 向量调整有依据，非纯叙事拍脑袋
 - [ ] 不可达 / 极近对 / 自最近邻 全过
 
@@ -382,7 +382,7 @@ Step 5  与最近邻 3 人比对，确保距离 ≥ validate 门槛
 
 1. **R 维 facet 补全 + 审 R5 / C2 串维**（当前理论薄弱点最集中）
 2. **E2–E3 镜像对** — 写清同向证明，或换题
-3. **57 人 rationale 化** — 人物匹配才有「理论距离」而非「叙事距离」
+3. **全人物库 rationale 化** — 人物匹配才有「理论距离」而非「叙事距离」
 
 ---
 
@@ -397,7 +397,7 @@ Step 5  与最近邻 3 人比对，确保距离 ≥ validate 门槛
 | [`phase-a-task6-report.md`](./phase-a-task6-report.md) | 已完成 | 任务 6 向量调优历程 |
 | [`phase-a-task7-report.md`](./phase-a-task7-report.md) | 已完成 | 任务 7 模拟验收 + 阈值扫描 |
 | [`figure-archetype-ranges.md`](./figure-archetype-ranges.md) | 已完成 | 原型标签 → 向量区间 |
-| [`figures-rationale.json`](./figures-rationale.json) | 已完成 | 62 人向量依据（tags + rationale） |
+| [`figures-rationale.json`](./figures-rationale.json) | 已完成 | 全人物库向量依据（tags + rationale） |
 | `scripts/validate-construct.mjs` | 已完成 | 矩阵 CI 校验 |
 | `scripts/phase-a-report.mjs` | 已完成 | 模拟验收报告（含基线对照 + 阈值敏感性） |
 
