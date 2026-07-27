@@ -1196,6 +1196,189 @@ button {
   color: var(--muted);
 }
 
+.evidence-item p + p {
+  margin-top: 6px;
+}
+
+.evidence-item p b {
+  display: inline-block;
+  min-width: 62px;
+  margin-right: 7px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* 第一、第二候选人的胜负贡献 */
+.candidate-comparison {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.candidate-rank {
+  display: grid;
+  gap: 5px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.candidate-rank-primary {
+  border-color: rgba(157, 67, 43, 0.32);
+  background: rgba(157, 67, 43, 0.055);
+}
+
+.candidate-rank span,
+.candidate-rank small {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.candidate-rank strong {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 23px;
+  font-weight: 500;
+}
+
+.candidate-versus {
+  align-self: center;
+  color: var(--muted-soft);
+  font-family: var(--serif);
+  font-size: 12px;
+}
+
+.comparison-subtitle {
+  margin: 28px 0 12px;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.decision-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.decision-empty,
+.evidence-empty {
+  padding: 17px 18px;
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.evidence-empty strong {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--ink);
+  font-size: 13.5px;
+}
+
+.decision-item {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: linear-gradient(155deg, var(--paper-deep), rgba(255, 255, 255, 0.3));
+}
+
+.decision-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 9px;
+}
+
+.decision-head strong {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.decision-head span {
+  flex: none;
+  padding: 3px 8px;
+  color: var(--rust);
+  border: 1px solid rgba(157, 67, 43, 0.2);
+  border-radius: 999px;
+  font-size: 10.5px;
+}
+
+.decision-item small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted-soft);
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+
+.comparison-counter {
+  margin-top: 18px !important;
+  padding: 17px 18px;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 12px 12px 0;
+  background: rgba(182, 138, 77, 0.08);
+}
+
+.comparison-counter b {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ink);
+  font-size: 12.5px;
+}
+
+/* 与第一名差距最大的维度 */
+.contrast-card {
+  background: linear-gradient(160deg, rgba(239, 232, 216, 0.82), rgba(255, 253, 247, 0.78));
+}
+
+.contrast-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.contrast-item {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.contrast-item > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+
+.contrast-item strong {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.contrast-item span {
+  color: var(--rust);
+  font-size: 11px;
+}
+
+.contrast-empty {
+  padding: 16px;
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+}
+
 /* 历史人物证据链 */
 .history-evidence-grid {
   display: grid;
@@ -1913,6 +2096,34 @@ button {
 
   .evidence-item p {
     font-size: 13px;
+  }
+
+  .candidate-comparison {
+    gap: 8px;
+  }
+
+  .candidate-rank {
+    padding: 14px;
+  }
+
+  .candidate-rank strong {
+    font-size: 19px;
+  }
+
+  .candidate-versus {
+    font-size: 10px;
+  }
+
+  .decision-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .decision-item {
+    padding: 16px;
+  }
+
+  .decision-head {
+    align-items: flex-start;
   }
 
   .history-evidence-grid {

@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node scripts/serve.mjs",
     "build:evidence": "node scripts/build-figure-evidence.mjs",
-    "test": "node --test test/scoring.test.mjs test/session.test.mjs test/data-contract.test.mjs test/flow.test.mjs test/share.test.mjs test/render-result.test.mjs",
-    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=\"src/core/*.mjs\" --test-coverage-lines=100 --test-coverage-functions=100 --test-coverage-branches=98 test/scoring.test.mjs test/session.test.mjs test/data-contract.test.mjs test/flow.test.mjs",
+    "test": "node --test test/scoring.test.mjs test/session.test.mjs test/result.test.mjs test/data-contract.test.mjs test/flow.test.mjs test/share.test.mjs test/render-result.test.mjs",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=\"src/core/*.mjs\" --test-coverage-lines=100 --test-coverage-functions=100 --test-coverage-branches=98 test/scoring.test.mjs test/session.test.mjs test/result.test.mjs test/data-contract.test.mjs test/flow.test.mjs",
     "validate": "node scripts/validate-questions.mjs && node scripts/validate-figures.mjs && node scripts/validate-figure-evidence.mjs",
     "validate:phase-a": "node scripts/validate-construct.mjs && node scripts/validate-figures-rationale.mjs && node scripts/validate-figure-evidence.mjs && node scripts/phase-a-report.mjs"
   }

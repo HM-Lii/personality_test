@@ -54,3 +54,28 @@ test("result page renders the matched figure's historical evidence chains", () =
   assert.match(app.innerHTML, /target="_blank" rel="noopener noreferrer"/);
   assert.equal(renderedChains?.length, primary.evidenceChains.length);
 });
+
+test("result page explains the first-versus-second ranking and its limits", () => {
+  const result = buildTestResult(answers, deps);
+  const app = { innerHTML: "" };
+
+  renderResult(
+    app,
+    {
+      answers,
+      completedAt: "2026-07-27T00:00:00.000Z",
+    },
+    result,
+    deps,
+  );
+
+  assert.match(app.innerHTML, /决定排名的维度/);
+  assert.match(app.innerHTML, /第一名/);
+  assert.match(app.innerHTML, /第二名/);
+  assert.match(app.innerHTML, /为什么不是/);
+  assert.match(app.innerHTML, /你的选择/);
+  assert.match(app.innerHTML, /反映倾向/);
+  assert.match(app.innerHTML, /为何支持/);
+  assert.match(app.innerHTML, /你们不像的地方/);
+  assert.match(app.innerHTML, /能力、经历或道德立场/);
+});
