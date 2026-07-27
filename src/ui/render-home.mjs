@@ -12,7 +12,7 @@ export function renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT }) {
         <span class="eyebrow">HISTORICAL PERSONA · OPEN METHOD</span>
         <h1 id="hero-title">心有其性，<br><em>史有其人</em></h1>
         <p class="hero-lead">
-          25 个日常情景，照见你性情的轮廓。 
+          25 道日常情境题，映出你性情的轮廓。 
           没有玄学，不贴标签，每一分都算得明白；只为在 ${FIGURE_COUNT} 位古人中，找到那个与你同频的灵魂。
         </p>
         <div class="hero-actions">
@@ -33,7 +33,7 @@ export function renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT }) {
           <span><strong>25–28</strong> 道情境题</span>
           <span><strong>5</strong> 个维度</span>
           <span><strong>${FIGURE_COUNT}</strong> 位古人</span>
-          <span><strong>0</strong> 条答案上传</span>
+          <span><strong>答案不上传</strong>，只存本地</span>
         </div>
       </div>
       <div class="atlas" aria-hidden="true">

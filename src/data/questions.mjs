@@ -97,7 +97,7 @@ export const CORE_QUESTIONS = [
     dimension: "E",
     domain: "工作与学习",
     title: "你需要弄清一个复杂的新问题",
-    context: "同事愿意讨论，你也可以独自查资料后再形成看法。你更倾向哪种方式来理清思路？",
+    context: "同事愿意讨论，你也可以独自查资料后再形成看法。",
     options: [
       option("A", "先自己想明白，再找人确认重点。", -3),
       option("B", "借和同事讨论，慢慢理清自己的看法。", 3),
@@ -244,7 +244,7 @@ export const CORE_QUESTIONS = [
     options: [
       option("A", "先给一小块试试，做好了再多给。", -1),
       option("B", "目标说清楚后让他试，过程中多沟通。", 1),
-      option("C", "关键任务还是给熟手，先不放心交给新人。", -3),
+      option("C", "关键任务先交给熟手，不放心直接给新人。", -3),
       option("D", "把目标和支持说清楚后，放心交给他。", 3),
     ],
   },
