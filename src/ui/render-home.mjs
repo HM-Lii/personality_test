@@ -34,7 +34,7 @@ export function renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT }) {
           <span><strong>${CORE_QUESTION_COUNT}–${maxQuestionCount}</strong> 道情境题</span>
           <span><strong>${DIMENSIONS.length}</strong> 个维度</span>
           <span><strong>${FIGURE_COUNT}</strong> 位古人</span>
-          <span><strong>答案不上传</strong>，只存本地</span>
+          <span class="hero-meta-note"><strong>答案不上传</strong>，只存本地</span>
         </div>
       </div>
       <div class="atlas" aria-hidden="true">

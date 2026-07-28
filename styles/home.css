@@ -149,6 +149,11 @@
   line-height: 1;
 }
 
+/* 隐私说明是短句而非数字，缩小强调字号避免与后缀小字产生悬殊对比 */
+.hero-meta .hero-meta-note strong {
+  font-size: 15px;
+}
+
 /* 竖排辅助文字 */
 .hero-side-text {
   position: absolute;

@@ -242,6 +242,11 @@
     gap: 30px;
   }
 
+  /* 背景姓氏大字随屏宽缩放，避免 440px 固定字号在窄屏上糊成色块 */
+  .result-hero::after {
+    font-size: min(300px, 58vw);
+  }
+
   .result-stamp {
     width: 46px;
     height: 46px;
