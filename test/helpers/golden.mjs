@@ -71,13 +71,13 @@ function coreAnswersOptionA() {
 
 /**
  * Single-archetype result: option A on all core + calibration
- * RX1:B, AX1:B, OX1:B. Primary = 刘伶, dual = false.
+ * RX1:A, AX1:D, CX1:A. Primary = 司马光, dual = false.
  */
 export function singleArchetypeAnswers() {
   const calibration = [
-    { questionId: "RX1", optionId: "B", value: 1 },
-    { questionId: "AX1", optionId: "B", value: -1 },
-    { questionId: "OX1", optionId: "B", value: -1 },
+    { questionId: "RX1", optionId: "A", value: 3 },
+    { questionId: "AX1", optionId: "D", value: 3 },
+    { questionId: "CX1", optionId: "A", value: 3 },
   ];
   return [...coreAnswersOptionA(), ...calibration];
 }
@@ -95,10 +95,14 @@ export function dualArchetypeAnswers() {
   return [...coreAnswersOptionA(), ...calibration];
 }
 
-/** Full queue: 25 core IDs + the 3 calibration IDs actually used. */
-export function fullQueue() {
+/**
+ * Full queue: 25 core IDs + the 3 calibration IDs the adaptive flow actually
+ * appends for the given answer set. Both fixtures start with RX1 and AX1; they
+ * diverge on the third question because the top-two candidates differ by then.
+ */
+export function fullQueue(calibrationIds = ["RX1", "AX1", "CX1"]) {
   const core = CORE_QUESTIONS.map((q) => q.id);
-  return [...core, "RX1", "AX1", "OX1"];
+  return [...core, ...calibrationIds];
 }
 
 /** Build a real result for the given answer set. */
@@ -229,7 +233,7 @@ export function resultStateDual() {
   return {
     view: "result",
     answers: dualArchetypeAnswers(),
-    queue: fullQueue(),
+    queue: fullQueue(["RX1", "AX1", "OX1"]),
     index: 27,
     completedAt: FIXED_COMPLETED_AT,
   };

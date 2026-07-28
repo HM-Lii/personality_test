@@ -275,30 +275,51 @@ console.table(
   })),
 );
 
-const selectedCalibrationRow = calibrationGapSensitivity.find(
-  (row) => row.threshold === THRESHOLDS.calibrationGapThreshold,
+const passingCalibrationThresholds = calibrationGapSensitivity
+  .filter((row) => row.inCalibrationBand && row.inDualBand)
+  .map((row) => row.threshold);
+const bothBandsAtSelected = passingCalibrationThresholds.includes(
+  THRESHOLDS.calibrationGapThreshold,
 );
-const bothBandsAtSelected =
-  selectedCalibrationRow?.inCalibrationBand && selectedCalibrationRow?.inDualBand;
 
 console.log(
   `\n阈值决策：辨析 gap 采用 ${THRESHOLDS.calibrationGapThreshold}（自 ${BASELINE.calibrationGapThreshold} 下调）。` +
     (bothBandsAtSelected
-      ? `敏感性扫描显示该阈值为区间内唯一同时满足辨析 ${THRESHOLDS.calibrationTriggerMin * 100}%–${THRESHOLDS.calibrationTriggerMax * 100}% 与双原型 ${THRESHOLDS.dualRateMin * 100}%–${THRESHOLDS.dualRateMax * 100}% 的取值。`
+      ? `扫描区间内同时满足辨析 ${THRESHOLDS.calibrationTriggerMin * 100}%–${THRESHOLDS.calibrationTriggerMax * 100}% 与双原型 ${THRESHOLDS.dualRateMin * 100}%–${THRESHOLDS.dualRateMax * 100}% 的取值共 ${passingCalibrationThresholds.length} 个：${passingCalibrationThresholds.join("、")}。`
       : `在可扫描区间内无法同时满足辨析与双原型区间；当前取值为工程折中，详见 docs/phase-a-task7-report.md。`),
 );
 
 console.log("\n双原型 gap 阈值敏感性（calibrationCount=3 且 finalGap < 阈值）：");
+const dualSensitivity = [...flow.gapSensitivity].map(([threshold, count]) => ({
+  threshold,
+  rate: count / FLOW_SAMPLES,
+}));
 console.table(
-  [...flow.gapSensitivity].map(([threshold, count]) => ({
+  dualSensitivity.map(({ threshold, rate }) => ({
     阈值: threshold,
-    双原型率: formatPercent(count / FLOW_SAMPLES),
-    当前: threshold === THRESHOLDS.dualGapThreshold ? "（仅参考，当前代码用 0.01）" : "",
+    双原型率: formatPercent(rate),
+    达标: rate >= THRESHOLDS.dualRateMin && rate <= THRESHOLDS.dualRateMax ? "✓" : "✗",
+    当前: threshold === THRESHOLDS.dualGapThreshold ? "← 采用" : "",
   })),
 );
+const selectedDualRow = dualSensitivity.find(
+  (row) => row.threshold === THRESHOLDS.dualGapThreshold,
+);
+const outOfBand = dualSensitivity.filter(
+  (row) =>
+    row.rate < THRESHOLDS.dualRateMin || row.rate > THRESHOLDS.dualRateMax,
+);
 console.log(
-  `双原型判定采用 ${THRESHOLDS.dualGapThreshold}（calibrationCount=3 且 D2-D1 严格小于阈值）。` +
-    "扫描 0.025–0.045 时双原型率均远超 25%，故维持 0.01 不变。",
+  `双原型判定采用 ${THRESHOLDS.dualGapThreshold}（calibrationCount=3 且 D2-D1 严格小于阈值），` +
+    `与辨析阈值 ${THRESHOLDS.calibrationGapThreshold} 相同，因此不存在“辨析判定分不开、双原型判定却分得开”的灰区。` +
+    (selectedDualRow
+      ? `当前取值双原型率 ${formatPercent(selectedDualRow.rate)}。`
+      : "") +
+    (outOfBand.length
+      ? `扫描区间内超出 ${THRESHOLDS.dualRateMin * 100}%–${THRESHOLDS.dualRateMax * 100}% 的取值：${outOfBand
+          .map((row) => `${row.threshold}(${formatPercent(row.rate)})`)
+          .join("、")}。`
+      : "扫描区间内各取值双原型率均在达标区间内，阈值选择由灰区约束而非达标区间决定。"),
 );
 
 const checks = [

@@ -43,5 +43,5 @@ export const PHASE_A_THRESHOLDS = {
 };
 
 /** Sensitivity sweeps around the production gap thresholds. */
-export const DUAL_GAP_SENSITIVITY = [0.025, 0.035, 0.045];
+export const DUAL_GAP_SENSITIVITY = [0.01, 0.015, 0.02, 0.025];
 export const CALIBRATION_GAP_SENSITIVITY = [0.015, 0.02, 0.025, 0.03, 0.035];

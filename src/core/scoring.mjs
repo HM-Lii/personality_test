@@ -46,8 +46,32 @@ export const CORE_QUESTION_COUNT = CORE_ITEMS_PER_DIMENSION * DIMENSIONS.length;
 /** Gap below which calibration is triggered (needsCalibration). */
 export const CALIBRATION_GAP_THRESHOLD = 0.015;
 
-/** Gap below which the result is kept as a dual archetype (isDualArchetype). */
-export const DUAL_ARCHETYPE_GAP_THRESHOLD = 0.01;
+/**
+ * Gap below which the result is kept as a dual archetype (isDualArchetype).
+ * Deliberately identical to CALIBRATION_GAP_THRESHOLD: a gap that was judged
+ * too close to call before calibration must not become "clear enough" merely
+ * because the calibration budget ran out.
+ */
+export const DUAL_ARCHETYPE_GAP_THRESHOLD = CALIBRATION_GAP_THRESHOLD;
+
+/**
+ * Mirror-pair difference that still counts as fully consistent.
+ * Responses have no neutral option, so a mid-range respondent alternates
+ * between -1 and +1 across two mirrored items. Charging that as instability
+ * would make the measure track trait extremity instead of stability.
+ */
+export const MIRROR_TOLERANCE = 2;
+
+/** Largest possible mirror-pair difference (+3 against -3). */
+export const MIRROR_MAX_DIFFERENCE = 6;
+
+/**
+ * Gap that maps to a full clarity score. Calibrated against the simulated gap
+ * distribution (see scripts/phase-a-report.mjs), not against the theoretical
+ * distance range: real top-two gaps sit around 0.02–0.06, so scaling by the
+ * theoretical maximum would collapse every result into the lowest band.
+ */
+export const CLARITY_GAP_SCALE = 0.05;
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 const isStrictlyBelow = (value, threshold) => value < threshold - 1e-12;
@@ -93,9 +117,15 @@ export function calculateConsistency(answerRecords, mirrorPairs) {
         .filter((value) => value !== null);
 
       if (!differences.length) return [id, 0.75];
-      const meanDifference =
-        differences.reduce((sum, value) => sum + value, 0) / differences.length;
-      return [id, clamp(1 - meanDifference / 6, 0, 1)];
+      const meanPenalty =
+        differences.reduce(
+          (sum, value) =>
+            sum +
+            Math.max(0, value - MIRROR_TOLERANCE) /
+              (MIRROR_MAX_DIFFERENCE - MIRROR_TOLERANCE),
+          0,
+        ) / differences.length;
+      return [id, clamp(1 - meanPenalty, 0, 1)];
     }),
   );
 }
@@ -161,7 +191,11 @@ export function selectCalibrationDimension(ranking, answeredDimensions = []) {
 export function calculateClarity(ranking, consistency) {
   if (ranking.length < 2) return { score: 0, band: "情境型/混合轮廓" };
 
-  const gap = clamp((ranking[1].distance - ranking[0].distance) / 0.1, 0, 1);
+  const gap = clamp(
+    (ranking[1].distance - ranking[0].distance) / CLARITY_GAP_SCALE,
+    0,
+    1,
+  );
   const consistencyMean =
     DIMENSIONS.reduce((sum, { id }) => sum + (consistency[id] ?? 0.75), 0) /
     DIMENSIONS.length;

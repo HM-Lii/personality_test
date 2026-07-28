@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  CALIBRATION_GAP_THRESHOLD,
+  DUAL_ARCHETYPE_GAP_THRESHOLD,
   calculateClarity,
   calculateConsistency,
   calculateScores,
@@ -93,14 +95,22 @@ test("maximally conflicting mirror answers produce zero consistency", () => {
   assert.equal(calculateConsistency(answers, MIRROR_PAIRS).O, 0);
 });
 
+test("mirror answers on either side of the midpoint stay fully consistent", () => {
+  const answers = [
+    { questionId: "O1", dimension: "O", value: -1 },
+    { questionId: "O4", dimension: "O", value: 1 },
+    { questionId: "O2", dimension: "O", value: 1 },
+    { questionId: "O5", dimension: "O", value: -1 },
+  ];
+  assert.equal(calculateConsistency(answers, MIRROR_PAIRS).O, 1);
+});
+
 test("a partially answered mirror pair uses the available pair only", () => {
   const answers = [
     { questionId: "O1", dimension: "O", value: 3 },
-    { questionId: "O4", dimension: "O", value: 1 },
+    { questionId: "O4", dimension: "O", value: -1 },
   ];
-  assert.ok(
-    Math.abs(calculateConsistency(answers, MIRROR_PAIRS).O - 2 / 3) < 1e-12,
-  );
+  assert.equal(calculateConsistency(answers, MIRROR_PAIRS).O, 0.5);
 });
 
 test("dimensions without complete mirror pairs use the documented fallback", () => {
@@ -197,11 +207,19 @@ test("calibration stops after three questions or with fewer than two candidates"
 });
 
 test("dual archetype requires three calibrations and a strict final tie", () => {
-  const tied = [{ distance: 0.1 }, { distance: 0.109999 }];
-  const boundary = [{ distance: 0.1 }, { distance: 0.11 }];
+  const tied = [{ distance: 0.1 }, { distance: 0.114999 }];
+  const boundary = [{ distance: 0.1 }, { distance: 0.115 }];
   assert.equal(isDualArchetype(tied, 2), false);
   assert.equal(isDualArchetype(tied, 3), true);
   assert.equal(isDualArchetype(boundary, 3), false);
+});
+
+test("a gap too close to call before calibration stays too close to call after", () => {
+  assert.equal(DUAL_ARCHETYPE_GAP_THRESHOLD, CALIBRATION_GAP_THRESHOLD);
+
+  const stillTied = [{ distance: 0.1 }, { distance: 0.112 }];
+  assert.equal(needsCalibration(stillTied, 0), true);
+  assert.equal(isDualArchetype(stillTied, 3), true);
 });
 
 test("calibration targets the largest unused candidate difference", () => {
@@ -241,7 +259,7 @@ test("clarity reports clear, neighboring and mixed bands at their boundaries", (
     allConsistency(1),
   );
   const neighboring = calculateClarity(
-    [{ distance: 0.1 }, { distance: 0.15 }],
+    [{ distance: 0.1 }, { distance: 0.125 }],
     allConsistency(0.5),
   );
   const mixed = calculateClarity(
@@ -252,6 +270,15 @@ test("clarity reports clear, neighboring and mixed bands at their boundaries", (
   assert.deepEqual(clear, { score: 100, band: "轮廓较清晰" });
   assert.deepEqual(neighboring, { score: 50, band: "存在邻近原型" });
   assert.deepEqual(mixed, { score: 0, band: "情境型/混合轮廓" });
+});
+
+test("a result kept as a dual archetype can never be shown as clear", () => {
+  const tied = [
+    { distance: 0.1 },
+    { distance: 0.1 + DUAL_ARCHETYPE_GAP_THRESHOLD - 1e-9 },
+  ];
+  assert.equal(isDualArchetype(tied, 3), true);
+  assert.ok(calculateClarity(tied, allConsistency(1)).score < 75);
 });
 
 test("clarity handles an incomplete ranking", () => {
