@@ -14,6 +14,7 @@ const mimeTypes = {
   ".jpg": "image/jpeg",
   ".png": "image/png",
   ".svg": "image/svg+xml",
+  ".woff2": "font/woff2",
 };
 
 createServer((request, response) => {

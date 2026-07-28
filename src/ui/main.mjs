@@ -76,23 +76,37 @@ export function mountApp({
     inkContainer.appendChild(fragment);
   }
 
-  /* 报告卡片滚动揭示 */
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          revealObserver.unobserve(entry.target);
+  /* 报告卡片滚动揭示：用 rAF 节流的滚动检查代替 IntersectionObserver，
+     瞬时跳转（锚点、程序化滚动、浏览器恢复滚动位置）也能可靠触发。 */
+  let revealScheduled = false;
+
+  function checkReveals() {
+    const triggerLine = window.innerHeight * 0.92;
+    app
+      .querySelectorAll(".reveal:not(.is-visible)")
+      .forEach((node) => {
+        const rect = node.getBoundingClientRect();
+        if (rect.top < triggerLine && rect.bottom > 0) {
+          node.classList.add("is-visible");
         }
-      }
+      });
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (revealScheduled) return;
+      revealScheduled = true;
+      requestAnimationFrame(() => {
+        revealScheduled = false;
+        checkReveals();
+      });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    { passive: true },
   );
 
   function observeReveals() {
-    app
-      .querySelectorAll(".reveal:not(.is-visible)")
-      .forEach((node) => revealObserver.observe(node));
+    checkReveals();
   }
 
   function persist() {
