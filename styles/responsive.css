@@ -1,0 +1,618 @@
+/* ============ 响应式 ============ */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 56px;
+  }
+
+  .hero-side-text {
+    display: none;
+  }
+
+  .atlas {
+    min-height: 500px;
+  }
+
+  .result-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .result-stamp {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .radar-wrap {
+    min-height: 360px;
+  }
+
+  .report-card-large,
+  .report-card-side {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header,
+  .site-footer,
+  #app {
+    width: min(100% - 28px, 1180px);
+  }
+
+  /* 安全区适配：刘海屏 / 底部横条 */
+  .site-header {
+    height: 72px;
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .site-footer {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* 顶栏更紧凑 */
+  .brand {
+    gap: 10px;
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .brand strong {
+    font-size: 17px;
+  }
+
+  .brand small {
+    font-size: 8.5px;
+  }
+
+  /* 首页 Hero */
+  .hero {
+    min-height: auto;
+    gap: 28px;
+    padding: 32px 0 46px;
+  }
+
+  .hero h1 {
+    font-size: clamp(42px, 12vw, 52px);
+  }
+
+  .hero-lead {
+    font-size: 14.5px;
+  }
+
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .ghost-button {
+    min-height: 52px;
+    justify-content: center;
+  }
+
+  .plain-link {
+    align-self: center;
+    padding: 12px 0;
+  }
+
+  .hero-meta {
+    gap: 12px 20px;
+    margin-top: 22px;
+  }
+
+  .hero-meta strong {
+    font-size: 19px;
+  }
+
+  /* 印章轨道：固定坐标盒居中，位置用百分比，任意窄屏都不溢出 */
+  .atlas {
+    width: min(340px, 100%);
+    min-height: 344px;
+    margin: 0 auto -18px;
+  }
+
+  .orbit {
+    width: 300px;
+    height: 300px;
+  }
+
+  .seal-main {
+    top: 84px;
+    width: 160px;
+    height: 192px;
+    font-size: 34px;
+  }
+
+  .seal-one {
+    top: 8%;
+    right: 2%;
+    width: 92px;
+    height: 108px;
+    font-size: 21px;
+  }
+
+  .seal-two {
+    right: 0;
+    bottom: 15%;
+    width: 80px;
+    height: 90px;
+    font-size: 19px;
+  }
+
+  .seal-three {
+    bottom: 10%;
+    left: 4%;
+    width: 92px;
+    height: 104px;
+    font-size: 20px;
+  }
+
+  .seal-four {
+    top: 16%;
+    left: 0;
+    width: 72px;
+    height: 82px;
+    font-size: 17px;
+  }
+
+  /* 答题页 */
+  .quiz-shell {
+    padding: 28px 0 80px;
+  }
+
+  .quiz-topline {
+    gap: 14px;
+  }
+
+  .back-button {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .progress-count {
+    min-width: 60px;
+    font-size: 12.5px;
+  }
+
+  .question-card {
+    margin-top: 36px;
+  }
+
+  .question-card h1 {
+    font-size: clamp(24px, 6.5vw, 34px);
+    margin: 18px 0 14px;
+  }
+
+  .question-context {
+    font-size: 14px;
+  }
+
+  .options {
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .option {
+    grid-template-columns: 32px 1fr;
+    gap: 14px;
+    padding: 15px 16px;
+    min-height: 64px;
+  }
+
+  .option-letter {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .option-text {
+    font-size: 14.5px;
+  }
+
+  .option-arrow {
+    display: none;
+  }
+
+  .question-hint {
+    font-size: 12px;
+    margin-top: 22px;
+  }
+
+  /* 结果页 */
+  .result-page {
+    padding: 30px 0 80px;
+  }
+
+  .result-masthead {
+    margin-bottom: 24px;
+  }
+
+  .result-hero {
+    min-height: 0;
+    padding: 34px 24px;
+    border-radius: 22px;
+    gap: 30px;
+  }
+
+  .result-stamp {
+    width: 46px;
+    height: 46px;
+    font-size: 17px;
+    top: 24px;
+    right: 24px;
+  }
+
+  .result-name {
+    font-size: clamp(48px, 13vw, 64px);
+    margin: 18px 0 6px;
+  }
+
+  .result-name-dual {
+    font-size: clamp(36px, 10vw, 50px);
+  }
+
+  .result-title {
+    font-size: 14px;
+  }
+
+  .tags {
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .tag {
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+
+  .figure-bio {
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .bio-line {
+    font-size: 13.5px;
+  }
+
+  .result-quote {
+    margin-top: 30px;
+    font-size: clamp(16px, 4.5vw, 20px);
+  }
+
+  .clarity {
+    margin-top: 28px;
+    padding: 7px 14px;
+    font-size: 11px;
+  }
+
+  .clarity strong {
+    font-size: 14px;
+  }
+
+  /* 雷达图 */
+  .radar-wrap {
+    min-height: 280px;
+  }
+
+  .radar-wrap::before {
+    width: 260px;
+    height: 260px;
+  }
+
+  .radar {
+    width: min(100%, 340px);
+  }
+
+  /* 报告卡片 */
+  .report-grid {
+    gap: 16px;
+    margin-top: 18px;
+  }
+
+  .report-card {
+    padding: 24px 20px;
+    border-radius: 18px;
+  }
+
+  .report-card h2 {
+    font-size: 23px;
+  }
+
+  .report-card p {
+    font-size: 13.5px;
+  }
+
+  .dimension-list {
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .dimension-row {
+    grid-template-columns: 72px 1fr 38px;
+    gap: 12px;
+  }
+
+  .dimension-row span {
+    font-size: 12.5px;
+  }
+
+  .dimension-row strong {
+    font-size: 14px;
+  }
+
+  .evidence-item {
+    padding: 16px 0;
+    grid-template-columns: 40px 1fr;
+    gap: 12px;
+  }
+
+  .evidence-item strong {
+    font-size: 13px;
+  }
+
+  .evidence-item p {
+    font-size: 13px;
+  }
+
+  .candidate-comparison {
+    gap: 8px;
+  }
+
+  .candidate-rank {
+    padding: 14px;
+  }
+
+  .candidate-rank strong {
+    font-size: 19px;
+  }
+
+  .candidate-versus {
+    font-size: 10px;
+  }
+
+  .decision-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .decision-item {
+    padding: 16px;
+  }
+
+  .decision-head {
+    align-items: flex-start;
+  }
+
+  .history-evidence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .history-evidence-item {
+    padding: 18px;
+  }
+
+  .history-evidence-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  /* 邻近原型：窄屏改为横向滑动卡片，避免三栏挤压 */
+  .nearby-grid {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    margin: 20px -20px 0;
+    padding: 2px 20px 10px;
+  }
+
+  .nearby {
+    flex: 0 0 152px;
+    scroll-snap-align: start;
+    padding: 14px;
+  }
+
+  .nearby strong {
+    font-size: 18px;
+  }
+
+  .advice-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .advice {
+    min-height: 0;
+    padding: 20px;
+  }
+
+  /* 结果操作按钮 */
+  .result-actions {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .result-actions button {
+    width: 100%;
+  }
+
+  /* 弹窗：更接近全屏 */
+  .method-dialog {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    height: 100dvh;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .method-dialog::backdrop {
+    background: rgba(16, 14, 11, 0.7);
+  }
+
+  .dialog-head {
+    padding: 26px 22px 20px;
+    padding-top: calc(26px + env(safe-area-inset-top));
+  }
+
+  .dialog-head h2 {
+    font-size: 26px;
+  }
+
+  .method-content {
+    padding: 8px 22px calc(28px + env(safe-area-inset-bottom));
+  }
+
+  .method-content section {
+    padding: 22px 0;
+    gap: 14px;
+    grid-template-columns: 40px 1fr;
+  }
+
+  /* 页脚 */
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 0;
+  }
+
+  .site-footer p {
+    font-size: 10px;
+  }
+
+  /* Toast 避开底部安全区 */
+  .toast {
+    right: 16px;
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    left: 16px;
+    text-align: center;
+  }
+}
+
+/* ---------- 超小屏（≤420px）：iPhone SE / 折叠屏 ---------- */
+@media (max-width: 420px) {
+  .site-header,
+  .site-footer,
+  #app {
+    width: min(100% - 24px, 1180px);
+  }
+
+  .hero {
+    padding: 28px 0 52px;
+  }
+
+  /* 统计行四项在超小屏排成 2×2，避免孤行 */
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 11vw, 44px);
+  }
+
+  .hero-lead {
+    font-size: 14px;
+  }
+
+  /* 印章轨道进一步收紧 */
+  .atlas {
+    min-height: 310px;
+    margin-bottom: -12px;
+  }
+
+  .orbit {
+    width: 264px;
+    height: 264px;
+  }
+
+  .seal-main {
+    top: 72px;
+    width: 140px;
+    height: 170px;
+    font-size: 30px;
+  }
+
+  .seal-one {
+    width: 82px;
+    height: 96px;
+    font-size: 19px;
+  }
+
+  .seal-two {
+    width: 72px;
+    height: 80px;
+    font-size: 17px;
+  }
+
+  .seal-three {
+    width: 82px;
+    height: 92px;
+    font-size: 18px;
+  }
+
+  .seal-four {
+    width: 64px;
+    height: 72px;
+    font-size: 15px;
+  }
+
+  /* 答题页 */
+  .question-card h1 {
+    font-size: clamp(22px, 6.5vw, 28px);
+  }
+
+  .option {
+    padding: 13px 14px;
+    min-height: 60px;
+  }
+
+  /* 结果页 */
+  .result-hero {
+    padding: 28px 20px;
+  }
+
+  /* 与 420px 档卡片内边距对齐，横滑容器不外溢 */
+  .nearby-grid {
+    margin-inline: -18px;
+    padding-inline: 18px;
+  }
+
+  .result-name {
+    font-size: clamp(40px, 13vw, 52px);
+  }
+
+  .report-card {
+    padding: 22px 18px;
+  }
+
+  .report-card h2 {
+    font-size: 21px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   美化与动画增强（放在末尾以保证覆盖优先级）
+   ============================================================ */

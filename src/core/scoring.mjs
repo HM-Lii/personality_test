@@ -35,6 +35,20 @@ export const RESPONSE_VALUES = [-3, -1, 1, 3];
 export const CORE_ITEMS_PER_DIMENSION = 5;
 export const MAX_CALIBRATION_ITEMS = 3;
 
+/** Score range: scoreDimension maps [-3, 3] to [SCORE_MIN, SCORE_MAX]. */
+export const SCORE_MIN = 10;
+export const SCORE_MAX = 90;
+export const SCORE_SPAN = SCORE_MAX - SCORE_MIN;
+
+/** Total core questions = items per dimension × dimension count. */
+export const CORE_QUESTION_COUNT = CORE_ITEMS_PER_DIMENSION * DIMENSIONS.length;
+
+/** Gap below which calibration is triggered (needsCalibration). */
+export const CALIBRATION_GAP_THRESHOLD = 0.015;
+
+/** Gap below which the result is kept as a dual archetype (isDualArchetype). */
+export const DUAL_ARCHETYPE_GAP_THRESHOLD = 0.01;
+
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 const isStrictlyBelow = (value, threshold) => value < threshold - 1e-12;
 
@@ -43,9 +57,9 @@ const isStrictlyBelow = (value, threshold) => value < threshold - 1e-12;
  * Calibration items have the same weight as core items.
  */
 export function scoreDimension(values) {
-  if (!values.length) return 50;
+  if (!values.length) return (SCORE_MIN + SCORE_MAX) / 2;
   const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
-  return Math.round(50 + (40 * mean) / 3);
+  return Math.round((SCORE_MIN + SCORE_MAX) / 2 + (SCORE_SPAN / 2 * mean) / 3);
 }
 
 export function calculateScores(answerRecords) {
@@ -92,7 +106,7 @@ export function normalizedDistance(scores, figureVector, consistency = {}) {
 
   for (const { id } of DIMENSIONS) {
     const weight = 0.8 + 0.2 * (consistency[id] ?? 0.75);
-    const difference = (scores[id] - figureVector[id]) / 80;
+    const difference = (scores[id] - figureVector[id]) / SCORE_SPAN;
     weightedSquares += weight * difference * difference;
     totalWeight += weight;
   }
@@ -115,12 +129,18 @@ export function rankFigures(scores, figures, consistency = {}) {
 
 export function needsCalibration(ranking, calibrationCount = 0) {
   if (calibrationCount >= MAX_CALIBRATION_ITEMS || ranking.length < 2) return false;
-  return isStrictlyBelow(ranking[1].distance - ranking[0].distance, 0.015);
+  return isStrictlyBelow(
+    ranking[1].distance - ranking[0].distance,
+    CALIBRATION_GAP_THRESHOLD,
+  );
 }
 
 export function isDualArchetype(ranking, calibrationCount) {
   if (calibrationCount < MAX_CALIBRATION_ITEMS || ranking.length < 2) return false;
-  return isStrictlyBelow(ranking[1].distance - ranking[0].distance, 0.01);
+  return isStrictlyBelow(
+    ranking[1].distance - ranking[0].distance,
+    DUAL_ARCHETYPE_GAP_THRESHOLD,
+  );
 }
 
 export function selectCalibrationDimension(ranking, answeredDimensions = []) {

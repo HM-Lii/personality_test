@@ -6,12 +6,12 @@
  * O = exploration/openness, C = structure/execution, E = extraverted drive,
  * A = cooperation/empathy, R = resilience/stability.
  *
- * Vector rationale: docs/figures-rationale.json (single source of truth for tags + rationale).
- * Historical evidence: docs/figure-evidence.json (events, sources, interpretations,
+ * Vector rationale: src/data/generated/figures-rationale.json (single source of truth for tags + rationale).
+ * Historical evidence: src/data/generated/figure-evidence.json (events, sources, interpretations,
  * confidence and disputes for key dimensions).
  */
-import evidenceDocument from "../../docs/figure-evidence.json" with { type: "json" };
-import rationaleEntries from "../../docs/figures-rationale.json" with { type: "json" };
+import evidenceDocument from "./generated/figure-evidence.json" with { type: "json" };
+import rationaleEntries from "./generated/figures-rationale.json" with { type: "json" };
 
 const evidenceById = new Map(
   evidenceDocument.figures.map((entry) => [entry.id, entry]),

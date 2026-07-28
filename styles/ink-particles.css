@@ -1,0 +1,36 @@
+/* ---------- 全局浮动墨点 ---------- */
+.ink-particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  transition: opacity 700ms var(--ease);
+}
+body[data-view="quiz"] .ink-particles {
+  opacity: 0;
+}
+.ink-particles span {
+  position: absolute;
+  bottom: -24px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26, 26, 22, 0.5), transparent 70%);
+  animation: ink-float linear infinite;
+  will-change: transform, opacity;
+}
+@keyframes ink-float {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.55;
+  }
+  88% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(-104vh) scale(1.3);
+    opacity: 0;
+  }
+}

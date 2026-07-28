@@ -1,0 +1,238 @@
+/* ============ 答题页 ============ */
+.quiz-shell {
+  width: min(860px, 100%);
+  margin: 0 auto;
+  padding: 56px 0 96px;
+}
+
+.quiz-topline {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 20px;
+}
+
+.back-button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper-soft);
+  cursor: pointer;
+  font-size: 20px;
+  transition:
+    transform 220ms var(--ease),
+    border-color 220ms var(--ease),
+    background 220ms var(--ease),
+    color 220ms var(--ease);
+}
+
+.back-button:hover {
+  transform: translateX(-3px);
+  border-color: var(--rust);
+  color: var(--rust);
+  background: var(--white);
+}
+
+.progress-track {
+  height: 6px;
+  overflow: hidden;
+  background: rgba(23, 23, 19, 0.08);
+  border-radius: 99px;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--rust), var(--rust-soft));
+  border-radius: inherit;
+  transition: width 480ms var(--ease);
+  box-shadow: 0 0 12px rgba(157, 67, 43, 0.4);
+}
+
+.progress-count {
+  min-width: 68px;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+}
+
+.question-card {
+  margin-top: 52px;
+  animation: rise 420ms var(--ease) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.question-number {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--rust);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.question-number::after {
+  content: "";
+  width: 72px;
+  height: 1px;
+  background: linear-gradient(90deg, currentColor, transparent);
+}
+
+.question-card h1 {
+  max-width: 760px;
+  margin: 24px 0 16px;
+  font-family: var(--serif);
+  font-size: clamp(30px, 4.6vw, 46px);
+  font-weight: 500;
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  font-feature-settings: "halt";
+}
+
+.question-context {
+  max-width: 700px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.options {
+  display: grid;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.option {
+  position: relative;
+  width: 100%;
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: 38px 1fr 22px;
+  align-items: center;
+  gap: 18px;
+  padding: 17px 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 253, 247, 0.55);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    border-color 200ms var(--ease),
+    transform 200ms var(--ease),
+    background 200ms var(--ease),
+    box-shadow 200ms var(--ease);
+  overflow: hidden;
+}
+
+.option::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--rust);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform 280ms var(--ease);
+}
+
+.option:hover {
+  transform: translateX(5px);
+  border-color: rgba(157, 67, 43, 0.45);
+  background: rgba(255, 253, 247, 0.95);
+  box-shadow: var(--shadow-sm);
+}
+
+.option:hover::before {
+  transform: scaleY(0.6);
+}
+
+.option.selected {
+  color: var(--white);
+  border-color: var(--rust);
+  background: var(--rust);
+  box-shadow: 0 14px 34px rgba(157, 67, 43, 0.32);
+}
+
+.option.selected::before {
+  background: var(--white);
+  transform: scaleY(1);
+}
+
+.option-letter {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-family: var(--serif);
+  font-size: 13px;
+  opacity: 0.72;
+  transition: opacity 200ms var(--ease), background 200ms var(--ease);
+}
+
+.option:hover .option-letter,
+.option.selected .option-letter {
+  opacity: 1;
+}
+
+.option.selected .option-letter {
+  background: rgba(255, 253, 247, 0.16);
+}
+
+.option-text {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.option-arrow {
+  font-size: 18px;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity 200ms var(--ease),
+    transform 200ms var(--ease);
+}
+
+.option:hover .option-arrow,
+.option.selected .option-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.question-hint {
+  margin: 26px 0 0;
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/* 键盘快捷键提示只对带键盘的设备显示 */
+.hint-keys {
+  display: none;
+  margin-left: 8px;
+  color: var(--muted-soft);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hint-keys {
+    display: inline;
+  }
+}

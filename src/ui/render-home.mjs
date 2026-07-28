@@ -1,10 +1,11 @@
-import { escapeHtml } from "./utils.mjs";
+import { CORE_QUESTION_COUNT, MAX_CALIBRATION_ITEMS, DIMENSIONS } from "../core/scoring.mjs";
 
 export function renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT }) {
   const answeredCore = state.answers.filter((answer) =>
     CORE_QUESTIONS.some((question) => question.id === answer.questionId),
   ).length;
   const canResume = answeredCore > 0 || state.completedAt;
+  const maxQuestionCount = CORE_QUESTION_COUNT + MAX_CALIBRATION_ITEMS;
 
   app.innerHTML = `
     <section class="hero" aria-labelledby="hero-title">
@@ -12,7 +13,7 @@ export function renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT }) {
         <span class="eyebrow">HISTORICAL PERSONA · OPEN METHOD</span>
         <h1 id="hero-title">心有其性，<br><em>史有其人</em></h1>
         <p class="hero-lead">
-          25 道日常情境题，映出你性情的轮廓。 
+          ${CORE_QUESTION_COUNT} 道日常情境题，映出你性情的轮廓。 
           没有玄学，不贴标签，每一分都算得明白；只为在 ${FIGURE_COUNT} 位古人中，找到那个与你同频的灵魂。
         </p>
         <div class="hero-actions">
@@ -24,14 +25,14 @@ export function renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT }) {
               ? `<button class="plain-link" type="button" data-action="resume">${
                   state.completedAt
                     ? "看看上次的结果"
-                    : `接着上次做 · ${answeredCore}/25`
+                    : `接着上次做 · ${answeredCore}/${CORE_QUESTION_COUNT}`
                 }</button>`
               : `<button class="plain-link" type="button" data-action="method">先看看怎么算</button>`
           }
         </div>
         <div class="hero-meta" aria-label="测试信息">
-          <span><strong>25–28</strong> 道情境题</span>
-          <span><strong>5</strong> 个维度</span>
+          <span><strong>${CORE_QUESTION_COUNT}–${maxQuestionCount}</strong> 道情境题</span>
+          <span><strong>${DIMENSIONS.length}</strong> 个维度</span>
           <span><strong>${FIGURE_COUNT}</strong> 位古人</span>
           <span><strong>答案不上传</strong>，只存本地</span>
         </div>

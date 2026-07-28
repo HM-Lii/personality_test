@@ -1,4 +1,5 @@
 import { DIMENSIONS } from "../data/catalog.mjs";
+import { SCORE_MIN, SCORE_SPAN } from "../core/scoring.mjs";
 import { escapeHtml } from "./utils.mjs";
 
 function polygonPoints(radius, center = 200) {
@@ -14,7 +15,7 @@ export function radarSvg(scores, dimensionMap) {
   const points = DIMENSIONS.map(({ id }, index) => {
     const raw = Number(scores[id]);
     const normalized = Number.isFinite(raw)
-      ? Math.min(1, Math.max(0, (raw - 10) / 80))
+      ? Math.min(1, Math.max(0, (raw - SCORE_MIN) / SCORE_SPAN))
       : 0.5;
     const angle = -Math.PI / 2 + (index * Math.PI * 2) / DIMENSIONS.length;
     return {

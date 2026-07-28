@@ -276,7 +276,7 @@ Step 5  与最近邻 3 人比对，确保距离 ≥ validate 门槛
 
 **分批策略（应对工时风险）**：全人物库不要一次性走完。先做 20 人（覆盖各类原型标签）走完整 Step 1–5，验证「理论区间表」是否好用、距离门槛是否好满足；调整区间表后再批量做其余人物。这样能避免区间表设计缺陷导致全量返工。
 
-**交付物**：[`docs/figures-rationale.json`](./figures-rationale.json) — 全人物库的 `{ id, tags[], vector, rationale }`；必要时更新 `src/data/figures.mjs`。
+**交付物**：[`src/data/generated/figures-rationale.json`](../src/data/generated/figures-rationale.json) — 全人物库的 `{ id, tags[], vector, rationale }`；必要时更新 `src/data/figures.mjs`。
 
 **完成标准**：`npm run validate` 人物部分通过；随机抽 5 人，外人能读懂「向量为何如此」。
 
@@ -335,7 +335,7 @@ Step 5  与最近邻 3 人比对，确保距离 ≥ validate 门槛
 
 ### 人物
 
-- [x] 全人物库各有 `rationale` + 2–3 个理论标签（见 `docs/figures-rationale.json`）
+- [x] 全人物库各有 `rationale` + 2–3 个理论标签（见 `src/data/generated/figures-rationale.json`）
 - [ ] 向量调整有依据，非纯叙事拍脑袋
 - [ ] 不可达 / 极近对 / 自最近邻 全过
 

@@ -3,16 +3,10 @@ import {
   CORE_QUESTIONS,
   MIRROR_PAIRS,
 } from "../src/data/questions.mjs";
+import { RESPONSE_VALUES, CORE_ITEMS_PER_DIMENSION, CORE_QUESTION_COUNT } from "../src/core/scoring.mjs";
+import { DIMENSION_IDS, DOMAINS } from "../src/data/dimensions.mjs";
+import { OPTION_TEXT_MAX_LENGTH, OPTION_TEXT_AVG_MAX_LENGTH } from "./lib/thresholds.mjs";
 
-const DIMENSIONS = ["O", "C", "E", "A", "R"];
-const DOMAINS = [
-  "工作与学习",
-  "合作与关系",
-  "冲突与压力",
-  "新环境与不确定性",
-  "个人恢复与长期选择",
-];
-const VALUES = [-3, -1, 1, 3];
 const BANNED_WORDS = ["不负责", "冲动", "自私", "善良", "懒惰", "你总是", "你从不"];
 const FORMAL_OPTION_WORDS = [
   "逐项",
@@ -34,7 +28,7 @@ for (const question of allQuestions) {
   if (ids.has(question.id)) issues.push(`题目 ID 重复：${question.id}`);
   ids.add(question.id);
 
-  if (!DIMENSIONS.includes(question.dimension)) {
+  if (!DIMENSION_IDS.includes(question.dimension)) {
     issues.push(`${question.id} 使用未知维度：${question.dimension}`);
   }
   if (!DOMAINS.includes(question.domain)) {
@@ -45,7 +39,7 @@ for (const question of allQuestions) {
   }
 
   const values = question.options.map((item) => item.value).sort((a, b) => a - b);
-  if (values.join(",") !== VALUES.join(",")) {
+  if (values.join(",") !== RESPONSE_VALUES.join(",")) {
     issues.push(`${question.id} 的分值不是 -3, -1, 1, 3`);
   }
 
@@ -63,8 +57,8 @@ for (const question of allQuestions) {
 
   for (const item of question.options) {
     const length = [...item.text].length;
-    if (length > 20) {
-      issues.push(`${question.id} 选项超过20字（${length}字）：${item.text}`);
+    if (length > OPTION_TEXT_MAX_LENGTH) {
+      issues.push(`${question.id} 选项超过${OPTION_TEXT_MAX_LENGTH}字（${length}字）：${item.text}`);
     }
     for (const formalWord of FORMAL_OPTION_WORDS) {
       if (item.text.includes(formalWord)) {
@@ -74,11 +68,11 @@ for (const question of allQuestions) {
   }
 }
 
-if (CORE_QUESTIONS.length !== 25) {
-  issues.push(`核心题应为25道，实际为${CORE_QUESTIONS.length}道`);
+if (CORE_QUESTIONS.length !== CORE_QUESTION_COUNT) {
+  issues.push(`核心题应为${CORE_QUESTION_COUNT}道，实际为${CORE_QUESTIONS.length}道`);
 }
 
-for (const dimension of DIMENSIONS) {
+for (const dimension of DIMENSION_IDS) {
   const core = CORE_QUESTIONS.filter((question) => question.dimension === dimension);
   const calibration = CALIBRATION_QUESTIONS.filter(
     (question) => question.dimension === dimension,
@@ -94,7 +88,7 @@ for (const dimension of DIMENSIONS) {
     );
   });
 
-  if (core.length !== 5) issues.push(`${dimension} 核心题应为5道，实际为${core.length}道`);
+  if (core.length !== CORE_ITEMS_PER_DIMENSION) issues.push(`${dimension} 核心题应为${CORE_ITEMS_PER_DIMENSION}道，实际为${core.length}道`);
   if (calibration.length < 3) {
     issues.push(`${dimension} 辨析题至少3道，实际为${calibration.length}道`);
   }
@@ -134,11 +128,11 @@ for (const question of allQuestions) {
 
 const averageOptionLength =
   optionLengths.reduce((sum, length) => sum + length, 0) / optionLengths.length;
-if (averageOptionLength > 17) {
-  issues.push(`选项平均长度应不超过17字，实际为${averageOptionLength.toFixed(1)}字`);
+if (averageOptionLength > OPTION_TEXT_AVG_MAX_LENGTH) {
+  issues.push(`选项平均长度应不超过${OPTION_TEXT_AVG_MAX_LENGTH}字，实际为${averageOptionLength.toFixed(1)}字`);
 }
 
-const summary = DIMENSIONS.map((dimension) => ({
+const summary = DIMENSION_IDS.map((dimension) => ({
   dimension,
   core: CORE_QUESTIONS.filter((question) => question.dimension === dimension).length,
   calibration: CALIBRATION_QUESTIONS.filter(

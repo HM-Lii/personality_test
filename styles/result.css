@@ -1,0 +1,285 @@
+/* ============ 结果页 ============ */
+.result-page {
+  padding: 56px 0 96px;
+  animation: rise 500ms var(--ease) both;
+}
+
+.result-masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin-bottom: 32px;
+}
+
+.result-id {
+  color: var(--muted);
+  font-family: var(--serif);
+  font-size: 12.5px;
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
+}
+
+.result-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 540px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+  gap: 44px;
+  padding: clamp(40px, 6vw, 76px);
+  color: var(--white);
+  background:
+    radial-gradient(circle at 18% 20%, rgba(194, 90, 62, 0.32), transparent 50%),
+    radial-gradient(circle at 90% 90%, rgba(182, 138, 77, 0.18), transparent 55%),
+    var(--ink);
+  border-radius: 30px;
+  box-shadow: var(--shadow-lg);
+}
+
+.result-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)' opacity='.5'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.result-hero::after {
+  content: attr(data-character);
+  position: absolute;
+  right: -0.14em;
+  bottom: -0.34em;
+  color: rgba(255, 255, 255, 0.032);
+  font-family: var(--serif);
+  font-size: 440px;
+  line-height: 1;
+  pointer-events: none;
+  filter: blur(0.5px);
+}
+
+.result-copy,
+.radar-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.result-stamp {
+  position: absolute;
+  z-index: 2;
+  top: clamp(30px, 4vw, 46px);
+  right: clamp(30px, 4vw, 46px);
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  background: var(--rust);
+  border-radius: 48% 52% 46% 54% / 54% 48% 52% 46%;
+  font-family: var(--serif);
+  font-size: 22px;
+  box-shadow: 0 8px 22px rgba(157, 67, 43, 0.45), inset 0 0 0 2px rgba(255, 253, 247, 0.18);
+  transform: rotate(-8deg);
+  letter-spacing: 0.05em;
+}
+
+.result-stamp::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(255, 253, 247, 0.3);
+  border-radius: inherit;
+}
+
+.result-kicker {
+  color: #d8b27d;
+}
+
+.result-name {
+  margin: 26px 0 8px;
+  font-family: var(--serif);
+  font-size: clamp(62px, 8.6vw, 106px);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  font-feature-settings: "halt";
+  background: linear-gradient(180deg, #fffdf7 30%, #e8d6b8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-wrap: balance;
+}
+
+.result-name-dual {
+  max-width: 560px;
+  font-size: clamp(46px, 6.2vw, 78px);
+  line-height: 1.14;
+}
+
+.result-title {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.64);
+  font-family: var(--serif);
+  font-size: 15.5px;
+  letter-spacing: 0.12em;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 30px;
+}
+
+.tag {
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(4px);
+}
+
+.figure-bio {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+  max-width: 520px;
+}
+
+.bio-line {
+  margin: 0;
+  color: rgba(255, 253, 247, 0.82);
+  font-size: 14px;
+  line-height: 1.92;
+  letter-spacing: 0.01em;
+}
+
+.bio-name {
+  color: #d8b27d;
+  font-family: var(--serif);
+  margin-right: 10px;
+  letter-spacing: 0.04em;
+}
+
+.result-quote {
+  max-width: 520px;
+  margin: 40px 0 0;
+  font-family: var(--serif);
+  font-size: clamp(19px, 2.6vw, 26px);
+  line-height: 1.72;
+  letter-spacing: 0.01em;
+  color: rgba(255, 253, 247, 0.9);
+}
+
+.clarity {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 36px;
+  padding: 8px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 11.5px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.clarity strong {
+  color: #d8b27d;
+  font-family: var(--serif);
+  font-size: 16px;
+}
+
+/* 雷达图 */
+.radar-wrap {
+  min-height: 380px;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  align-self: center;
+  justify-self: stretch;
+  position: relative;
+}
+
+.radar-wrap::before {
+  content: "";
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(210, 168, 106, 0.16), transparent 65%);
+  pointer-events: none;
+}
+
+.radar {
+  width: min(100%, 460px);
+  overflow: visible;
+  animation: radar-in 900ms var(--ease) both;
+}
+
+@keyframes radar-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+
+.radar-grid {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.14);
+  stroke-width: 1;
+}
+
+.radar-axis {
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 1;
+}
+
+.radar-area {
+  fill: rgba(190, 132, 77, 0.28);
+  stroke: #d2a065;
+  stroke-width: 2.2;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25));
+  animation: radar-draw 1100ms var(--ease) both;
+}
+
+@keyframes radar-draw {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+    transform-origin: 200px 200px;
+  }
+}
+
+.radar-dot {
+  fill: #f2d1a9;
+  filter: drop-shadow(0 0 6px rgba(242, 209, 169, 0.5));
+}
+
+.radar-label {
+  fill: rgba(255, 255, 255, 0.92);
+  paint-order: stroke;
+  stroke: rgba(23, 22, 18, 0.72);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.radar-score {
+  fill: #f1cf9f;
+  paint-order: stroke;
+  stroke: rgba(23, 22, 18, 0.72);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  font-family: var(--serif);
+  font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+}

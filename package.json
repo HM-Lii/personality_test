@@ -6,8 +6,9 @@
   "scripts": {
     "start": "node scripts/serve.mjs",
     "build:evidence": "node scripts/build-figure-evidence.mjs",
-    "test": "node --test test/scoring.test.mjs test/session.test.mjs test/result.test.mjs test/cancelable-timer.test.mjs test/storage.test.mjs test/data-contract.test.mjs test/flow.test.mjs test/share.test.mjs test/render-result.test.mjs",
-    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=\"src/core/*.mjs\" --test-coverage-lines=100 --test-coverage-functions=100 --test-coverage-branches=98 test/scoring.test.mjs test/session.test.mjs test/result.test.mjs test/data-contract.test.mjs test/flow.test.mjs",
+    "build:font": "python scripts/build-font-subset.py",
+    "test": "node --test test/cancelable-timer.test.mjs test/data-contract.test.mjs test/flow.test.mjs test/quiz-controller.test.mjs test/render-golden.test.mjs test/render-result.test.mjs test/result.test.mjs test/scoring.test.mjs test/session.test.mjs test/share.test.mjs test/storage.test.mjs test/view-router.test.mjs",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=\"src/core/*.mjs\" --test-coverage-lines=100 --test-coverage-functions=100 --test-coverage-branches=98 test/cancelable-timer.test.mjs test/data-contract.test.mjs test/flow.test.mjs test/quiz-controller.test.mjs test/render-golden.test.mjs test/render-result.test.mjs test/result.test.mjs test/scoring.test.mjs test/session.test.mjs test/share.test.mjs test/storage.test.mjs test/view-router.test.mjs",
     "validate": "node scripts/validate-questions.mjs && node scripts/validate-figures.mjs && node scripts/validate-figure-evidence.mjs",
     "validate:phase-a": "node scripts/validate-construct.mjs && node scripts/validate-figures-rationale.mjs && node scripts/validate-figure-evidence.mjs && node scripts/phase-a-report.mjs"
   }

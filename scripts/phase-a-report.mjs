@@ -4,6 +4,8 @@ import {
   isDualArchetype,
   rankFigures,
   selectCalibrationDimension,
+  CALIBRATION_GAP_THRESHOLD,
+  DUAL_ARCHETYPE_GAP_THRESHOLD,
 } from "../src/core/scoring.mjs";
 import { FIGURES } from "../src/data/figures.mjs";
 import {
@@ -11,23 +13,37 @@ import {
   CORE_QUESTIONS,
   MIRROR_PAIRS,
 } from "../src/data/questions.mjs";
-
-const DIMENSIONS = ["O", "C", "E", "A", "R"];
+import { DIMENSION_IDS } from "../src/data/dimensions.mjs";
+import {
+  PHASE_A_THRESHOLDS,
+  DUAL_GAP_SENSITIVITY,
+  CALIBRATION_GAP_SENSITIVITY,
+  SIMULATION_SAMPLE_COUNT,
+  SIMULATION_SAMPLE_COUNT_FAST,
+  EXACT_GRID_SIZE,
+  SIMULATION_SEED,
+  BASE_SCORE_LEVELS,
+} from "./lib/thresholds.mjs";
+import {
+  createRandom,
+  normalSample,
+  responseFor,
+  vectorOf,
+  exactReachability,
+  closestPairs,
+  nearestTwo,
+  createEvaluator,
+  needsCalibrationAtGap,
+} from "./lib/simulation.mjs";
+import { formatPercent, printChecksReport } from "./lib/report.mjs";
 
 // 阶段 A 验收门槛（见 docs/PHASE_A.md 任务 7）
 const THRESHOLDS = {
-  topFigureShareMax: 0.08, // 单人正态占比上限
-  dualRateMin: 0.05, // 双原型率下限
-  dualRateMax: 0.25, // 双原型率上限
-  calibrationTriggerMin: 0.2, // 辨析触发率下限（需 1–3 题）
-  calibrationTriggerMax: 0.5, // 辨析触发率上限
-  unreachableMax: 0, // 不可达人物上限
-  closePairsMax: 0, // 极近人物对上限（标准化距离 < 0.065）
-  closePairDistance: 0.065,
-  calibrationGapThreshold: 0.015, // needsCalibration 当前值（阶段 A 敏感性扫描选定）
-  dualGapThreshold: 0.01, // isDualArchetype 当前值
-  dualGapSensitivity: [0.025, 0.035, 0.045], // 双原型 gap 阈值敏感性
-  calibrationGapSensitivity: [0.015, 0.02, 0.025, 0.03, 0.035], // 辨析 gap 阈值敏感性
+  ...PHASE_A_THRESHOLDS,
+  calibrationGapThreshold: CALIBRATION_GAP_THRESHOLD,
+  dualGapThreshold: DUAL_ARCHETYPE_GAP_THRESHOLD,
+  dualGapSensitivity: DUAL_GAP_SENSITIVITY,
+  calibrationGapSensitivity: CALIBRATION_GAP_SENSITIVITY,
 };
 
 // 开工前基线（docs/phase-a-baseline.md，57 人、阈值 0.035）
@@ -42,122 +58,15 @@ const BASELINE = {
   calibrationGapThreshold: 0.035,
 };
 
-const EXACT_SAMPLES = 1_048_576; // 16^5
-const NORMAL_SAMPLES = 200_000;
-const FLOW_SAMPLES = 100_000;
+const EXACT_SAMPLES = EXACT_GRID_SIZE;
+const NORMAL_SAMPLES = SIMULATION_SAMPLE_COUNT;
+const FLOW_SAMPLES = SIMULATION_SAMPLE_COUNT_FAST;
 
-function createRandom(seed = 20260706) {
-  let state = seed >>> 0;
-  return () => {
-    state = (1664525 * state + 1013904223) >>> 0;
-    return state / 2 ** 32;
-  };
-}
-
-function normalSample(random) {
-  const first = Math.max(random(), Number.EPSILON);
-  const second = random();
-  return Math.sqrt(-2 * Math.log(first)) * Math.cos(2 * Math.PI * second);
-}
-
-function vectorOf(figure) {
-  return DIMENSIONS.map((id) => figure.vector[id]);
-}
-
-function squaredDistance(left, right) {
-  let total = 0;
-  for (let index = 0; index < left.length; index += 1) {
-    const difference = (left[index] - right[index]) / 80;
-    total += difference * difference;
-  }
-  return total / left.length;
-}
-
-function nearestTwo(scoreVector, vectors) {
-  let firstIndex = -1;
-  let secondIndex = -1;
-  let firstDistance = Number.POSITIVE_INFINITY;
-  let secondDistance = Number.POSITIVE_INFINITY;
-  for (let index = 0; index < vectors.length; index += 1) {
-    const distance = squaredDistance(scoreVector, vectors[index]);
-    if (distance < firstDistance) {
-      secondIndex = firstIndex;
-      secondDistance = firstDistance;
-      firstIndex = index;
-      firstDistance = distance;
-    } else if (distance < secondDistance) {
-      secondIndex = index;
-      secondDistance = distance;
-    }
-  }
-  return { firstIndex, secondIndex, firstDistance, secondDistance };
-}
-
-const BASE_SCORE_LEVELS = Array.from({ length: 16 }, (_, index) =>
+const SCORE_LEVELS = Array.from({ length: BASE_SCORE_LEVELS }, (_, index) =>
   Math.round(50 + (40 * (-15 + index * 2)) / 15),
 );
 
-function exactReachability(vectors) {
-  const winnerCounts = Array(vectors.length).fill(0);
-  for (const O of BASE_SCORE_LEVELS) {
-    for (const C of BASE_SCORE_LEVELS) {
-      for (const E of BASE_SCORE_LEVELS) {
-        for (const A of BASE_SCORE_LEVELS) {
-          for (const R of BASE_SCORE_LEVELS) {
-            const nearest = nearestTwo([O, C, E, A, R], vectors);
-            winnerCounts[nearest.firstIndex] += 1;
-          }
-        }
-      }
-    }
-  }
-  return winnerCounts;
-}
-
-function plausibleDistribution(vectors, random, sampleCount = NORMAL_SAMPLES) {
-  const winnerCounts = Array(vectors.length).fill(0);
-  for (let sample = 0; sample < sampleCount; sample += 1) {
-    const scoreVector = DIMENSIONS.map(() =>
-      Math.min(90, Math.max(10, 50 + normalSample(random) * 17)),
-    );
-    winnerCounts[nearestTwo(scoreVector, vectors).firstIndex] += 1;
-  }
-  return winnerCounts;
-}
-
-function closestPairs(vectors) {
-  const pairs = [];
-  for (let first = 0; first < vectors.length; first += 1) {
-    for (let second = first + 1; second < vectors.length; second += 1) {
-      pairs.push({
-        first,
-        second,
-        distance: Math.sqrt(squaredDistance(vectors[first], vectors[second])),
-      });
-    }
-  }
-  return pairs.sort((left, right) => left.distance - right.distance);
-}
-
-function responseFor(latent, random) {
-  const observed = latent + normalSample(random) * 0.85;
-  if (observed < -0.75) return -3;
-  if (observed < 0) return -1;
-  if (observed < 0.75) return 1;
-  return 3;
-}
-
-function evaluate(answers) {
-  const scores = calculateScores(answers);
-  const consistency = calculateConsistency(answers, MIRROR_PAIRS);
-  const ranking = rankFigures(scores, FIGURES, consistency);
-  return { scores, consistency, ranking };
-}
-
-function needsCalibrationAtGap(ranking, calibrationCount, gapThreshold) {
-  if (calibrationCount >= 3 || ranking.length < 2) return false;
-  return ranking[1].distance - ranking[0].distance < gapThreshold - 1e-12;
-}
+const evaluate = createEvaluator({ FIGURES, MIRROR_PAIRS });
 
 function simulateFlow(random, calibrationGapThreshold = THRESHOLDS.calibrationGapThreshold) {
   const figureCounts = new Map(FIGURES.map((figure) => [figure.id, 0]));
@@ -169,7 +78,7 @@ function simulateFlow(random, calibrationGapThreshold = THRESHOLDS.calibrationGa
 
   for (let sample = 0; sample < FLOW_SAMPLES; sample += 1) {
     const latent = Object.fromEntries(
-      DIMENSIONS.map((dimension) => [dimension, normalSample(random) * 0.8]),
+      DIMENSION_IDS.map((dimension) => [dimension, normalSample(random) * 0.8]),
     );
     const answers = CORE_QUESTIONS.map((question) => ({
       questionId: question.id,
@@ -218,7 +127,7 @@ function simulateFlow(random, calibrationGapThreshold = THRESHOLDS.calibrationGa
   return { figureCounts, calibrationCounts, dualCount, gapSensitivity };
 }
 
-const random = createRandom();
+const random = createRandom(SIMULATION_SEED);
 const vectors = FIGURES.map(vectorOf);
 
 console.log("=== 阶段 A 模拟验收报告 ===\n");
@@ -228,8 +137,20 @@ console.log(`穷举可达组合: ${EXACT_SAMPLES.toLocaleString("en-US")}`);
 console.log(`正态模拟样本: ${NORMAL_SAMPLES.toLocaleString("en-US")}`);
 console.log(`自适应流模拟样本: ${FLOW_SAMPLES.toLocaleString("en-US")}\n`);
 
-const exactWinners = exactReachability(vectors);
-const normalWinners = plausibleDistribution(vectors, random);
+const exact = exactReachability(vectors, SCORE_LEVELS);
+const exactWinners = exact.winnerCounts;
+const normalWinners = (() => {
+  const r = createRandom(SIMULATION_SEED);
+  const counts = Array(vectors.length).fill(0);
+  for (let sample = 0; sample < NORMAL_SAMPLES; sample += 1) {
+    const scoreVector = DIMENSION_IDS.map(() =>
+      Math.min(90, Math.max(10, 50 + normalSample(r) * 17)),
+    );
+    counts[nearestTwo(scoreVector, vectors).firstIndex] += 1;
+  }
+  return counts;
+})();
+
 const unreachable = FIGURES.filter(
   (_, index) => exactWinners[index] === 0,
 ).map((figure) => figure.name);
@@ -288,20 +209,20 @@ console.log("=== 对照基线（docs/phase-a-baseline.md）===");
 console.table([
   {
     指标: "Top1 集中度",
-    基线: `${BASELINE.topFigureName} ${(BASELINE.topFigureShare * 100).toFixed(2)}%`,
-    当前: `${topFigure.name} ${(topFigure.share * 100).toFixed(2)}%`,
+    基线: `${BASELINE.topFigureName} ${formatPercent(BASELINE.topFigureShare)}`,
+    当前: `${topFigure.name} ${formatPercent(topFigure.share)}`,
     变化: `${((topFigure.share - BASELINE.topFigureShare) * 100).toFixed(2)}%`,
   },
   {
     指标: "双原型率",
-    基线: `${(BASELINE.dualRate * 100).toFixed(2)}%`,
-    当前: `${(dualRate * 100).toFixed(2)}%`,
+    基线: formatPercent(BASELINE.dualRate),
+    当前: formatPercent(dualRate),
     变化: `${((dualRate - BASELINE.dualRate) * 100).toFixed(2)}%`,
   },
   {
     指标: "辨析触发率",
-    基线: `${(BASELINE.calibrationTriggerRate * 100).toFixed(2)}%`,
-    当前: `${(calibrationTriggerRate * 100).toFixed(2)}%`,
+    基线: formatPercent(BASELINE.calibrationTriggerRate),
+    当前: formatPercent(calibrationTriggerRate),
     变化: `${((calibrationTriggerRate - BASELINE.calibrationTriggerRate) * 100).toFixed(2)}%`,
   },
   {
@@ -332,13 +253,13 @@ console.table(
 
 console.log("\n自适应流程：");
 console.table({
-  双原型率: `${(dualRate * 100).toFixed(2)}%`,
-  辨析触发率_需1到3题: `${(calibrationTriggerRate * 100).toFixed(2)}%`,
+  双原型率: formatPercent(dualRate),
+  辨析触发率_需1到3题: formatPercent(calibrationTriggerRate),
   辨析题分布: {
-    "0题": `${((flow.calibrationCounts[0] / FLOW_SAMPLES) * 100).toFixed(2)}%`,
-    "1题": `${((flow.calibrationCounts[1] / FLOW_SAMPLES) * 100).toFixed(2)}%`,
-    "2题": `${((flow.calibrationCounts[2] / FLOW_SAMPLES) * 100).toFixed(2)}%`,
-    "3题": `${((flow.calibrationCounts[3] / FLOW_SAMPLES) * 100).toFixed(2)}%`,
+    "0题": formatPercent(flow.calibrationCounts[0] / FLOW_SAMPLES),
+    "1题": formatPercent(flow.calibrationCounts[1] / FLOW_SAMPLES),
+    "2题": formatPercent(flow.calibrationCounts[2] / FLOW_SAMPLES),
+    "3题": formatPercent(flow.calibrationCounts[3] / FLOW_SAMPLES),
   },
 });
 
@@ -346,8 +267,8 @@ console.log("\n辨析 gap 阈值敏感性（needsCalibration 扫描）：");
 console.table(
   calibrationGapSensitivity.map((row) => ({
     阈值: row.threshold,
-    辨析触发率: `${(row.calibrationTriggerRate * 100).toFixed(2)}%`,
-    双原型率: `${(row.dualRate * 100).toFixed(2)}%`,
+    辨析触发率: formatPercent(row.calibrationTriggerRate),
+    双原型率: formatPercent(row.dualRate),
     辨析达标: row.inCalibrationBand ? "✓" : "✗",
     双原型达标: row.inDualBand ? "✓" : "✗",
     当前: row.threshold === THRESHOLDS.calibrationGapThreshold ? "← 采用" : "",
@@ -371,7 +292,7 @@ console.log("\n双原型 gap 阈值敏感性（calibrationCount=3 且 finalGap <
 console.table(
   [...flow.gapSensitivity].map(([threshold, count]) => ({
     阈值: threshold,
-    双原型率: `${((count / FLOW_SAMPLES) * 100).toFixed(2)}%`,
+    双原型率: formatPercent(count / FLOW_SAMPLES),
     当前: threshold === THRESHOLDS.dualGapThreshold ? "（仅参考，当前代码用 0.01）" : "",
   })),
 );
@@ -384,20 +305,20 @@ const checks = [
   {
     name: "人物集中度（Top1 < 8%）",
     pass: topFigure.share < THRESHOLDS.topFigureShareMax,
-    detail: `${topFigure.name} = ${(topFigure.share * 100).toFixed(2)}%`,
+    detail: `${topFigure.name} = ${formatPercent(topFigure.share)}`,
   },
   {
     name: `双原型率（${THRESHOLDS.dualRateMin * 100}%–${THRESHOLDS.dualRateMax * 100}%）`,
     pass:
       dualRate >= THRESHOLDS.dualRateMin && dualRate <= THRESHOLDS.dualRateMax,
-    detail: `${(dualRate * 100).toFixed(2)}%`,
+    detail: formatPercent(dualRate),
   },
   {
     name: `辨析触发率（${THRESHOLDS.calibrationTriggerMin * 100}%–${THRESHOLDS.calibrationTriggerMax * 100}%）`,
     pass:
       calibrationTriggerRate >= THRESHOLDS.calibrationTriggerMin &&
       calibrationTriggerRate <= THRESHOLDS.calibrationTriggerMax,
-    detail: `${(calibrationTriggerRate * 100).toFixed(2)}%`,
+    detail: formatPercent(calibrationTriggerRate),
     structural: true,
   },
   {
@@ -419,13 +340,7 @@ const checks = [
 ];
 
 console.log("\n=== 验收门槛 ===");
-console.table(
-  checks.map((check) => ({
-    检查项: check.name,
-    结果: check.pass ? "✓ 通过" : "✗ 不通过",
-    实际: check.detail,
-  })),
-);
+const allPassed = printChecksReport(checks);
 
 if (rareFigures.length > 0) {
   console.log(
@@ -433,21 +348,6 @@ if (rareFigures.length > 0) {
   );
 }
 
-const failed = checks.filter((check) => !check.pass);
-const structuralFailures = failed.filter((check) => check.structural);
-const hardFailures = failed.filter((check) => !check.structural);
-
-if (hardFailures.length > 0) {
-  console.log(
-    `\n✗ 阶段 A 验收未通过：${hardFailures.length} 项硬门槛不达标。回到任务 5（改题）或任务 6（调向量），禁止只改 UI 文案。`,
-  );
+if (!allPassed) {
   process.exitCode = 1;
-} else if (structuralFailures.length > 0) {
-  console.log(
-    `\n⚠ 阶段 A 硬门槛 ${checks.length - structuralFailures.length}/${checks.length} 通过。` +
-      ` ${structuralFailures.map((check) => check.name).join("、")} 为已知结构性限制（见 docs/phase-a-task7-report.md），留待阶段 B 算法改进。`,
-  );
-  console.log("  详细报告：docs/phase-a-task7-report.md");
-} else {
-  console.log("\n✓ 阶段 A 验收门槛全部通过。");
 }

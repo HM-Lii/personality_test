@@ -6,6 +6,9 @@ import {
   RESPONSE_VALUES,
   normalizedDistance,
   rankFigures,
+  CORE_ITEMS_PER_DIMENSION,
+  CORE_QUESTION_COUNT,
+  MAX_CALIBRATION_ITEMS,
 } from "../src/core/scoring.mjs";
 import { FIGURES } from "../src/data/figures.mjs";
 import {
@@ -19,11 +22,11 @@ const allQuestions = [...CORE_QUESTIONS, ...CALIBRATION_QUESTIONS];
 const allConsistency = { O: 1, C: 1, E: 1, A: 1, R: 1 };
 
 test("the core bank contains five questions for every dimension", () => {
-  assert.equal(CORE_QUESTIONS.length, 25);
+  assert.equal(CORE_QUESTIONS.length, CORE_QUESTION_COUNT);
   for (const dimension of dimensionIds) {
     assert.equal(
       CORE_QUESTIONS.filter((question) => question.dimension === dimension).length,
-      5,
+      CORE_ITEMS_PER_DIMENSION,
     );
   }
 });
@@ -51,7 +54,7 @@ test("the calibration bank contains at least three questions per dimension", () 
     assert.ok(
       CALIBRATION_QUESTIONS.filter(
         (question) => question.dimension === dimension,
-      ).length >= 3,
+      ).length >= MAX_CALIBRATION_ITEMS,
     );
   }
 });

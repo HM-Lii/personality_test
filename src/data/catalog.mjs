@@ -13,6 +13,7 @@ export {
   CORE_QUESTIONS,
   MIRROR_PAIRS,
 } from "./questions.mjs";
+export { DIMENSION_IDS, DOMAINS } from "./dimensions.mjs";
 
 export const FIGURE_COUNT = FIGURES.length;
 export const ALL_QUESTIONS = [...CORE_QUESTIONS, ...CALIBRATION_QUESTIONS];

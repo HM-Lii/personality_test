@@ -29,7 +29,7 @@ FONT_URL = (
 OUTPUT = ROOT / "fonts" / "NotoSerifSC-subset.woff2"
 
 # 衬线字体会渲染到的文本来源：页面模板 + 全部数据与 UI 文案。
-HARVEST_GLOBS = ["index.html", "src/**/*.mjs"]
+HARVEST_GLOBS = ["index.html", "src/**/*.mjs", "src/**/*.json", "styles/**/*.css"]
 
 # 源码中未必出现、但动态内容里常用的字符（标点、数字、连字符等）。
 EXTRA_CHARS = (

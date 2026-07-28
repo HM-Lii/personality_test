@@ -35,12 +35,41 @@ npm run validate
 人物校验会穷举25道核心题能够产生的1,048,576种五维分数组合，并运行200,000组正态模拟。
 覆盖率命令要求核心计分与状态机达到100%行覆盖、100%函数覆盖和至少98%分支覆盖。
 
+## 字体子集
+
+全站展示衬线（标题、人名、印章、雷达分值等）使用自托管的 Noto Serif SC 子集，
+保证各平台标题表现一致。子集由 `npm run build:font` 生成，从仓库源码中收集所有
+可能以衬线渲染的字符（页面模板、数据 JSON、UI 文案、CSS），生成 woff2 子集。
+
+```powershell
+pip install fonttools brotli   # 一次性安装依赖
+npm run build:font             # 生成 fonts/NotoSerifSC-subset.woff2
+```
+
+源字体缓存于 `fonts/.source/`（已 gitignore），重复构建不重复下载。
+新增含中文的数据后需重新运行 `npm run build:font` 以更新子集覆盖。
+
 ## 目录结构
 
 ```text
 app.js                 # 浏览器入口（转发到 src/ui/main.mjs）
 index.html             # 静态页面壳
-styles.css             # 样式
+styles.css             # 样式入口（@import styles/*.css）
+styles/                # 按页面/功能拆分的样式模块
+  base.css             # 变量、重置、@font-face、全局元素
+  topbar.css           # 顶栏导航
+  home.css             # 首页 Hero
+  seal-track.css       # 印章轨道
+  quiz.css             # 答题页
+  result.css           # 结果页 + 雷达图
+  report-card.css      # 报告卡片（维度条、证据、对比、邻近、实验）
+  scoring-modal.css    # 计分说明弹窗
+  footer.css           # 页脚
+  toast.css            # Toast 通知
+  responsive.css       # 响应式断点
+  ink-particles.css    # 浮动墨点
+  animations.css       # 关键帧动画
+  effects.css          # 印章效果、光影、渲染优化
 
 src/
   core/                # 纯逻辑：计分、会话状态、结果组装
@@ -52,19 +81,50 @@ src/
     figures.mjs
     dimension-copy.mjs
     catalog.mjs
+    dimensions.mjs
+    generated/         # 构建产物：figure-evidence.json、figures-rationale.json
   ui/                  # 浏览器 UI：渲染、存储、事件
     main.mjs
+    app-state.mjs
+    bootstrap.mjs
+    reveal.mjs
+    toast.mjs
+    view-router.mjs
+    quiz-controller.mjs
+    keyboard.mjs
     storage.mjs
     utils.mjs
     radar.mjs
     render-home.mjs
     render-quiz.mjs
     render-result.mjs
+    result/            # 结果页视图模型与分区渲染
+      view-model.mjs
+      sections/        # 9 个片段模块，签名统一为 (vm) => string
+        hero.mjs
+        profile.mjs
+        interpretation.mjs
+        why-figure.mjs
+        answer-evidence.mjs
+        contrast.mjs
+        nearby.mjs
+        historical-evidence.mjs
+        experiments.mjs
     share.mjs
 
-scripts/               # 本地服务与题库/人物校验
+scripts/               # 本地服务、校验、构建脚本
+  lib/                 # 脚本共享库
+    thresholds.mjs     # 校验阈值常量
+    simulation.mjs     # 模拟原语
+    csv.mjs            # CSV 解析
+    report.mjs         # 报告格式化
+  data/                # 构建脚本的源数据
+    evidence-source.mjs
+    rationale-source.mjs
 test/                  # 单元与流程测试
+  golden/              # 渲染快照
 docs/                  # 阶段 A 等设计文档
+fonts/                 # 自托管字体子集
 ```
 
 ## 重要说明

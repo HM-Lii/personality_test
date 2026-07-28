@@ -1,9 +1,6 @@
 import {
-  calculateConsistency,
-  calculateScores,
   isDualArchetype,
   needsCalibration,
-  rankFigures,
   selectCalibrationDimension,
 } from "../src/core/scoring.mjs";
 import { FIGURES } from "../src/data/figures.mjs";
@@ -12,40 +9,19 @@ import {
   CORE_QUESTIONS,
   MIRROR_PAIRS,
 } from "../src/data/questions.mjs";
+import { DIMENSION_IDS } from "../src/data/dimensions.mjs";
+import { SIMULATION_SAMPLE_COUNT_FAST, SIMULATION_SEED } from "./lib/thresholds.mjs";
+import {
+  createRandom,
+  normalSample,
+  responseFor,
+  createEvaluator,
+} from "./lib/simulation.mjs";
 
-const DIMENSIONS = ["O", "C", "E", "A", "R"];
-const SAMPLE_COUNT = 100_000;
+const SAMPLE_COUNT = SIMULATION_SAMPLE_COUNT_FAST;
+const evaluate = createEvaluator({ FIGURES, MIRROR_PAIRS });
 
-function createRandom(seed = 20260706) {
-  let state = seed >>> 0;
-  return () => {
-    state = (1664525 * state + 1013904223) >>> 0;
-    return state / 2 ** 32;
-  };
-}
-
-function normalSample(random) {
-  const first = Math.max(random(), Number.EPSILON);
-  const second = random();
-  return Math.sqrt(-2 * Math.log(first)) * Math.cos(2 * Math.PI * second);
-}
-
-function responseFor(latent, random) {
-  const observed = latent + normalSample(random) * 0.85;
-  if (observed < -0.75) return -3;
-  if (observed < 0) return -1;
-  if (observed < 0.75) return 1;
-  return 3;
-}
-
-function evaluate(answers) {
-  const scores = calculateScores(answers);
-  const consistency = calculateConsistency(answers, MIRROR_PAIRS);
-  const ranking = rankFigures(scores, FIGURES, consistency);
-  return { scores, consistency, ranking };
-}
-
-const random = createRandom();
+const random = createRandom(SIMULATION_SEED);
 const calibrationCounts = [0, 0, 0, 0];
 const figureCounts = new Map(FIGURES.map((figure) => [figure.id, 0]));
 let dualCount = 0;
@@ -56,7 +32,7 @@ const gapThresholdCounts = new Map(
 
 for (let sample = 0; sample < SAMPLE_COUNT; sample += 1) {
   const latent = Object.fromEntries(
-    DIMENSIONS.map((dimension) => [dimension, normalSample(random) * 0.8]),
+    DIMENSION_IDS.map((dimension) => [dimension, normalSample(random) * 0.8]),
   );
   const answers = CORE_QUESTIONS.map((question) => ({
     questionId: question.id,

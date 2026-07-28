@@ -1,0 +1,362 @@
+/* ============================================================
+   美术与渲染精修（印章质感 / 光影体系 / 舞台光 / 渲染瘦身）
+   延续“后置覆盖”约定，置于打印样式之前
+   ============================================================ */
+
+:root {
+  --inset-highlight: inset 0 1px 0 rgba(255, 253, 247, 0.55);
+  --seal-inset: inset 0 2px 6px rgba(255, 253, 247, 0.16),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.18);
+}
+
+/* ---------- 印章：印泥斑驳 + 凹凸厚度 ---------- */
+.seal::before,
+.result-stamp::before,
+.brand-mark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='st'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23st)'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.brand-mark {
+  position: relative;
+  box-shadow:
+    0 4px 12px rgba(26, 26, 22, 0.18),
+    inset 0 0 0 2px rgba(255, 253, 247, 0.06),
+    var(--seal-inset);
+}
+
+.seal {
+  box-shadow: var(--shadow), var(--seal-inset);
+}
+
+.seal-main {
+  box-shadow:
+    0 20px 50px rgba(157, 67, 43, 0.35),
+    inset 0 0 0 3px rgba(255, 253, 247, 0.1),
+    var(--seal-inset);
+}
+
+.seal-one {
+  box-shadow: 0 12px 28px rgba(66, 52, 33, 0.18), var(--seal-inset);
+}
+
+.seal-two {
+  box-shadow: 0 12px 28px rgba(102, 115, 97, 0.3), var(--seal-inset);
+}
+
+.seal-three {
+  box-shadow: 0 12px 28px rgba(182, 138, 77, 0.3), var(--seal-inset);
+}
+
+.seal-four {
+  box-shadow: 0 12px 28px rgba(63, 71, 64, 0.32), var(--seal-inset);
+}
+
+.result-stamp {
+  box-shadow:
+    0 8px 22px rgba(157, 67, 43, 0.45),
+    inset 0 0 0 2px rgba(255, 253, 247, 0.18),
+    var(--seal-inset);
+}
+
+/* ---------- 光影体系：卡片统一内高光 + 分级外阴影 ---------- */
+.report-card {
+  background: linear-gradient(180deg, rgba(255, 253, 247, 0.92), rgba(255, 253, 247, 0.78));
+  backdrop-filter: none;
+  box-shadow: var(--shadow-sm), var(--inset-highlight);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
+}
+
+.report-card:hover {
+  box-shadow: var(--shadow), var(--inset-highlight);
+}
+
+.method-dialog {
+  box-shadow: 0 36px 110px rgba(15, 13, 10, 0.4), var(--inset-highlight);
+}
+
+/* ---------- 结果页：噪点并入背景，::before 改为横扫舞台光 ---------- */
+.result-hero {
+  background:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)' opacity='.04'/%3E%3C/svg%3E")
+      0 0 / 180px 180px,
+    radial-gradient(circle at 18% 20%, rgba(194, 90, 62, 0.32), transparent 50%),
+    radial-gradient(circle at 90% 90%, rgba(182, 138, 77, 0.18), transparent 55%),
+    var(--ink);
+}
+
+.result-hero::before {
+  inset: -20% auto -20% 0;
+  width: 42%;
+  background: linear-gradient(100deg, transparent 0%, rgba(255, 240, 214, 0.05) 30%,
+    rgba(255, 240, 214, 0.11) 50%, rgba(255, 240, 214, 0.05) 70%, transparent 100%);
+  opacity: 1;
+  transform: translateX(-170%) skewX(-10deg);
+  animation: hero-sheen 13s linear 1.2s infinite;
+}
+
+@keyframes hero-sheen {
+  0% {
+    transform: translateX(-170%) skewX(-10deg);
+  }
+  55%,
+  100% {
+    transform: translateX(330%) skewX(-10deg);
+  }
+}
+
+/* ---------- 排版细节 ---------- */
+.hero-lead,
+.bio-line,
+.result-quote,
+.report-card p,
+.method-content p {
+  hanging-punctuation: first allow-end;
+}
+
+.radar-label {
+  letter-spacing: 0.04em;
+}
+
+.radar-score {
+  font-weight: 500;
+}
+
+.report-card h2 {
+  position: relative;
+  padding-left: 18px;
+}
+
+.report-card h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.16em;
+  bottom: 0.12em;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--gold), var(--rust));
+}
+
+/* ---------- 渲染瘦身 ---------- */
+.tag {
+  backdrop-filter: none;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ink-particles {
+  transition: opacity 700ms var(--ease), visibility 0s;
+}
+
+.ink-particles span {
+  will-change: auto;
+}
+
+body[data-view="quiz"] .ink-particles {
+  visibility: hidden;
+  transition: opacity 700ms var(--ease), visibility 0s 700ms;
+}
+
+body[data-view="quiz"] .ink-particles span {
+  animation-play-state: paused;
+}
+
+.result-hero::after {
+  filter: none;
+}
+
+/* ---------- 视图切换：整页交叉淡入（JS 侧特性检测 + reduced-motion 回退） ---------- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 280ms;
+  animation-timing-function: var(--ease);
+}
+
+/* ---------- 结果页印章：落章回弹 + 印泥脉冲（覆盖前文的 stamp-down 编排） ---------- */
+.result-stamp {
+  animation: stamp-down 650ms cubic-bezier(0.2, 0.9, 0.3, 1.25) 200ms both,
+    stamp-pulse 650ms ease-out 200ms both,
+    stamp-float 5s ease-in-out 900ms infinite;
+}
+
+@keyframes stamp-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-44px) scale(1.7) rotate(-28deg);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(5px) scale(0.92) rotate(-3deg);
+  }
+  68% {
+    transform: translateY(-1.5px) scale(1.01) rotate(-9deg);
+  }
+  80% {
+    transform: translateY(0.5px) scale(0.99) rotate(-7deg);
+  }
+  90% {
+    transform: translateY(-0.5px) scale(1) rotate(-8.4deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(-8deg);
+  }
+}
+
+/* 落章瞬间印泥向外荡开一圈，随即收敛 */
+@keyframes stamp-pulse {
+  0%,
+  50% {
+    box-shadow:
+      0 8px 22px rgba(157, 67, 43, 0.45),
+      0 0 0 0 rgba(157, 67, 43, 0),
+      inset 0 0 0 2px rgba(255, 253, 247, 0.18),
+      var(--seal-inset);
+  }
+  62% {
+    box-shadow:
+      0 8px 22px rgba(157, 67, 43, 0.45),
+      0 0 0 16px rgba(157, 67, 43, 0.2),
+      inset 0 0 0 2px rgba(255, 253, 247, 0.18),
+      var(--seal-inset);
+  }
+  100% {
+    box-shadow:
+      0 8px 22px rgba(157, 67, 43, 0.45),
+      0 0 0 0 rgba(157, 67, 43, 0),
+      inset 0 0 0 2px rgba(255, 253, 247, 0.18),
+      var(--seal-inset);
+  }
+}
+
+/* ============================================================
+   打印 / 导出 PDF：浅色化结果页，保证未滚动揭示的卡片也可见
+   ============================================================ */
+@media print {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .site-header,
+  .site-footer,
+  .result-actions,
+  .ink-particles,
+  .noise,
+  .toast,
+  .skip-link {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .result-page {
+    padding: 0;
+  }
+
+  .result-hero {
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: none;
+  }
+
+  .result-hero::before,
+  .result-hero::after {
+    display: none;
+  }
+
+  .result-stamp {
+    box-shadow: none;
+  }
+
+  .result-name {
+    color: var(--ink);
+    background: none;
+    -webkit-text-fill-color: currentColor;
+  }
+
+  .result-kicker {
+    color: var(--rust);
+  }
+
+  .result-title,
+  .bio-line,
+  .result-quote {
+    color: var(--ink-soft);
+  }
+
+  .bio-name,
+  .clarity strong {
+    color: var(--rust);
+  }
+
+  .tag {
+    color: var(--ink-soft);
+    border-color: var(--line);
+    background: none;
+  }
+
+  .clarity {
+    color: var(--muted);
+    border-color: var(--line);
+    background: none;
+  }
+
+  /* 雷达图从暗底配色翻转为浅底配色 */
+  .radar-wrap::before {
+    display: none;
+  }
+
+  .radar-grid {
+    stroke: rgba(26, 26, 22, 0.18);
+  }
+
+  .radar-axis {
+    stroke: rgba(26, 26, 22, 0.14);
+  }
+
+  .radar-area {
+    fill: rgba(182, 138, 77, 0.16);
+    stroke: var(--gold);
+    filter: none;
+  }
+
+  .radar-dot {
+    fill: var(--gold);
+    filter: none;
+  }
+
+  .radar-label {
+    fill: var(--ink-soft);
+  }
+
+  .radar-score {
+    fill: var(--rust);
+  }
+
+  .report-card {
+    border-color: var(--line);
+    box-shadow: none;
+    break-inside: avoid;
+    content-visibility: visible;
+  }
+
+  /* 未触发滚动揭示的卡片在打印时必须可见 */
+  .reveal {
+    opacity: 1 !important;
+    translate: none !important;
+    pointer-events: auto !important;
+  }
+}

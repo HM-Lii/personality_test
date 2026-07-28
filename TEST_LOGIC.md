@@ -172,7 +172,7 @@ S_O = round(50 + 40 × 1.4 / 3) = 69
   vector: { O: 72, C: 88, E: 42, A: 68, R: 79 },
   tags: ["系统思考", "责任驱动", "长期布局"],
   narrativeBasis: "基于大众文化中的军师与治政者形象",
-  rationale: "见 docs/figures-rationale.json",
+  rationale: "见 src/data/generated/figures-rationale.json",
   evidenceChains: [
     {
       dimension: "C",
@@ -192,10 +192,10 @@ S_O = round(50 + 40 × 1.4 / 3) = 69
 
 人物向量只决定匹配位置。用户的维度分必须始终来自用户回答，不能在匹配人物后被人物向量覆盖。
 
-每位人物的 **向量理论依据**（2–3 个原型标签 + 一句话 rationale）存放在 [`docs/figures-rationale.json`](./docs/figures-rationale.json)，运行时由 `figures.mjs` 注入 `rationale` 字段。原型标签与区间对照见 [`docs/figure-archetype-ranges.md`](./docs/figure-archetype-ranges.md)。
+每位人物的 **向量理论依据**（2–3 个原型标签 + 一句话 rationale）存放在 [`src/data/generated/figures-rationale.json`](./src/data/generated/figures-rationale.json)，运行时由 `figures.mjs` 注入 `rationale` 字段。原型标签与区间对照见 [`docs/figure-archetype-ranges.md`](./docs/figure-archetype-ranges.md)。
 
 每位人物至少两个关键维度的 **历史证据链** 存放在
-[`docs/figure-evidence.json`](./docs/figure-evidence.json)，包含历史事件、可定位来源、维度解释、可信度及争议，运行时注入 `evidenceChains`。详细标准见
+[`src/data/generated/figure-evidence.json`](./src/data/generated/figure-evidence.json)，包含历史事件、可定位来源、维度解释、可信度及争议，运行时注入 `evidenceChains`。详细标准见
 [`docs/figure-evidence-methodology.md`](./docs/figure-evidence-methodology.md)。证据链只解释公共文化原型的形成，不把史传材料包装成古人的心理测量。
 
 ### 6.1 人物匹配距离

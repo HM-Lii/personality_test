@@ -1,26 +1,35 @@
-import {
-  needsCalibration,
-  selectCalibrationDimension,
-} from "../core/scoring.mjs";
+/**
+ * App entry point — wiring only.
+ *
+ * Creates the shared state container and context, then delegates to the
+ * bootstrap, reveal, toast, view-router, quiz-controller, and keyboard
+ * modules. Event listeners for data-action clicks and dialog controls are
+ * bound here so the modules stay focused on their own concerns.
+ */
 import { buildTestResult } from "../core/result.mjs";
-import { prepareAnswerUpdate } from "../core/session.mjs";
 import {
-  CALIBRATION_QUESTIONS,
-  CORE_QUESTION_IDS,
-  CORE_QUESTIONS,
   FIGURES,
   FIGURE_COUNT,
   MIRROR_PAIRS,
   dimensionMap,
   questionMap,
 } from "../data/catalog.mjs";
-import { renderHome } from "./render-home.mjs";
-import { renderQuiz } from "./render-quiz.mjs";
-import { renderResult } from "./render-result.mjs";
 import { createCancelableTimer } from "./cancelable-timer.mjs";
-import { buildShareText, copyShareText, buildResultUrl, decodeResultHash } from "./share.mjs";
+import {
+  buildShareText,
+  copyShareText,
+  buildResultUrl,
+  decodeResultHash,
+} from "./share.mjs";
 import { freshState, restoreState, saveState } from "./storage.mjs";
-import { hashString, displayedOptions } from "./utils.mjs";
+import { hashString } from "./utils.mjs";
+import { createAppState } from "./app-state.mjs";
+import { injectFigureCounts, createInkParticles } from "./bootstrap.mjs";
+import { createRevealTracker } from "./reveal.mjs";
+import { createToast } from "./toast.mjs";
+import { createViewRouter } from "./view-router.mjs";
+import { createQuizController } from "./quiz-controller.mjs";
+import { bindKeyboard } from "./keyboard.mjs";
 
 const resultDeps = {
   questionMap,
@@ -38,258 +47,71 @@ export function mountApp({
   methodButton = document.querySelector("#methodButton"),
   closeMethodButton = document.querySelector("#closeMethodButton"),
 } = {}) {
-  document.querySelectorAll("[data-figure-count]").forEach((node) => {
-    node.textContent = `${FIGURE_COUNT}位古人`;
-  });
-  document.querySelectorAll("[data-figure-count-template]").forEach((node) => {
-    node.content = node.dataset.figureCountTemplate.replace(
-      "{count}",
-      FIGURE_COUNT,
-    );
-  });
+  injectFigureCounts();
+  createInkParticles(document.querySelector("#inkParticles"));
 
-  let state = restoreState();
+  const store = createAppState(restoreState());
   const questionTransition = createCancelableTimer(window);
-  /* 分享链接：hash 里带着完整答案时，直接展示那份结果。
-     分享模式下不写入 localStorage，不覆盖访客自己的进度。 */
   let shareMode = false;
+
   const sharedState = decodeResultHash(location.hash, questionMap);
   if (sharedState) {
-    state = sharedState;
+    store.replace(sharedState);
     shareMode = true;
   }
 
-  /* 浮动墨点背景：一次性生成 */
-  const inkContainer = document.querySelector("#inkParticles");
-  if (inkContainer && inkContainer.childElementCount === 0) {
-    const fragment = document.createDocumentFragment();
-    for (let i = 0; i < 14; i += 1) {
-      const span = document.createElement("span");
-      const size = 3 + Math.random() * 7;
-      span.style.left = `${Math.random() * 100}%`;
-      span.style.width = `${size}px`;
-      span.style.height = `${size}px`;
-      span.style.animationDuration = `${18 + Math.random() * 22}s`;
-      span.style.animationDelay = `${-Math.random() * 30}s`;
-      fragment.appendChild(span);
-    }
-    inkContainer.appendChild(fragment);
-  }
+  const revealTracker = createRevealTracker(app);
+  const showToast = createToast(toast);
 
-  /* 报告卡片滚动揭示：用 rAF 节流的滚动检查代替 IntersectionObserver，
-     瞬时跳转（锚点、程序化滚动、浏览器恢复滚动位置）也能可靠触发。 */
-  let revealScheduled = false;
-
-  function checkReveals() {
-    const triggerLine = window.innerHeight * 0.92;
-    app
-      .querySelectorAll(".reveal:not(.is-visible)")
-      .forEach((node) => {
-        const rect = node.getBoundingClientRect();
-        if (rect.top < triggerLine && rect.bottom > 0) {
-          node.classList.add("is-visible");
-        }
-      });
-  }
-
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (revealScheduled) return;
-      revealScheduled = true;
-      requestAnimationFrame(() => {
-        revealScheduled = false;
-        checkReveals();
-      });
-    },
-    { passive: true },
-  );
-
-  function observeReveals() {
-    checkReveals();
-  }
-
-  function persist() {
+  const persist = () => {
     if (shareMode) return;
-    saveState(state);
-  }
+    saveState(store.get());
+  };
 
-  function calculateResult() {
-    return buildTestResult(state.answers, resultDeps);
-  }
+  const calculateResult = () =>
+    buildTestResult(store.get().answers, resultDeps);
 
-  function showToast(message) {
-    toast.textContent = message;
-    toast.classList.add("show");
-    window.clearTimeout(showToast.timer);
-    showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2200);
-  }
+  const ctx = {
+    app,
+    store,
+    questionTransition,
+    persist,
+    calculateResult,
+    resultDeps,
+    revealTracker,
+    showToast,
+    methodDialog,
+    setShareMode: (value) => {
+      shareMode = value;
+    },
+  };
 
-  /* 视图级切换用 View Transition 整页交叉淡入；同一视图内的推进（切题、
-     回上一题）保留原有编排。浏览器不支持或用户偏好减少动态时回退直接渲染。 */
-  let currentView;
-  function render() {
-    questionTransition.cancel();
-    const update = () => {
-      document.body.dataset.view = state.view;
-      if (state.view === "quiz") {
-        const outcome = renderQuiz(app, state, { CORE_QUESTIONS, questionMap });
-        if (outcome?.reset) {
-          state = freshState();
-          persist();
-          renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT });
-        }
-        return;
-      }
-      if (state.view === "result") {
-        renderResult(app, state, calculateResult(), resultDeps);
-        observeReveals();
-        return;
-      }
-      renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT });
-    };
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (
-      currentView !== undefined &&
-      state.view !== currentView &&
-      !reduceMotion &&
-      typeof document.startViewTransition === "function"
-    ) {
-      document.startViewTransition(update);
-    } else {
-      update();
-    }
-    currentView = state.view;
-  }
-  function goHome() {
-    state.view = "home";
-    persist();
-    render();
-  }
+  const router = createViewRouter(ctx);
+  ctx.router = router;
+  const quiz = createQuizController(ctx);
 
-  function startNew() {
-    state = { ...freshState(), view: "quiz" };
-    shareMode = false;
-    history.replaceState(null, "", location.pathname + location.search);
-    persist();
-    render();
-  }
-
-  function resumeQuiz() {
-    state.view = state.completedAt ? "result" : "quiz";
-    persist();
-    render();
-  }
-
-  function finishResult() {
-    state.view = "result";
-    state.completedAt = new Date().toISOString();
-    persist();
-    render();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  function appendCalibrationOrFinish() {
-    const result = calculateResult();
-    if (!needsCalibration(result.ranking, result.calibrationCount)) {
-      finishResult();
-      return;
-    }
-
-    const usedDimensions = state.queue
-      .slice(CORE_QUESTIONS.length)
-      .map((id) => questionMap.get(id)?.dimension)
-      .filter(Boolean);
-    const dimension = selectCalibrationDimension(result.ranking, usedDimensions);
-    const nextQuestion = CALIBRATION_QUESTIONS.find(
-      (question) =>
-        question.dimension === dimension && !state.queue.includes(question.id),
-    );
-
-    if (!nextQuestion) {
-      finishResult();
-      return;
-    }
-
-    state.queue.push(nextQuestion.id);
-    state.index += 1;
-    persist();
-    render();
-  }
-
-  function selectAnswer(questionId, optionId) {
-    if (questionTransition.pending) return;
-
-    const question = questionMap.get(questionId);
-    const selected = question?.options.find((item) => item.id === optionId);
-    if (!question || !selected) return;
-
-    const prepared = prepareAnswerUpdate({
-      queue: state.queue,
-      answers: state.answers,
-      index: state.index,
-      questionId,
-      coreQuestionIds: CORE_QUESTION_IDS,
-    });
-    state.queue = prepared.queue;
-    state.answers = prepared.answers;
-    state.answers.push({
-      questionId,
-      optionId,
-      value: selected.value,
-    });
-    persist();
-
-    const selectedButton = app.querySelector(`[data-option-id="${optionId}"]`);
-    selectedButton?.classList.add("selected");
-
-    const card = app.querySelector(".question-card");
-    card?.classList.add("leaving");
-
-    questionTransition.schedule(() => {
-      if (state.index < CORE_QUESTIONS.length - 1) {
-        state.index += 1;
-        persist();
-        render();
-        return;
-      }
-      appendCalibrationOrFinish();
-    }, 260);
-  }
-
-  function previousQuestion() {
-    if (state.index === 0) {
-      goHome();
-      return;
-    }
-    state.index -= 1;
-    persist();
-    render();
-  }
-
-  function shareResult() {
-    const shareUrl = buildResultUrl(state.answers);
-    copyShareText(buildShareText(calculateResult(), shareUrl), { showToast });
-  }
+  bindKeyboard(ctx, quiz);
 
   app.addEventListener("click", (event) => {
     const target = event.target.closest("[data-action]");
     if (!target) return;
     const action = target.dataset.action;
 
-    if (action === "start" || action === "restart") startNew();
-    if (action === "resume") resumeQuiz();
-    if (action === "previous") previousQuestion();
+    if (action === "start" || action === "restart") router.startNew();
+    if (action === "resume") router.resumeQuiz();
+    if (action === "previous") quiz.previousQuestion();
     if (action === "answer") {
-      selectAnswer(
+      const state = store.get();
+      quiz.selectAnswer(
         questionMap.get(state.queue[state.index])?.id,
         target.dataset.optionId,
       );
     }
     if (action === "method") methodDialog.showModal();
-    if (action === "share") shareResult();
+    if (action === "share") {
+      const shareUrl = buildResultUrl(store.get().answers);
+      copyShareText(buildShareText(calculateResult(), shareUrl), { showToast });
+    }
   });
 
   methodButton?.addEventListener("click", () => methodDialog.showModal());
@@ -297,34 +119,9 @@ export function mountApp({
   methodDialog?.addEventListener("click", (event) => {
     if (event.target === methodDialog) methodDialog.close();
   });
-  brandButton?.addEventListener("click", goHome);
+  brandButton?.addEventListener("click", router.goHome);
 
-  /* 键盘答题：1–4 / A–D 选择，← 或 Backspace 回上一题 */
-  window.addEventListener("keydown", (event) => {
-    if (state.view !== "quiz" || methodDialog?.open) return;
-    if (event.metaKey || event.ctrlKey || event.altKey) return;
-
-    if (event.key === "ArrowLeft" || event.key === "Backspace") {
-      event.preventDefault();
-      previousQuestion();
-      return;
-    }
-
-    const key = event.key.toLowerCase();
-    let optionIndex = -1;
-    if (/^[1-4]$/.test(key)) optionIndex = Number(key) - 1;
-    else if (/^[a-d]$/.test(key)) optionIndex = key.charCodeAt(0) - 97;
-    if (optionIndex < 0) return;
-
-    /* 切题动画进行中不重复响应 */
-    if (app.querySelector(".question-card.leaving")) return;
-
-    const question = questionMap.get(state.queue[state.index]);
-    const option = question && displayedOptions(question)[optionIndex];
-    if (option) selectAnswer(question.id, option.id);
-  });
-
-  render();
+  router.render();
 }
 
 mountApp();

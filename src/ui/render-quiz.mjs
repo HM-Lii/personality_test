@@ -1,4 +1,5 @@
 import { escapeHtml, displayedOptions } from "./utils.mjs";
+import { CORE_QUESTION_COUNT, MAX_CALIBRATION_ITEMS } from "../core/scoring.mjs";
 
 export function renderQuiz(app, state, { CORE_QUESTIONS, questionMap }) {
   const question = questionMap.get(state.queue[state.index]);
@@ -32,8 +33,8 @@ export function renderQuiz(app, state, { CORE_QUESTIONS, questionMap }) {
         </div>
         <span class="progress-count">${
           isCalibration
-            ? `辨析 ${calibrationNumber}/3`
-            : `${String(state.index + 1).padStart(2, "0")} / 25`
+            ? `辨析 ${calibrationNumber}/${MAX_CALIBRATION_ITEMS}`
+            : `${String(state.index + 1).padStart(2, "0")} / ${CORE_QUESTION_COUNT}`
         }</span>
       </div>
 

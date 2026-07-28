@@ -6,15 +6,11 @@ import {
   CALIBRATION_QUESTIONS,
   CORE_QUESTIONS,
 } from "../src/data/questions.mjs";
+import { CORE_QUESTION_COUNT } from "../src/core/scoring.mjs";
+import { DIMENSION_IDS, DOMAINS } from "../src/data/dimensions.mjs";
+import { MIN_CALIBRATION_QUESTIONS_PER_DIMENSION } from "./lib/thresholds.mjs";
+import { readCsv } from "./lib/csv.mjs";
 
-const DIMENSIONS = ["O", "C", "E", "A", "R"];
-const DOMAINS = [
-  "工作与学习",
-  "合作与关系",
-  "冲突与压力",
-  "新环境与不确定性",
-  "个人恢复与长期选择",
-];
 const REQUIRED_HEADERS = [
   "id",
   "dimension",
@@ -43,63 +39,6 @@ const FACET_OVERLOAD_TOLERANCE = 1;
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const csvPath = join(scriptDir, "..", "docs", "construct-matrix.csv");
 
-function parseCsvRow(line) {
-  const fields = [];
-  let current = "";
-  let inQuotes = false;
-
-  for (let index = 0; index < line.length; index += 1) {
-    const char = line[index];
-    if (inQuotes) {
-      if (char === '"') {
-        if (line[index + 1] === '"') {
-          current += '"';
-          index += 1;
-        } else {
-          inQuotes = false;
-        }
-      } else {
-        current += char;
-      }
-    } else if (char === '"') {
-      inQuotes = true;
-    } else if (char === ",") {
-      fields.push(current);
-      current = "";
-    } else {
-      current += char;
-    }
-  }
-  fields.push(current);
-  return fields;
-}
-
-function readMatrix() {
-  const raw = readFileSync(csvPath, "utf8");
-  const lines = raw
-    .split(/\r?\n/)
-    .filter((line) => line.length > 0);
-  if (lines.length === 0) {
-    throw new Error(`构念矩阵为空：${csvPath}`);
-  }
-  const headers = parseCsvRow(lines[0]);
-  for (const required of REQUIRED_HEADERS) {
-    if (!headers.includes(required)) {
-      throw new Error(`构念矩阵缺少字段：${required}`);
-    }
-  }
-  const rows = lines.slice(1).map((line, rowIndex) => {
-    const fields = parseCsvRow(line);
-    const row = {};
-    headers.forEach((header, headerIndex) => {
-      row[header] = (fields[headerIndex] ?? "").trim();
-    });
-    row._row = rowIndex + 2;
-    return row;
-  });
-  return rows;
-}
-
 const issues = [];
 const warnings = [];
 
@@ -111,7 +50,8 @@ const allMap = new Map([...coreMap, ...calibrationMap]);
 
 let rows = [];
 try {
-  rows = readMatrix();
+  const raw = readFileSync(csvPath, "utf8");
+  rows = readCsv(raw, REQUIRED_HEADERS).rows;
 } catch (error) {
   console.error(error.message);
   console.error(
@@ -121,13 +61,10 @@ try {
   process.exit(process.exitCode);
 }
 
-if (rows.length !== REQUIRED_HEADERS.length && rows.length !== 40) {
-  // 不强制 40，只提示
-}
-
-if (rows.length < 40) {
+const expectedMatrixRows = CORE_QUESTION_COUNT + DIMENSION_IDS.length * MIN_CALIBRATION_QUESTIONS_PER_DIMENSION;
+if (rows.length < expectedMatrixRows) {
   warnings.push(
-    `矩阵行数 ${rows.length}，未达 40 题（25 核心 + 15 辨析）；阶段 A 完成前需补齐。`,
+    `矩阵行数 ${rows.length}，未达 ${expectedMatrixRows} 题（${CORE_QUESTION_COUNT} 核心 + ${DIMENSION_IDS.length * MIN_CALIBRATION_QUESTIONS_PER_DIMENSION} 辨析）；阶段 A 完成前需补齐。`,
   );
 }
 
@@ -148,7 +85,7 @@ for (const row of rows) {
     continue;
   }
 
-  if (!DIMENSIONS.includes(row.dimension)) {
+  if (!DIMENSION_IDS.includes(row.dimension)) {
     issues.push(`${row.id} dimension 非法：${row.dimension || "(空)"}`);
   } else if (row.dimension !== question.dimension) {
     issues.push(
@@ -203,7 +140,7 @@ if (missingCoreIds.length > 0) {
 
 const facetCoverage = {};
 const facetOverload = [];
-for (const dimension of DIMENSIONS) {
+for (const dimension of DIMENSION_IDS) {
   const dimRows = coreRows.filter((row) => row.dimension === dimension);
   const facets = dimRows
     .filter((row) => row.primary_facet)

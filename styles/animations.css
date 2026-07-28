@@ -1,0 +1,386 @@
+/* ---------- 通用入场关键帧 ---------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- 首页 Hero 编排 ---------- */
+.hero .eyebrow {
+  animation: fade-up 600ms var(--ease) both;
+}
+.hero h1 {
+  animation: fade-up 720ms var(--ease) 120ms both;
+}
+.hero-lead {
+  animation: fade-up 720ms var(--ease) 260ms both;
+}
+.hero-actions {
+  animation: fade-up 720ms var(--ease) 380ms both;
+}
+.hero-meta {
+  animation: fade-up 720ms var(--ease) 500ms both;
+}
+.hero-side-text {
+  animation: fade-in 1100ms var(--ease) 720ms both;
+}
+
+/* 标题毛笔下划线：从左向右绘出 */
+.hero h1 em::after {
+  background-position: left center;
+  background-size: 0% 100%;
+  animation: brush-draw 850ms var(--ease) 720ms forwards;
+}
+@keyframes brush-draw {
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+/* ---------- 印章轨道与印章入场 ---------- */
+.orbit {
+  animation: spin 80s linear infinite, fade-in 900ms var(--ease) both;
+}
+.seal {
+  animation: seal-pop 700ms var(--ease) both, drift 6s ease-in-out infinite;
+}
+.seal-main {
+  animation: seal-pop-main 700ms var(--ease) both, drift 6s ease-in-out infinite;
+  animation-delay: 320ms, -2s;
+}
+.seal-one {
+  animation-delay: 460ms, -4s;
+}
+.seal-two {
+  animation-delay: 600ms, 0s;
+}
+.seal-three {
+  animation-delay: 300ms, -1s;
+}
+.seal-four {
+  animation-delay: 540ms, -3s;
+}
+@keyframes seal-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-12deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.08) rotate(4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes seal-pop-main {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.3) rotate(-12deg);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.08) rotate(4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) rotate(0);
+  }
+}
+
+/* ---------- 答题：选项错落入场 ---------- */
+.options .option {
+  animation: option-in 420ms var(--ease) both;
+}
+.options .option:nth-child(1) {
+  animation-delay: 60ms;
+}
+.options .option:nth-child(2) {
+  animation-delay: 120ms;
+}
+.options .option:nth-child(3) {
+  animation-delay: 180ms;
+}
+.options .option:nth-child(4) {
+  animation-delay: 240ms;
+}
+.options .option:nth-child(5) {
+  animation-delay: 300ms;
+}
+@keyframes option-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+.option.selected {
+  animation: option-pick 300ms var(--ease);
+}
+@keyframes option-pick {
+  40% {
+    transform: scale(0.985);
+  }
+}
+
+/* ---------- 答题：切题离场 ---------- */
+.question-card.leaving {
+  animation: question-leave 200ms var(--ease) forwards;
+}
+@keyframes question-leave {
+  to {
+    opacity: 0;
+    transform: translateX(-28px) scale(0.985);
+  }
+}
+
+/* ---------- 进度条流光 ---------- */
+.progress-bar {
+  position: relative;
+  overflow: hidden;
+}
+.progress-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 253, 247, 0.5),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: shimmer 2.4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* ---------- 结果页：印章盖下 + 轻浮 ---------- */
+.result-stamp {
+  animation: stamp-down 650ms cubic-bezier(0.2, 0.9, 0.3, 1.25) 200ms both,
+    stamp-float 5s ease-in-out 900ms infinite;
+}
+@keyframes stamp-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-44px) scale(1.7) rotate(-28deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(5px) scale(0.92) rotate(-3deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(-8deg);
+  }
+}
+@keyframes stamp-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -4px;
+  }
+}
+
+/* ---------- 结果页：标题区逐项揭现 ---------- */
+.result-masthead {
+  animation: fade-up 500ms var(--ease) both;
+}
+.result-name {
+  animation: name-reveal 850ms var(--ease) 150ms both;
+}
+@keyframes name-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(8px);
+  }
+}
+.result-kicker {
+  animation: fade-up 600ms var(--ease) 100ms both;
+}
+.result-title {
+  animation: fade-up 600ms var(--ease) 320ms both;
+}
+.tags {
+  animation: fade-up 600ms var(--ease) 460ms both;
+}
+.figure-bio {
+  animation: fade-up 600ms var(--ease) 560ms both;
+}
+.result-quote {
+  animation: fade-up 600ms var(--ease) 660ms both;
+}
+.clarity {
+  animation: fade-up 600ms var(--ease) 760ms both;
+}
+
+/* 标签依次浮现 */
+.tag {
+  animation: tag-in 480ms var(--ease) both;
+}
+.tag:nth-child(1) {
+  animation-delay: 540ms;
+}
+.tag:nth-child(2) {
+  animation-delay: 620ms;
+}
+.tag:nth-child(3) {
+  animation-delay: 700ms;
+}
+.tag:nth-child(4) {
+  animation-delay: 780ms;
+}
+@keyframes tag-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+/* ---------- 雷达图：描边绘制 + 节点弹出 + 光晕呼吸 ---------- */
+.radar-area {
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
+  animation: radar-stroke 1300ms var(--ease) 250ms forwards;
+}
+@keyframes radar-stroke {
+  from {
+    stroke-dashoffset: 1500;
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+.radar-dot {
+  animation: radar-dot-pop 420ms var(--ease) both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes radar-dot-pop {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.4);
+  }
+}
+.radar-label,
+.radar-score {
+  animation: radar-label-in 500ms var(--ease) both;
+}
+@keyframes radar-label-in {
+  from {
+    opacity: 0;
+  }
+}
+.radar-wrap::before {
+  animation: glow-pulse 6s ease-in-out infinite;
+}
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+/* ---------- 维度条依次升起 ---------- */
+.dimension-row {
+  animation: fade-up 520ms var(--ease) both;
+}
+.dimension-row:nth-child(1) {
+  animation-delay: 80ms;
+}
+.dimension-row:nth-child(2) {
+  animation-delay: 160ms;
+}
+.dimension-row:nth-child(3) {
+  animation-delay: 240ms;
+}
+.dimension-row:nth-child(4) {
+  animation-delay: 320ms;
+}
+.dimension-row:nth-child(5) {
+  animation-delay: 400ms;
+}
+
+/* ---------- 报告卡片：滚动揭示（配合 IntersectionObserver） ---------- */
+.report-card {
+  animation: none;
+}
+.report-card:nth-child(2),
+.report-card:nth-child(3),
+.report-card:nth-child(4),
+.report-card:nth-child(5) {
+  animation-delay: 0;
+}
+.reveal {
+  opacity: 0;
+  translate: 0 28px;
+}
+.reveal:not(.is-visible) {
+  pointer-events: none;
+}
+.reveal.is-visible {
+  animation: card-reveal 680ms var(--ease) both;
+  animation-delay: calc(var(--reveal-index, 0) * 90ms);
+}
+@keyframes card-reveal {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* ---------- 计分说明：分节入场 ---------- */
+.method-content section {
+  animation: fade-up 500ms var(--ease) both;
+}
+.method-content section:nth-child(1) {
+  animation-delay: 60ms;
+}
+.method-content section:nth-child(2) {
+  animation-delay: 140ms;
+}
+.method-content section:nth-child(3) {
+  animation-delay: 220ms;
+}
+.method-content section:nth-child(4) {
+  animation-delay: 300ms;
+}
+
+/* ---------- 按钮按压反馈 ---------- */
+.primary-button:active,
+.secondary-button:active,
+.ghost-button:active {
+  transform: translateY(0);
+}
+.primary-button:active,
+.secondary-button:active {
+  box-shadow: 0 8px 18px rgba(23, 23, 19, 0.16);
+}

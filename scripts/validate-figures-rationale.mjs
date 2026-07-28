@@ -3,10 +3,10 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 import { FIGURES } from "../src/data/figures.mjs";
+import { DIMENSION_IDS } from "../src/data/dimensions.mjs";
 
-const DIMENSIONS = ["O", "C", "E", "A", "R"];
 const scriptDir = dirname(fileURLToPath(import.meta.url));
-const jsonPath = join(scriptDir, "..", "docs", "figures-rationale.json");
+const jsonPath = join(scriptDir, "..", "src", "data", "generated", "figures-rationale.json");
 
 /** @type {Array<{ id: string; tags: string[]; vector: Record<string, number>; rationale: string }>} */
 const rationaleRows = JSON.parse(readFileSync(jsonPath, "utf8"));
@@ -43,7 +43,7 @@ for (const row of rationaleRows) {
     continue;
   }
 
-  for (const dimension of DIMENSIONS) {
+  for (const dimension of DIMENSION_IDS) {
     if (row.vector[dimension] !== figure.vector[dimension]) {
       issues.push(
         `${row.id}：${dimension} 不一致 JSON=${row.vector[dimension]} figures=${figure.vector[dimension]}`,

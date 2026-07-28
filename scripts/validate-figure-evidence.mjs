@@ -1,4 +1,4 @@
-import evidenceDocument from "../docs/figure-evidence.json" with { type: "json" };
+import evidenceDocument from "../src/data/generated/figure-evidence.json" with { type: "json" };
 import { FIGURES } from "../src/data/figures.mjs";
 
 const DIMENSIONS = new Set(["O", "C", "E", "A", "R"]);

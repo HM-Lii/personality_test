@@ -61,7 +61,7 @@
 
 ## 维护与校验
 
-证据链的可编辑来源为 `scripts/build-figure-evidence.mjs`，运行后生成 `docs/figure-evidence.json`：
+证据链的可编辑来源为 `scripts/data/evidence-source.mjs`，由 `scripts/build-figure-evidence.mjs` 运行后生成 `src/data/generated/figure-evidence.json`：
 
 ```powershell
 npm run build:evidence
