@@ -8,14 +8,26 @@ import {
   rankFigures,
   CORE_ITEMS_PER_DIMENSION,
   CORE_QUESTION_COUNT,
-  MAX_CALIBRATION_ITEMS,
 } from "../src/core/scoring.mjs";
+import { DOMAINS } from "../src/data/dimensions.mjs";
 import { FIGURES } from "../src/data/figures.mjs";
 import {
   CALIBRATION_QUESTIONS,
   CORE_QUESTIONS,
   MIRROR_PAIRS,
 } from "../src/data/questions.mjs";
+/*
+ * Thresholds shared with scripts/validate-questions.mjs and
+ * scripts/validate-figures.mjs. Importing them (instead of hardcoding a
+ * second copy of each number) keeps this file's assertions and the
+ * validation scripts from silently drifting apart when a threshold changes.
+ */
+import {
+  MIN_CALIBRATION_QUESTIONS_PER_DIMENSION,
+  MIN_FIGURE_DISTANCE,
+  OPTION_TEXT_AVG_MAX_LENGTH,
+  OPTION_TEXT_MAX_LENGTH,
+} from "../scripts/lib/thresholds.mjs";
 
 const dimensionIds = DIMENSIONS.map((dimension) => dimension.id);
 const allQuestions = [...CORE_QUESTIONS, ...CALIBRATION_QUESTIONS];
@@ -32,13 +44,7 @@ test("the core bank contains five questions for every dimension", () => {
 });
 
 test("every dimension covers all five scenario domains", () => {
-  const expectedDomains = new Set([
-    "工作与学习",
-    "合作与关系",
-    "冲突与压力",
-    "新环境与不确定性",
-    "个人恢复与长期选择",
-  ]);
+  const expectedDomains = new Set(DOMAINS);
   for (const dimension of dimensionIds) {
     const domains = new Set(
       CORE_QUESTIONS.filter(
@@ -50,11 +56,19 @@ test("every dimension covers all five scenario domains", () => {
 });
 
 test("the calibration bank contains at least three questions per dimension", () => {
+  /*
+   * This guards a real invariant: quiz-controller.mjs relies on every
+   * dimension having enough unique calibration questions that
+   * selectCalibrationDimension never has to repeat a dimension within the
+   * 3-question budget (see MAX_CALIBRATION_ITEMS in src/core/scoring.mjs).
+   * MIN_CALIBRATION_QUESTIONS_PER_DIMENSION is a distinct constant even
+   * though both are currently 3 — see the note on that export.
+   */
   for (const dimension of dimensionIds) {
     assert.ok(
       CALIBRATION_QUESTIONS.filter(
         (question) => question.dimension === dimension,
-      ).length >= MAX_CALIBRATION_ITEMS,
+      ).length >= MIN_CALIBRATION_QUESTIONS_PER_DIMENSION,
     );
   }
 });
@@ -86,8 +100,8 @@ test("all option text satisfies the readability budget", () => {
   );
   const average = lengths.reduce((sum, length) => sum + length, 0) / lengths.length;
 
-  assert.ok(Math.max(...lengths) <= 20);
-  assert.ok(average <= 17);
+  assert.ok(Math.max(...lengths) <= OPTION_TEXT_MAX_LENGTH);
+  assert.ok(average <= OPTION_TEXT_AVG_MAX_LENGTH);
 });
 
 test("mirror pairs reference existing same-dimension core questions", () => {
@@ -187,5 +201,8 @@ test("no two figure prototypes are closer than the library quality threshold", (
       );
     }
   }
-  assert.ok(minimum >= 0.065, `minimum prototype distance: ${minimum}`);
+  assert.ok(
+    minimum >= MIN_FIGURE_DISTANCE,
+    `minimum prototype distance: ${minimum}`,
+  );
 });

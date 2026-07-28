@@ -28,6 +28,27 @@ const hashString = (s) => {
 };
 const resultDeps = { questionMap, dimensionMap, figures: FIGURES, mirrorPairs: MIRROR_PAIRS, hashString };
 
+/**
+ * finishResult() calls the global `window.scrollTo`, which quiz-controller.mjs
+ * reads directly rather than through an injected dependency (unlike
+ * questionTransition, which callers inject). Plain `node --test` has no
+ * global `window`, so any test that reaches finishResult must stub one first
+ * or the call throws ReferenceError.
+ */
+function stubWindow() {
+  const previous = globalThis.window;
+  const scrollCalls = [];
+  globalThis.window = {
+    scrollTo: (options) => scrollCalls.push(options),
+  };
+  return {
+    scrollCalls,
+    restore() {
+      globalThis.window = previous;
+    },
+  };
+}
+
 function makeCtx(overrides = {}) {
   const state = {
     view: "quiz",
@@ -76,18 +97,20 @@ function makeCtx(overrides = {}) {
     querySelector: () => null,
     querySelectorAll: () => [],
   };
+  const persistCalls = [];
 
   return {
     ctx: {
       app,
       store,
       questionTransition,
-      persist: () => {},
+      persist: () => persistCalls.push(true),
       calculateResult: () => buildTestResult(state.answers, resultDeps),
       router,
     },
     state,
     renders,
+    persistCalls,
     fireTransition: () => {
       if (scheduledFn) {
         const fn = scheduledFn;
@@ -134,8 +157,14 @@ test("selectAnswer records the answer and schedules a transition", () => {
   assert.equal(state.index, 1, "index should advance after transition fires");
 });
 
-test("selectAnswer on the last core question triggers calibration or finish", () => {
-  // Pre-fill 24 answers (all but the last core question)
+test("selectAnswer on the last core question hands off to appendCalibrationOrFinish", () => {
+  // Pre-fill 24 answers (all but the last core question) with option A, which
+  // is known to leave the top two real figures too close to call
+  // (gap ≈ 0.009, well under CALIBRATION_GAP_THRESHOLD) — so this exercises
+  // the real end-to-end wiring for the "append a calibration question"
+  // branch specifically. The finish branch is covered deterministically by
+  // the synthetic-result tests below instead of depending on where real
+  // figure data happens to land.
   const answers = CORE_QUESTIONS.slice(0, -1).map((q) => {
     const opt = q.options[0];
     return { questionId: q.id, optionId: opt.id, value: opt.value };
@@ -155,11 +184,95 @@ test("selectAnswer on the last core question triggers calibration or finish", ()
 
   fireTransition();
 
-  // After the transition, either calibration is appended or result is finished
-  assert.ok(
-    state.queue.length > CORE_QUESTIONS.length || state.view === "result",
-    "should append calibration or finish",
+  assert.equal(state.view, "quiz", "should still be answering, not on the result page");
+  assert.equal(
+    state.queue.length,
+    CORE_QUESTIONS.length + 1,
+    "should append exactly one calibration question",
   );
+  const addedQuestion = CALIBRATION_QUESTIONS.find(
+    (question) => question.id === state.queue.at(-1),
+  );
+  assert.ok(addedQuestion, "the appended id should be a real calibration question");
+});
+
+test("finishResult marks the state complete, persists, renders, and scrolls to top", () => {
+  const { ctx, state, renders, persistCalls } = makeCtx();
+  const win = stubWindow();
+  const quiz = createQuizController(ctx);
+
+  try {
+    quiz.finishResult();
+  } finally {
+    win.restore();
+  }
+
+  assert.equal(state.view, "result");
+  assert.match(state.completedAt, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+  assert.equal(persistCalls.length, 1);
+  assert.equal(renders.at(-1)?.view, "result");
+  assert.deepEqual(win.scrollCalls, [{ top: 0, behavior: "smooth" }]);
+});
+
+test("appendCalibrationOrFinish appends a question for the most different dimension when the gap is too close to call", () => {
+  const { ctx, state, renders } = makeCtx();
+  const startingQueueLength = state.queue.length;
+  ctx.calculateResult = () => ({
+    ranking: [
+      { id: "near-a", distance: 0.1, vector: { O: 90, C: 50, E: 50, A: 50, R: 50 } },
+      { id: "near-b", distance: 0.101, vector: { O: 10, C: 50, E: 50, A: 50, R: 50 } },
+    ],
+    calibrationCount: 0,
+  });
+  const quiz = createQuizController(ctx);
+
+  quiz.appendCalibrationOrFinish();
+
+  assert.equal(state.view, "quiz", "should not finish while the gap is unresolved");
+  assert.equal(state.queue.length, startingQueueLength + 1);
+  const addedId = state.queue.at(-1);
+  const addedQuestion = CALIBRATION_QUESTIONS.find((question) => question.id === addedId);
+  assert.equal(addedQuestion?.dimension, "O", "O has the largest vector gap between the two candidates");
+  assert.equal(renders.at(-1)?.view, "quiz");
+});
+
+test("appendCalibrationOrFinish finishes immediately once the ranking is already clear", () => {
+  const { ctx, state } = makeCtx();
+  const win = stubWindow();
+  ctx.calculateResult = () => ({
+    ranking: [{ id: "clear-a", distance: 0 }, { id: "clear-b", distance: 1 }],
+    calibrationCount: 0,
+  });
+  const quiz = createQuizController(ctx);
+
+  try {
+    quiz.appendCalibrationOrFinish();
+  } finally {
+    win.restore();
+  }
+
+  assert.equal(state.view, "result");
+});
+
+test("appendCalibrationOrFinish finishes once the calibration budget is spent, even with a narrow gap", () => {
+  const { ctx, state } = makeCtx();
+  const win = stubWindow();
+  ctx.calculateResult = () => ({
+    // Gap is far below CALIBRATION_GAP_THRESHOLD, but calibrationCount has
+    // already reached MAX_CALIBRATION_ITEMS (3), so needsCalibration must
+    // return false regardless of how close the candidates are.
+    ranking: [{ id: "tied-a", distance: 0.1 }, { id: "tied-b", distance: 0.1005 }],
+    calibrationCount: 3,
+  });
+  const quiz = createQuizController(ctx);
+
+  try {
+    quiz.appendCalibrationOrFinish();
+  } finally {
+    win.restore();
+  }
+
+  assert.equal(state.view, "result");
 });
 
 test("previousQuestion at index 0 goes home", () => {
