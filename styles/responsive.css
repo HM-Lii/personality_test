@@ -242,9 +242,11 @@
     gap: 30px;
   }
 
-  /* 背景姓氏大字随屏宽缩放，避免 440px 固定字号在窄屏上糊成色块 */
+  /* 背景姓氏随屏宽缩放，并收窄负偏移让字形基本完整，不再缩进角落 */
   .result-hero::after {
     font-size: min(300px, 58vw);
+    right: -0.08em;
+    bottom: -0.14em;
   }
 
   .result-stamp {
