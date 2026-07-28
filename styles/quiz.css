@@ -102,6 +102,11 @@
   font-feature-settings: "halt";
 }
 
+/* 词为最小折行单元：配合 breakableWords 输出的 span，断行只发生在词边界 */
+.question-card h1 .wb {
+  display: inline-block;
+}
+
 .question-context {
   max-width: 700px;
   margin: 0;

@@ -1,4 +1,4 @@
-import { escapeHtml, displayedOptions } from "./utils.mjs";
+import { escapeHtml, displayedOptions, breakableWords } from "./utils.mjs";
 import { CORE_QUESTION_COUNT, MAX_CALIBRATION_ITEMS } from "../core/scoring.mjs";
 
 export function renderQuiz(app, state, { CORE_QUESTIONS, questionMap }) {
@@ -42,7 +42,7 @@ export function renderQuiz(app, state, { CORE_QUESTIONS, questionMap }) {
         <div class="question-number">
           ${isCalibration ? "辨析题" : escapeHtml(question.domain)}
         </div>
-        <h1 id="question-title">${escapeHtml(question.title)}</h1>
+        <h1 id="question-title">${breakableWords(question.title)}</h1>
         <p class="question-context">${escapeHtml(question.context)}</p>
 
         <div class="options" role="radiogroup" aria-label="选择最接近你真实反应的一项">
