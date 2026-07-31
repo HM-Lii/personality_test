@@ -111,6 +111,8 @@ src/
         historical-evidence.mjs
         experiments.mjs
     share.mjs
+    share-card.mjs
+    share-page.mjs
 
 scripts/               # 本地服务、校验、构建脚本
   lib/                 # 脚本共享库

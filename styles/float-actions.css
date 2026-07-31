@@ -1,0 +1,66 @@
+/* ============ 结果页悬浮操作（分享 + 回到顶部） ============ */
+.float-actions {
+  position: fixed;
+  z-index: 15; /* 低于 toast（20），提示浮层可短暂覆盖 */
+  right: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.float-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 999px;
+  font-size: 14px;
+  box-shadow: var(--shadow);
+  transition:
+    opacity 240ms var(--ease),
+    transform 240ms var(--ease),
+    color 220ms var(--ease),
+    background 220ms var(--ease),
+    border-color 220ms var(--ease);
+}
+
+.float-share {
+  padding: 0 24px;
+  color: var(--white);
+  border: 1px solid var(--rust);
+  background: var(--rust);
+  letter-spacing: 0.12em;
+}
+
+.float-share:hover {
+  transform: translateY(-2px);
+  border-color: var(--rust-dark);
+  background: var(--rust-dark);
+}
+
+/* 回到顶部：滚动后才出现 */
+.float-top {
+  width: 50px;
+  padding: 0;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: var(--paper-soft);
+  font-size: 19px;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.float-actions.is-scrolled .float-top {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.float-top:hover {
+  color: var(--rust);
+  border-color: var(--rust);
+}

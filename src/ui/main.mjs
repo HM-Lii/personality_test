@@ -21,6 +21,13 @@ import {
   buildResultUrl,
   decodeResultHash,
 } from "./share.mjs";
+import { buildViewModel } from "./result/view-model.mjs";
+import {
+  buildShareCardModel,
+  renderShareCardPng,
+  shareCardImage,
+} from "./share-card.mjs";
+import { renderResultPagePng } from "./share-page.mjs";
 import { freshState, restoreState, saveState } from "./storage.mjs";
 import { hashString } from "./utils.mjs";
 import { createAppState } from "./app-state.mjs";
@@ -42,10 +49,12 @@ const resultDeps = {
 export function mountApp({
   app = document.querySelector("#app"),
   methodDialog = document.querySelector("#methodDialog"),
+  shareDialog = document.querySelector("#shareDialog"),
   toast = document.querySelector("#toast"),
   brandButton = document.querySelector("#brandButton"),
   methodButton = document.querySelector("#methodButton"),
   closeMethodButton = document.querySelector("#closeMethodButton"),
+  closeShareButton = document.querySelector("#closeShareButton"),
 } = {}) {
   injectFigureCounts();
   createInkParticles(document.querySelector("#inkParticles"));
@@ -108,11 +117,68 @@ export function mountApp({
       );
     }
     if (action === "method") methodDialog.showModal();
-    if (action === "share") {
-      const shareUrl = buildResultUrl(store.get().answers);
-      copyShareText(buildShareText(calculateResult(), shareUrl), { showToast });
-    }
+    if (action === "share-menu") shareDialog?.showModal();
+    if (action === "to-top") window.scrollTo({ top: 0, behavior: "smooth" });
   });
+
+  /* 分享菜单：判词海报、整页长图或复制文字结果 */
+  const shareText = () => {
+    const shareUrl = buildResultUrl(store.get().answers);
+    copyShareText(buildShareText(calculateResult(), shareUrl), { showToast });
+  };
+
+  const sharePoster = () => {
+    const vm = buildViewModel(store.get(), calculateResult(), resultDeps);
+    const model = buildShareCardModel(vm);
+    renderShareCardPng(model)
+      .then((blob) =>
+        shareCardImage(blob, {
+          showToast,
+          fileName: `人物志·${vm.displayName}.png`,
+        }),
+      )
+      .catch(() => showToast("生成失败，请重试"));
+  };
+
+  const shareFullPage = () => {
+    const element = app.querySelector(".result-page");
+    if (!element) return;
+    showToast("正在生成整页长图…");
+    const name = app.querySelector("#result-name")?.textContent.trim() || "结果";
+    renderResultPagePng(element)
+      .then((blob) =>
+        shareCardImage(blob, {
+          showToast,
+          fileName: `人物志·${name}-完整报告.png`,
+        }),
+      )
+      .catch(() => showToast("生成失败，请重试"));
+  };
+
+  shareDialog?.addEventListener("click", (event) => {
+    if (event.target === shareDialog) {
+      shareDialog.close();
+      return;
+    }
+    const option = event.target.closest("[data-share-option]")?.dataset.shareOption;
+    if (!option) return;
+    shareDialog.close();
+    if (option === "poster") sharePoster();
+    if (option === "page") shareFullPage();
+    if (option === "text") shareText();
+  });
+  closeShareButton?.addEventListener("click", () => shareDialog.close());
+
+  /* 回到顶部按钮只在页面滚动后出现 */
+  window.addEventListener(
+    "scroll",
+    () => {
+      app
+        .querySelector(".float-actions")
+        ?.classList.toggle("is-scrolled", window.scrollY > 480);
+    },
+    { passive: true },
+  );
 
   methodButton?.addEventListener("click", () => methodDialog.showModal());
   closeMethodButton?.addEventListener("click", () => methodDialog.close());

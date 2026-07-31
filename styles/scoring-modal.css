@@ -104,3 +104,44 @@
   font-size: 13.5px;
   line-height: 1.8;
 }
+
+/* ============ 分享选项弹窗 ============ */
+.share-options {
+  display: grid;
+  gap: 14px;
+  padding: 28px 38px 34px;
+}
+
+.share-option {
+  padding: 20px 22px;
+  text-align: left;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper-soft);
+  transition:
+    transform 220ms var(--ease),
+    border-color 220ms var(--ease),
+    box-shadow 220ms var(--ease);
+}
+
+.share-option:hover {
+  transform: translateY(-2px);
+  border-color: var(--rust);
+  box-shadow: var(--shadow-sm);
+}
+
+.share-option strong {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.share-option span {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}

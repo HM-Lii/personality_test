@@ -41,10 +41,16 @@ ${sections}
       </div>
 
       <div class="result-actions">
-        <button class="secondary-button" type="button" data-action="share">复制结果</button>
-        <button class="ghost-button" type="button" data-action="restart">再测一次</button>
+        <button class="secondary-button" type="button" data-action="restart">再测一次</button>
         <button class="ghost-button" type="button" data-action="method">看看怎么算的</button>
       </div>
     </section>
+
+    <!-- 悬浮按钮必须在 .result-page 之外：该容器的 rise 动画带 fill，
+         会让 position:fixed 失效（退化为相对容器定位） -->
+    <div class="float-actions">
+      <button class="float-button float-share" type="button" data-action="share-menu" aria-label="分享结果">分享</button>
+      <button class="float-button float-top" type="button" data-action="to-top" aria-label="回到顶部">↑</button>
+    </div>
   `;
 }

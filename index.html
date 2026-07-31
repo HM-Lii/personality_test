@@ -87,6 +87,32 @@
       </div>
     </dialog>
 
+    <dialog id="shareDialog" class="method-dialog share-dialog">
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow">SHARE</span>
+          <h2>分享这份结果</h2>
+        </div>
+        <button class="icon-button" id="closeShareButton" type="button" aria-label="关闭">
+          ×
+        </button>
+      </div>
+      <div class="share-options">
+        <button class="share-option" type="button" data-share-option="poster">
+          <strong>判词海报</strong>
+          <span>一张凝练的竖版卡片：私章、人名与一句判词，凝练耐看，适合晒出来。</span>
+        </button>
+        <button class="share-option" type="button" data-share-option="page">
+          <strong>整页长图</strong>
+          <span>把完整报告——五维轮廓、胜出缘由、证据与争议——原样截成一张长图。</span>
+        </button>
+        <button class="share-option" type="button" data-share-option="text">
+          <strong>复制文字结果</strong>
+          <span>纯文本版本：原型、五维倾向分与匹配清晰度，适合直接粘贴。</span>
+        </button>
+      </div>
+    </dialog>
+
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <script type="module" src="app.js"></script>

@@ -75,6 +75,14 @@
   contain-intrinsic-size: auto 320px;
 }
 
+/* 移动端卡片实际高度（600–1500px）远超 320px 估值，content-visibility
+   会让文档高度随滚动不断重估、滚动条跳动；窄屏卡片不多，关掉这项优化。 */
+@media (max-width: 640px) {
+  .report-card {
+    content-visibility: visible;
+  }
+}
+
 .report-card:hover {
   box-shadow: var(--shadow), var(--inset-highlight);
 }
@@ -250,6 +258,7 @@ body[data-view="quiz"] .ink-particles span {
   .site-header,
   .site-footer,
   .result-actions,
+  .float-actions,
   .ink-particles,
   .noise,
   .toast,
