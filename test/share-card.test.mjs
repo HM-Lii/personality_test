@@ -171,7 +171,7 @@ test("drawShareCard 绘制背景、内框、印章与全部文案", () => {
     model.displayTitle,
     `主导倾向 · ${model.verdictDimension}`,
     `匹配清晰度 · ${model.clarityBand}`,
-    "古人只是大众文化中的性格隐喻 · 分数来自 25–28 道情境题",
+    "历史人格原型是大众文化中的性格隐喻 · 分数来自 25–28 道情境题",
     "未见之我",
   ]) {
     assert.ok(texts.includes(expected), `缺少绘制文案：${expected}`);

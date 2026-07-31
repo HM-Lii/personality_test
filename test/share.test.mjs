@@ -159,7 +159,7 @@ test("buildShareText lists the primary archetype, all five scores, and the clari
     );
   }
   assert.ok(lines.includes("匹配清晰度：情境型/混合轮廓"));
-  assert.ok(lines.some((line) => line.includes("古人只是大众文化中的性格隐喻")));
+  assert.ok(lines.some((line) => line.includes("历史人格原型是大众文化中的性格隐喻")));
   assert.ok(
     !lines.some((line) => line.startsWith("查看我的完整结果：")),
     "no share link should appear when none is given",

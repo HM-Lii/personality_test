@@ -27,7 +27,7 @@ export function answerEvidenceSection(vm) {
                       `;
                     })
                     .join("")
-                : `<div class="evidence-empty"><strong>没有单道题能独立解释这次排序</strong><p>第一名来自多道回答共同作用；移除任意一道都不会削弱它相对第二名的优势，因此这里不拿无关回答硬凑证据。</p></div>`
+                : `<div class="evidence-empty"><strong>没有单道题能独立解释这次排序</strong><p>第一名源自多道回答的合力，没有某道题能单独决定排名。</p></div>`
             }
           </div>
         </article>

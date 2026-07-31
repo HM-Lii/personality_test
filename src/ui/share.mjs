@@ -20,7 +20,7 @@ export function buildShareText(result, shareUrl = "") {
       (dimension) => `${dimension.name} ${result.scores[dimension.id]}`,
     ),
     `匹配清晰度：${result.clarity.band}`,
-    "人物志 · 分数来自 25–28 道情境题，古人只是大众文化中的性格隐喻。",
+    "人物志 · 分数来自 25–28 道情境题，历史人格原型是大众文化中的性格隐喻。",
   ];
   if (shareUrl) {
     lines.push(`查看我的完整结果：${shareUrl}`);

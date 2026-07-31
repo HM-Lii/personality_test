@@ -21,7 +21,7 @@ export function experimentsSection(vm) {
             </div>
             <div class="advice">
               <b>留意${escapeHtml(flexible.name)}的切换</b>
-              <p>这一周可以留意：哪些场景让你更像“${escapeHtml(flexible.high)}”，哪些又让你退回“${escapeHtml(flexible.low)}”。这种来回本身，就在诉说一些关于你的事。</p>
+              <p>这一周可以留意：哪些场景让你更像“${escapeHtml(flexible.high)}”，哪些又让你退回“${escapeHtml(flexible.low)}”。这种来回本身，就在告诉你一些关于自己的事。</p>
             </div>
           </div>
         </article>

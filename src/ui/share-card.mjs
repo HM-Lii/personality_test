@@ -21,7 +21,7 @@ export const SHARE_VERDICTS = {
   C: {
     high: "谋定而后动，事必有成",
     middle: "可谋定，可应变，不拘一格",
-    low: "逢山开路，水到自渠成",
+    low: "逢山开路，水到渠成",
   },
   E: {
     high: "你到之处，自成场域",
@@ -260,7 +260,7 @@ function drawFooter(ctx, model) {
   ctx.font = `400 20px ${SANS}`;
   ctx.fillText(`匹配清晰度 · ${model.clarityBand}`, 64, 1182);
   ctx.font = `400 18px ${SANS}`;
-  ctx.fillText("古人只是大众文化中的性格隐喻 · 分数来自 25–28 道情境题", 64, 1218);
+  ctx.fillText("历史人格原型是大众文化中的性格隐喻 · 分数来自 25–28 道情境题", 64, 1218);
   ctx.textAlign = "right";
   ctx.fillStyle = COLORS.inkSoft;
   ctx.font = `500 24px ${SERIF}`;

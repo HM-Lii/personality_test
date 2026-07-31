@@ -8,7 +8,7 @@ export function nearbySection(vm) {
         <article class="report-card report-card-full reveal" style="--reveal-index:5">
           <span class="eyebrow">06 · NEARBY FIGURES</span>
           <h2>气质相近的还有谁</h2>
-          <p>这里的接近度只在几位候选人之间相比，不代表测试本身的准确程度。</p>
+          <p>接近度只反映候选人之间的相对距离，不是一个绝对的相似值。</p>
           <div class="nearby-grid">
             ${result.ranking
               .slice(result.dual ? 2 : 1, result.dual ? 5 : 4)
