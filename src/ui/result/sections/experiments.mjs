@@ -16,7 +16,7 @@ export function experimentsSection(vm) {
               <p>${escapeHtml(DIMENSION_COPY[highest.id].stretchHigh)}</p>
             </div>
             <div class="advice">
-              <b>给${escapeHtml(lowest.name)}一些空间</b>
+              <b>试着多走一步：${escapeHtml(lowest.name)}</b>
               <p>${escapeHtml(DIMENSION_COPY[lowest.id].stretchLow)}</p>
             </div>
             <div class="advice">

@@ -14,7 +14,7 @@ export function renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT }) {
         <h1 id="hero-title">心有其性，<br><em>史有其人</em></h1>
         <p class="hero-lead">
           ${CORE_QUESTION_COUNT} 道日常情境题，映出你性情的轮廓。 
-          没有玄学，不贴标签，每一分都算得明白；只为在 ${FIGURE_COUNT} 位古人中，找到那个与你同频的灵魂。
+          没有玄学，不贴标签，<button class="inline-link" type="button" data-action="method">每一分都算得明白</button>；只为在 ${FIGURE_COUNT} 位古人原型中，找到那个与你同频的灵魂。
         </p>
         <div class="hero-actions">
           <button class="primary-button" type="button" data-action="start">

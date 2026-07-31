@@ -29,7 +29,7 @@ export const SHARE_VERDICTS = {
     low: "不喧哗，自有声",
   },
   A: {
-    high: "得人心者，自有大势",
+    high: "心怀众人，远路有伴",
     middle: "刚柔并济，远近有度",
     low: "敢把真话，摆上台面",
   },

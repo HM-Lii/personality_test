@@ -38,7 +38,7 @@ export function heroSection(vm) {
             }
           </div>
           <p class="result-quote">
-            ${escapeHtml(heroComparison)}古人只是一个比喻，真正可凭的，是这张依你的选择算出的五维画像。
+            ${escapeHtml(heroComparison)}古人只是一个比喻。真正可凭的，是这张依你的选择算出的五维画像。
           </p>
           <span class="clarity">
             匹配清晰度 <strong>${escapeHtml(result.clarity.band)}</strong>

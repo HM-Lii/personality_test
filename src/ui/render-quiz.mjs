@@ -65,7 +65,7 @@ export function renderQuiz(app, state, { CORE_QUESTIONS, questionMap }) {
             )
             .join("")}
         </div>
-        <p class="question-hint">没有标准答案，选你真实会做的那一个——不是你希望自己做到，而是平时真的会选。<span class="hint-keys">可按 1–4 或 A–D 选择，← 返回上一题。</span></p>
+        <p class="question-hint">${state.index < 3 ? "没有标准答案，选你真实会做的那一个——不是你希望自己做到，而是平时真的会选。" : "选真实反应，不选理想答案。"}<span class="hint-keys">可按 1–4 或 A–D 选择，← 返回上一题。</span></p>
       </article>
     </section>
   `;
