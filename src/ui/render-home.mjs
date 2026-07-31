@@ -10,7 +10,7 @@ export function renderHome(app, state, { CORE_QUESTIONS, FIGURE_COUNT }) {
   app.innerHTML = `
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <span class="eyebrow">HISTORICAL PERSONA · OPEN METHOD</span>
+        <span class="eyebrow">未见 · 公开算法</span>
         <h1 id="hero-title">心有其性，<br><em>史有其人</em></h1>
         <p class="hero-lead">
           ${CORE_QUESTION_COUNT} 道日常情境题，映出你性情的轮廓。 

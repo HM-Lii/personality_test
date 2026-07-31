@@ -199,7 +199,7 @@ function drawSeal(ctx, cx, cy, width, height, char) {
 
 /** 卷眉：品牌与档案编号分列左右，中间一条细线贯穿。 */
 function drawMasthead(ctx, model) {
-  const brand = "人物志 · 历史人格镜";
+  const brand = "未见 · 历史人格原型";
   ctx.fillStyle = COLORS.muted;
   ctx.font = `400 20px ${SANS}`;
   ctx.textBaseline = "middle";
@@ -339,7 +339,7 @@ export async function renderShareCardPng(model, scale = 2) {
  * （面板内可存相册）；桌面端一律直接下载 PNG 到本地。用户取消分享
  * （AbortError）静默处理。返回 "shared" | "aborted" | "downloaded"。
  */
-export async function shareCardImage(blob, { showToast, fileName = "人物志-历史人格镜.png" } = {}) {
+export async function shareCardImage(blob, { showToast, fileName = "未见-历史人格原型.png" } = {}) {
   const file = new File([blob], fileName, { type: "image/png" });
   const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent ?? "");
   if (isMobile && navigator.canShare?.({ files: [file] })) {

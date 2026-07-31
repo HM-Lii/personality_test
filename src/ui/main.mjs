@@ -134,7 +134,7 @@ export function mountApp({
       .then((blob) =>
         shareCardImage(blob, {
           showToast,
-          fileName: `人物志·${vm.displayName}.png`,
+          fileName: `未见·${vm.displayName}.png`,
         }),
       )
       .catch(() => showToast("生成失败，请重试"));
@@ -149,7 +149,7 @@ export function mountApp({
       .then((blob) =>
         shareCardImage(blob, {
           showToast,
-          fileName: `人物志·${name}-完整报告.png`,
+          fileName: `未见·${name}-完整报告.png`,
         }),
       )
       .catch(() => showToast("生成失败，请重试"));

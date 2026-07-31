@@ -8,7 +8,7 @@ export function interpretationSection(vm) {
 
   return `
         <article class="report-card report-card-side reveal" style="--reveal-index:1">
-          <span class="eyebrow">02 · INTERPRETATION</span>
+          <span class="eyebrow">02 · 维度解读</span>
           <h2>你的选择说了什么</h2>
           <div class="evidence-list">
             ${sortedDimensions

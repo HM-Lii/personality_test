@@ -6,7 +6,7 @@ export function contrastSection(vm) {
 
   return `
         <article class="report-card report-card-side contrast-card reveal" style="--reveal-index:4">
-          <span class="eyebrow">05 · WHERE YOU DIFFER</span>
+          <span class="eyebrow">05 · 差异所在</span>
           <h2>你们不像的地方</h2>
           <p>
             相似的是人格轮廓的一部分，不代表你拥有${escapeHtml(primary.name)}的能力、经历或道德立场，也不表示你会作出相同选择。

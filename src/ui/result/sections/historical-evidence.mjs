@@ -6,7 +6,7 @@ export function historicalEvidenceSection(vm) {
 
   return `
         <article class="report-card report-card-full reveal" style="--reveal-index:6">
-          <span class="eyebrow">07 · HISTORICAL EVIDENCE</span>
+          <span class="eyebrow">07 · 历史依据</span>
           <h2>历史依据与争议</h2>
           <p>这些材料解释的是历史人物为何形成这样的公共文化原型，不是对古人进行心理诊断。可信度评价的是“史料能否支持这条解释”，不是人物的好坏。</p>
           <div class="history-evidence-grid">

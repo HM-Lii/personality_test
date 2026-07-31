@@ -164,7 +164,7 @@ test("drawShareCard 绘制背景、内框、印章与全部文案", () => {
 
   const texts = fillTexts(ctx).map((call) => call.text);
   for (const expected of [
-    "人物志 · 历史人格镜",
+    "未见 · 历史人格原型",
     model.reportId,
     model.stampChar,
     model.displayName,
@@ -466,7 +466,7 @@ test("shareCardImage 分享通道异常与不支持时退回下载", async () =>
         withStubbedDocument(fakeDocument, async () => {
           const outcome = await shareCardImage(blob, {
             showToast: (message) => toasts.push(message),
-            fileName: "人物志·诸葛亮.png",
+            fileName: "未见·诸葛亮.png",
           });
           assert.equal(outcome, "downloaded");
         }),
@@ -485,7 +485,7 @@ test("shareCardImage 分享通道异常与不支持时退回下载", async () =>
         withStubbedDocument(fakeDocument, async () => {
           const outcome = await shareCardImage(blob, {
             showToast: (message) => toasts.push(message),
-            fileName: "人物志·诸葛亮.png",
+            fileName: "未见·诸葛亮.png",
           });
           assert.equal(outcome, "downloaded");
         }),
@@ -496,7 +496,7 @@ test("shareCardImage 分享通道异常与不支持时退回下载", async () =>
       withStubbedDocument(fakeDocument, async () => {
         const outcome = await shareCardImage(blob, {
           showToast: (message) => toasts.push(message),
-          fileName: "人物志·诸葛亮.png",
+          fileName: "未见·诸葛亮.png",
         });
         assert.equal(outcome, "downloaded");
       }),
@@ -507,9 +507,9 @@ test("shareCardImage 分享通道异常与不支持时退回下载", async () =>
   }
 
   assert.deepEqual(clicked, [
-    "人物志·诸葛亮.png",
-    "人物志·诸葛亮.png",
-    "人物志·诸葛亮.png",
+    "未见·诸葛亮.png",
+    "未见·诸葛亮.png",
+    "未见·诸葛亮.png",
   ]);
   assert.deepEqual(toasts, ["分享图已下载", "分享图已下载", "分享图已下载"]);
   assert.equal(appended.length, 3, "下载链接必须先挂载再点击");

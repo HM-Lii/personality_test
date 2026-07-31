@@ -7,7 +7,7 @@ export function experimentsSection(vm) {
 
   return `
         <article class="report-card report-card-full reveal" style="--reveal-index:7">
-          <span class="eyebrow">08 · SMALL EXPERIMENTS</span>
+          <span class="eyebrow">08 · 小试一步</span>
           <h2>三件可以试的小事</h2>
           <p>分别来自你得分最高、最低，以及最随情境变化的三项——不是让你变成别人，只是多一个观察自己的角度。</p>
           <div class="advice-grid">

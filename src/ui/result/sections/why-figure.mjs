@@ -6,7 +6,7 @@ export function whyFigureSection(vm) {
 
   return `
         <article class="report-card report-card-full reveal" style="--reveal-index:2">
-          <span class="eyebrow">03 · WHY THIS FIGURE</span>
+          <span class="eyebrow">03 · 排名溯因</span>
           <h2>为什么是这一位</h2>
           <p>
             这里不再挑“看起来最像”的三个维度，而是直接拆开第一名和第二名的加权距离：

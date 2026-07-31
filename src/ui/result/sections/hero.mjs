@@ -8,7 +8,7 @@ export function heroSection(vm) {
 
   return `
       <div class="result-masthead">
-        <span class="eyebrow">YOUR HISTORICAL PERSONA</span>
+        <span class="eyebrow">你的历史人格原型</span>
         <span class="result-id">${escapeHtml(reportId)}</span>
       </div>
 

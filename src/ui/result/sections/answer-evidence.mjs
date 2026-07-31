@@ -6,7 +6,7 @@ export function answerEvidenceSection(vm) {
 
   return `
         <article class="report-card report-card-large reveal" style="--reveal-index:3">
-          <span class="eyebrow">04 · ANSWER EVIDENCE</span>
+          <span class="eyebrow">04 · 作答证据</span>
           <h2>哪些回答推动了排名</h2>
           <p>只引用实际支持第一名胜出维度的作答；回答强烈但不能区分前两位候选人的题目，不会进入这里。</p>
           <div class="evidence-list">

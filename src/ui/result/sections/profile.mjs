@@ -7,7 +7,7 @@ export function profileSection(vm) {
 
   return `
         <article class="report-card report-card-large reveal" style="--reveal-index:0">
-          <span class="eyebrow">01 · YOUR PROFILE</span>
+          <span class="eyebrow">01 · 五维轮廓</span>
           <h2>分数不是能力排名</h2>
           <p>它只描述你在这两种风格之间更偏向哪一端。分高分低没有优劣，也不代表某种风格比另一种更好。</p>
           <div class="dimension-list">
